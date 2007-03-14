@@ -1,0 +1,27 @@
+#summary Features that are intended to be present in next product release.
+#labels Phase-Requirements,Featured
+
+= Introduction =
+This page contains a list of the features that are desired for the upcoming release. This page will grow and periodically be trimmed as the project evolves, but should avoid feature creep as much as possible. _(Before adding a feature, think clearly about what value the feature will add to the end-user experience and what need has already been demonstrated by users for that feature; if a feature merely "sounds cool", it probably isn't needed.)_
+
+= Target Release =
+Currently, the features listed here are slated for the *0.5a* release.
+
+= Feature List =
+== High Priority ==
+  * *Fault-tolerance on back-end, especially around JNI invocations* - The back-end must stay up under almost all circumstances, except for perhaps incorrectly-configured hardware. Otherwise, recordings may be missed. VLC will be the weak spot here because it is written in C, so segmentation faults, floating-point exceptions, and illegal instructions are possible.
+  * *DataDirect Listings Support* - This is the most prevalent listings provider for North America; we need to support it.
+  * *Normalized, Clear-cut Database Structure* - The main design principle for the database is write once, reference many. In other words, no redundant information; it gets out of sync too easily. The database design must ultimately be as normalized as reasonably possible.
+
+== Normal Priority ==
+  * *Step-by-step / wizard based first-run setup* - MythTV, lirc, ivtv, and dvb are very complicated to setup at the moment. LegendTV should NOT be that difficult -- users should be able to install and go, without having to fiddle with IP addresses, hardware device paths, etc. The target audience is NOT the experienced Linux sys admin -- most PVR boxes will be serving the single function of a set-top box, so why assume that the user is an IT admin?
+  * *Multi-user support for recordings* - Different users in the home have different tastes. Some users might have the same tastes, but watch programs at different times. Users should be allowed to schedule what they want to record without having to see other users' recordings, and be able to delete recordings they've watched without affecting the recordings of other users. Our software may be the first to support this feature.
+  * *Most features supported by MythTV* - There are many features that MythTV provides that we must provide as well. These are too numerous to name here, but include things like LCD support, flexible scheduling options, etc.
+
+== Low Priority ==
+  * *OpenGL XvMC Support* - The MythTV developers have played with this, but AFAIK it has not been implemented; this is required for the feature below.
+  * *Hardware De-interlace (GPU Only)* - Currently, XvMC supports only BOB de-interlace, or no de-interlacing at all, which is completely unacceptable for HD content. If we can use OpenGL with XvMC texturing, we may be able to do de-interlacing in hardware on the GPU using shader scripts. This would seriously reduce the load on the CPU when HD content is being played back, while at the same time allow us utilize XvMC capabilities in newer cards and produce a high quality picture in the process. 
+
+
+
+
