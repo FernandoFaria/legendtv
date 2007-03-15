@@ -15,8 +15,11 @@ _This section should indicate what other projects or products, if any, have impl
 
 
 = Implementation Details =
+== Technical Overview ==
+_This section should outline the detailed technical aspects of the feature implementation. The implementation should ideally be as simple and reasonable as possible for the current project code base, unless suggesting major changes to the code base is clearly justified (i.e. it is all right to suggest major change when you feel major change is needed). (Think: *How can we feasibly implement this feature?*)_
+
 == Affected Components ==
-_This section should outline what components of the project will be affected by implementing this feature. (Think: *What needs to change or could break if this feature were implemented this feature?*)_
+_This section should outline what components of the project will be affected by implementing this feature. (Think: *What needs to change or could break if this feature were implemented?*)_
 
 == Potential Tools / Resources ==
 _This section should outline what tools, technologies, or existing open source projects might prove useful when implementing this feature. (Think: *What can we use to implement this feature?*)_
