@@ -1,5 +1,5 @@
 #summary Template for pages that describe a feature of the application.
-#labels Phase-Requirements,Phase-Design
+#labels Phase-Requirements,Phase-Design,Template
 
 = Description =
 _This section should provide a general overview of the feature, including what the feature is and what it should do. Detailed implementation information should be explained under the "Implementation Details" section, not in this section. (Think: *What is the feature?*)_
