@@ -10,7 +10,6 @@ The LegendTV project is based on an iterative development model. Thus, rather th
   * *[Recorder Recording core]*
   * *[FaultTolerance JNI Fault-tolerance]*
   * *[ListingsGrabber DataDirect listings support]*
-  * *[Player Video playback]*
 
 == 0.2 ==
   * *[SSDPDiscovery SSDP for back-end discovery]*
