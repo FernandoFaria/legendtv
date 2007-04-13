@@ -31,7 +31,7 @@ Implementing the scheduler may affect the recording module. No other modules sho
 Referencing the implementation of other PVR software might prove to be a useful tool.
 
 == Prospective Obstacles ==
-_None Forseen_
+_None foreseen as of yet_
 
 == Current Progress ==
 Implementation of this feature has not yet begun.
