@@ -3,7 +3,7 @@
 
 = Requirement Details =
 == Description ==
-The scheduler is the core of any PVR application -- the component that decides what and when to record, based on what shows the user has indicated they want. In short, the scheduler is what will drive LegendTV recordings.
+The scheduler is the core of a PVR application -- the component that decides what and when to record, based on what shows the user has indicated they want. In short, the scheduler is what will drive LegendTV recordings.
 
 == Benefit / Rationale ==
 As stated in the description, the scheduler will manage the recording schedule. The scheduler will take the listings information and the user's desired programs as input, and generate a recording schedule. This module will free the recorder from having to know about guide data and user preferences.
@@ -35,4 +35,3 @@ _None Forseen_
 
 == Current Progress ==
 Implementation of this feature has not yet begun.
-
