@@ -1,0 +1,34 @@
+#summary An outline of the features that are to targeted to be delivered in each release.
+#labels Featured,Phase-Requirements
+
+= Introduction =
+The LegendTV project is based on an iterative development model. Thus, rather than trying to implement all the features we want at once, we will instead start with the most basic of features, implement those for the first release, and then implement subsequent features in future iterations that will produce additional releases. This document is an outline of what types of features we aim to have in each release.
+
+= Releases =
+== 0.1 ==
+  * *[Scheduler Intelligent scheduling]*
+  * *[Recorder Recording core]*
+  * *[FaultTolerance JNI Fault-tolerance]*
+  * *[ListingsGrabber DataDirect listings support]*
+  * *[Player Video playback]*
+
+== 0.2 ==
+  * *[SSDPDiscovery SSDP for back-end discovery]*
+  * *[Java3D Java3D interface]*
+  * *[Player Video playback]*
+  * *[InterfaceCommandLine Command-line interface]*
+  * *[InterfaceRemote Remote interface]*
+
+== 0.3 ==
+  * *[CommercialSkip Commercial flagging]*
+  * *[QuakeKeyBinding Quake-like input binding]*
+
+== 0.4 ==
+  * *[FirstRunWizard Step-by-step / wizard-based first-run setup]*
+  * *[NumericInputInterpreter T9 / numeric input interpretation support]*
+
+== 0.5 ==
+  * *[MusicPlayback Music playback / music library support]*
+
+== 0.6 ==
+  * *[InterfaceWeb Web interface]*
