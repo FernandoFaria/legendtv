@@ -1,5 +1,5 @@
 #summary Over-arching goals that direct this project and set it apart from similar projects.
-#labels Phase-Design
+#labels Phase-Design,Featured
 
 = Introduction =
 Any good software project realizes the importance of architecture and goals, and LegendTV is no different. This page outlines the goals that LegendTV developers must all be committed to for the project to succeed.
