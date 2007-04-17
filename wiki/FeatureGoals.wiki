@@ -2,7 +2,7 @@
 #labels Phase-Requirements,Featured
 
 = Introduction =
-This page contains a list of the features that are desired for the upcoming release. This page will grow and periodically be trimmed as the project evolves, but should avoid feature creep as much as possible. _(Before adding a feature, think clearly about what value the feature will add to the end-user experience and what need has already been demonstrated by users for that feature; if a feature merely "sounds cool", it probably isn't needed.)_
+This page contains a list of the features that are desired for an upcoming release. This page will grow and periodically be trimmed as the project evolves, but should avoid feature creep as much as possible. _(Before adding a feature, think clearly about what value the feature will add to the end-user experience and what need has already been demonstrated by users for that feature; if a feature merely "sounds cool", it probably isn't needed.)_
 
 = Target Releases =
 Features will be delivered during successive iterations. For information on what types of features are aimed for delivery in what release, see the [ReleaseFeatureGoals Release Feature Goals] page.
