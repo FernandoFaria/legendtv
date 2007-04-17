@@ -8,7 +8,7 @@ Unfortunately, this feature isn't always available to us. There is a high run ti
 
 Indeed, the commitment to re-use unchecked code seems to conflict with the commitment to stability; using code that is not checked at run time weakens the strength of our system because we can never be sure that the unchecked code is completely safe. One way to counter this problem is to commit to more extensive testing of the unchecked code we use, but this causes us to take on more responsibility for that code and is again inconsistent with our [DesignGoals design goals]. What we need to do is instead contain faults that occur in native code as if they were faults that occurred in checked Java code, returning control to (safe) Java code to handle.
 
-For this purpose, we propose to implement JNI fault tolerance -- a system that can intercept segmentation faults, floating-point exceptions, illegal instructions, and other faults in native code, and then re-cast them as Java exceptions. This would allow us to confine the "damage" of a native code problem to prevent it from taking down the entire JRE. Ideally, this would be confined to the faulting thread -- that is, the Java thread that invoked the native code -- which in turn would allow us keep the rest of the system running and re-start the thread, if necessary and possible.
+For this purpose, we need to implement JNI fault tolerance -- a system that can intercept segmentation faults, floating-point exceptions, illegal instructions, and other faults in native code, and then re-cast them as Java exceptions. This would allow us to confine the "damage" of a native code problem to prevent it from taking down the entire JRE. Ideally, this would be confined to the faulting thread -- that is, the Java thread that invoked the native code -- which in turn would allow us keep the rest of the system running and re-start the thread, if necessary and possible.
 
 == Benefit / Rationale ==
 _This section should demonstrate why the feature will work and/or what problems the feature will solve. Rationale can also include precedent (i.e. the feature will work because similar products already have the feature and it has proven useful). (Think: *Why is the feature useful?*)_
@@ -35,7 +35,6 @@ _This section should outline any risks or obstacles that could make implementati
 
 == Current Progress ==
 _This section should indicate how far along the implementation of this feature is, if any implementation has been done. (Think: *What has been done to implement the feature already?*)_
-
 
 
 
