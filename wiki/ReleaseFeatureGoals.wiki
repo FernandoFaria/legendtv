@@ -31,6 +31,7 @@ The LegendTV project is based on an iterative development model. Thus, rather th
   * *[InterfaceWeb Web interface]*
 
 == 0.6 ==
+  * *[VolumeNormalization Volume Normalization]*
   * *[MusicPlayback Music playback / music library support]*
   * *[VideoTags ID3 (or similar) tagging for recordings]*
 
