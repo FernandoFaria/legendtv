@@ -1,4 +1,4 @@
-#summary Features that are intended to be present in next product release.
+#summary Features that are intended to be present in a future product release.
 #labels Phase-Requirements,Featured
 
 = Introduction =
@@ -36,4 +36,3 @@ Features will be delivered during successive iterations. For information on what
   * *[VideoTags ID3 (or similar) tagging for recordings]* - Users may want to exchange files / copy files between installations. We should be able to tag recordings so that if we run into a file that we don't recognize (i.e. isn't in the database), we can import it. ID3, although targeted at MP3s initially, may prove adequate in this respect.
   * *[OpenGLXvMC OpenGL XvMC Support]* - The MythTV developers have played with this, but AFAIK it has not been implemented; this is required for the feature below.
   * *[HardwareDeinterlace Hardware / GPU de-interlace support]* - Currently, XvMC supports only BOB de-interlace, or no de-interlacing at all, which is completely unacceptable for HD content. If we can use OpenGL with XvMC texturing, we may be able to do de-interlacing in hardware on the GPU using shader scripts. This would seriously reduce the load on the CPU when HD content is being played back, while at the same time allow us utilize XvMC capabilities in newer cards and produce a high quality picture in the process.
-
