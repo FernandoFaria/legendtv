@@ -1,8 +1,7 @@
 #summary Description of the scheduler feature.
-#labels Phase-Requirements,Phase-Design
+#labels Phase-Requirements,Phase-Design,Phase-Implementation
 
 = Requirement Details =
-== Description ==
 The scheduler is the core of a PVR application -- the component that decides what and when to record, based on what shows the user has indicated they want. In short, the scheduler is what will drive LegendTV recordings.
 
 == Benefit / Rationale ==
