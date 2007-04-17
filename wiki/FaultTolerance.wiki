@@ -1,0 +1,43 @@
+#summary Description of JNI fault tolerance.
+#labels Phase-Requirements,Phase-Design,Phase-Implementation
+
+= Requirement Details =
+One of the greatest design strengths of the Java language is that code is checked at both compile time and run time; code that clearly will result in issues at run time is rejected by the compiler, while code that encounters unexpected results at run time will likely throw a run time exception. If the exception is expected, the application might be able to deal with the problem and continue functioning properly. In extreme cases, an exception might populate up the stack and kill its parent thread, but even this is not fatal if the application is designed to cope with thread death.
+
+Unfortunately, this feature isn't always available to us. There is a high run time performance price for this ability, which is less than desirable for an application that needs to handle high resolution (i.e. HD 1080i) video. Moreover, there are countless open source video applications that are written in C and C++ that do more than an adequate job performing this task. Consistent with LegendTV's [DesignGoals design goals], it would be impractical and unwise to re-code these applications in the Java language for the purposes of our project. Therefore, we must use JNI, the Java Native Interface, to utilize this existing native code.
+
+Indeed, the commitment to re-use unchecked code seems to conflict with the commitment to stability; using code that is not checked at run time weakens the strength of our system because we can never be sure that the unchecked code is completely safe. One way to counter this problem is to commit to more extensive testing of the unchecked code we use, but this causes us to take on more responsibility for that code and is again inconsistent with our [DesignGoals design goals]. What we need to do is instead contain faults that occur in native code as if they were faults that occurred in checked Java code, returning control to (safe) Java code to handle.
+
+For this purpose, we propose to implement JNI fault tolerance -- a system that can intercept segmentation faults, floating-point exceptions, illegal instructions, and other faults in native code, and then re-cast them as Java exceptions. This would allow us to confine the "damage" of a native code problem to prevent it from taking down the entire JRE. Ideally, this would be confined to the faulting thread -- that is, the Java thread that invoked the native code -- which in turn would allow us keep the rest of the system running and re-start the thread, if necessary and possible.
+
+== Benefit / Rationale ==
+_This section should demonstrate why the feature will work and/or what problems the feature will solve. Rationale can also include precedent (i.e. the feature will work because similar products already have the feature and it has proven useful). (Think: *Why is the feature useful?*)_
+
+== Justifiable Need ==
+_This section should demonstrate a clear need from the user base for the feature described. This is more than just "because the feature is cool!". If possible, cite newsgroup postings, IRC logs, and observed problems in the current system. (Think: *Why is the feature needed?*)._
+
+== Prior Art / Reference Implementations ==
+_This section should indicate what other projects or products, if any, have implemented this feature and can act as an example of basically how the feature should function. (Think: *Who has implemented the feature before?*)
+
+
+= Implementation Details =
+== Technical Overview ==
+_This section should outline the detailed technical aspects of the feature implementation. The implementation should ideally be as simple and reasonable as possible for the current project code base, unless suggesting major changes to the code base is clearly justified (i.e. it is all right to suggest major change when you feel major change is needed). (Think: *How can we feasibly implement the feature?*)_
+
+== Affected Components ==
+_This section should outline what components of the project will be affected by implementing this feature. (Think: *What would need to change or could break if we implement the feature?*)_
+
+== Potential Tools / Resources ==
+_This section should outline what tools, technologies, or existing open source projects might prove useful when implementing this feature. (Think: *What can we use to implement the feature?*)_
+
+== Prospective Obstacles ==
+_This section should outline any risks or obstacles that could make implementation of this feature difficult or impossible. This section should be continuously updated throughout implementation to include new obstacles as they are discovered. (Think: *What could delay implementation of the feature?*)_
+
+== Current Progress ==
+_This section should indicate how far along the implementation of this feature is, if any implementation has been done. (Think: *What has been done to implement the feature already?*)_
+
+
+
+
+
+
