@@ -10,24 +10,34 @@ The LegendTV project is based on an iterative development model. Thus, rather th
   * *[Recorder Recording core]*
   * *[FaultTolerance JNI Fault-tolerance]*
   * *[ListingsGrabber DataDirect listings support]*
+  * *[InterfaceCommandLine Command-line interface]*
 
 == 0.2 ==
-  * *[SSDPDiscovery SSDP for back-end discovery]*
   * *[Java3D Java3D interface]*
   * *[Player Video playback]*
-  * *[InterfaceCommandLine Command-line interface]*
-  * *[InterfaceRemote Remote interface]*
 
 == 0.3 ==
   * *[CommercialSkip Commercial flagging]*
   * *[QuakeKeyBinding Quake-like input binding]*
+  * *[InterfaceRemote Remote interface]*
 
 == 0.4 ==
+  * *[SSDPDiscovery SSDP for back-end discovery]*
+  * *[CaptureCardDetection Automatic capture card detection]*
   * *[FirstRunWizard Step-by-step / wizard-based first-run setup]*
   * *[NumericInputInterpreter T9 / numeric input interpretation support]*
 
 == 0.5 ==
-  * *[MusicPlayback Music playback / music library support]*
+  * *[InterfaceWeb Web interface]*
 
 == 0.6 ==
-  * *[InterfaceWeb Web interface]*
+  * *[MusicPlayback Music playback / music library support]*
+  * *[VideoTags ID3 (or similar) tagging for recordings]*
+
+== 0.7 ==
+  * *[MultiUserSupport Multi-user support for recordings]*
+
+== 1.0+ ==
+  * *[SharedMultiplexRecording Recording multiple shows from the same multiplex]*
+  * *[OpenGLXvMC OpenGL XvMC Support]*
+  * *[HardwareDeinterlace Hardware / GPU de-interlace support]*
