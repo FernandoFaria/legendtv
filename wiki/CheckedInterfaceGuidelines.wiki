@@ -7,7 +7,7 @@ As described on the [DesignGoals design goals page], the C, C++, and Java compil
 = Guidelines =
 
 == Heed Warnings Like Errors =
-This guideline is almost cliché because so many projects employ it, but it hasn't lost it's importance. Essentially, we need to pretend that a compiler warning is the same as an error, and write our code to avoid these warnings. This mostly applies to C and C++ code, as Java issue warnings only for unchecked/unsafe operations with generics, but we should aim to avoid these warnings as well, if we can.
+This guideline is almost cliché because so many projects employ it, but it hasn't lost its importance. Essentially, we need to pretend that a compiler warning is the same as an error, and write our code to avoid it. This mostly applies to C and C++ code, as Java issue warnings only for unchecked/unsafe operations with generics, but we should aim to avoid these warnings as well, if we can.
 
 For many developers, this guideline may seem a bit harsh -- after all, there are several circumstances under which the C/C++ compiler issues warnings for perfectly valid, safe code. But, instead of dismissing the warning, try to re-write the code to clarify what's happening. If the warning is about a conversion between a pointer and an integer, try adding a type cast to clarify that this is the expected behavior. The main reason to do this is because it forces you to re-think your expectations, which might uncover a flaw in your logic. If you cannot prevent a warning after having re-written the code several times then, and only then, should you consider adding a pragma declaration or similar statement to suppress the warning.
 
@@ -18,4 +18,3 @@ To take full advantage of this guideline, all C/C++ code in the LegendTV project
 == Avoid Using Strings as an Interface ==
 == Use Constants Instead of Inline Strings ==
 == Use Enumerated Types ==
-
