@@ -14,11 +14,7 @@ For many developers, this guideline may seem a bit harsh -- after all, there are
 To take full advantage of this guideline, all C/C++ code in the LegendTV project should be compiled with the "-Wall" flag and all Java code should be compiled with the "-Xlint" flag (Java 5.0+).
 
 == Minimize the Use of Reflection (Java) ==
+== Avoid Using Macros (C/C++) ==
 == Avoid Using Strings as an Interface ==
 == Use Constants Instead of Inline Strings ==
 == Use Enumerated Types ==
-
-
-
-
-
