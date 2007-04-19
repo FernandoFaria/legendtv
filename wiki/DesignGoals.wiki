@@ -19,7 +19,7 @@ In a complex project, there are many different modules that need to talk to each
 
 The answer is not to see the compiler as the enemy -- a syntax or type error is the compiler's way of telling us that something we've written won't work, or _might not_ work (which means it most likely _won't work_ for at least one user at runtime). The compiler is ready and willing to look over our shoulder and let us know how our homework looks, but in return, we need to give it as much information about what we expect. In other words, we need to take advantage of _*checked interfaces*_.
 
-This topic is too extensive to cover here; for more information, please see the page on [CheckedInterfacePrinciples checked interfaces].
+This topic is too extensive to cover here; for more information, please see the page on [CheckedInterfacePrinciples checked interface principles].
 
 *Key Idea:* The compiler can let us know when the code we write might not work; we need to take advantage of this as much as possible.
 
@@ -58,7 +58,6 @@ Think about it: LegendTV is a PVR application, an application that must be able 
 With this in mind, LegendTV must be designed to stay up under almost any circumstances, except of course hardware failure or something that can seriously only be fixed by the user (file system corruption, malformed kernel, etc). This places extraordinary pressure on the development team to ensure code is extensively tested. Moreover, it means that we must design the system to tolerate cases where the code isn't stable. If there is any doubt as to whether something might bring down the system, then it isn't fit to be present in a release (not even a 0.x release).
 
 *Key idea:* Users expect PVR applications like LegendTV to record shows 24/7 and often build a system that is dedicated solely for that purpose. If we fail to meet this basic expectation, we're wasting the user's time and resources, and causing them to miss something that's important to them.
-
 
 
 
