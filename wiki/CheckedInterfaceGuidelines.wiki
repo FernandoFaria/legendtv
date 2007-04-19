@@ -1,0 +1,24 @@
+#summary An outline of the guidelines behind checked interface design.
+#labels Phase-Design,Phase-Implementation
+
+= Introduction =
+As described on the [DesignGoals design goals page], the C, C++, and Java compilers all provide various types of code checking that can save us time during testing. Our main concern, then, is to write our code in such a way that we can take advantage of this built-in checking as much as possible. What follows are several guidelines we can follow during implementation that should help us to accomplish this goal.
+
+= Guidelines =
+
+== Heed Warnings Like Errors =
+This guideline is almost cliché because so many projects employ it, but it's hasn't lost it's importance. Essentially, we need to pretend that a compiler warning is the same as an error, and write our code to avoid warnings. This mostly applies to C and C++ code, as Java does not issue warnings except for unchecked/unsafe operations with generics, but we should aim to avoid generics-related warnings if we can.
+
+For many developers, this guideline may seem a bit harsh -- after all, there are several circumstances under which the C/C++ compiler issues warnings for perfectly valid, safe code. But, instead of dismissing the warning, try to re-write the code to clarify what's happening. If the warning is about a conversion between a pointer and an integer, try adding a type cast to clarify that this is the expected behavior. The main reason to do this is because it forces you to re-think your expectations, which might uncover a flaw in your logic. If you cannot prevent a warning after having re-written the code several times then, and only then, should you consider adding a pragma declaration or similar statement to suppress the warning.
+
+To take full advantage of this guideline, all C/C++ code in the LegendTV project should be compiled with the "-Wall" flag and all Java code should be compiled with the "-Xlint" flag (Java 5.0+).
+
+== Minimize the Use of Reflection (Java) ==
+== Avoid Using Strings as an Interface ==
+== Use Constants Instead of Inline Strings ==
+== Use Enumerated Types ==
+
+
+
+
+
