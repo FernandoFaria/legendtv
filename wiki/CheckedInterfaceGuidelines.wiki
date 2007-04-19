@@ -2,7 +2,7 @@
 #labels Phase-Design,Phase-Implementation
 
 = Introduction =
-As described on the [DesignGoals design goals page], the C, C++, and Java compilers all provide various types of code checking that can save us time during testing. Our main concern, then, is to write our code in such a way that we can take advantage of this built-in checking as much as possible. What follows are several guidelines we can follow during implementation that should help us to accomplish this goal.
+As described on the [DesignGoals design goals page], the C, C++, and Java compilers all provide various types of code checking that can save us time during testing. Our main concern, then, is to write our code in such a way that we can take advantage of this built-in checking as much as possible. What follows are several guidelines we can follow during implementation that should help us accomplish this.
 
 = Guidelines =
 
