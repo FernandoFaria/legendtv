@@ -13,8 +13,32 @@ For many developers, this guideline may seem a bit harsh -- after all, there are
 
 To take full advantage of this guideline, all C/C++ code in the LegendTV project should be compiled with the "-Wall" flag and all Java code should be compiled with the "-Xlint" flag (Java 5.0+). Ideally, there should be absolutely *no* warnings when we compile production code.
 
-== Minimize the Use of Reflection (Java) ==
+== Use Enumerated Types ==
+Large projects inevitably maintain data types that consist of nothing more than a restricted set of values. For example, the days of the week or the type of text justification to apply to a block of text are both prime examples of data that would be best suited as enumerated types. The alternative is to use integer constants or macro definitions, but these approaches are ill-advised.
+
+The compiler can guarantee that an enumerated type variable contains only one of the accepted, expected values, but cannot make any such guarantees if the variable is an integer instead. This means that if we use integer constants, we'll need additional code at run-time to ensure that the integer value is in the range of defined constants -- code which will have to be updated if those constants change. And, of course, this checking occurs at run time when the user will be using the program, not at compile time when it has a higher chance of getting caught and fixed by the developer. Lastly, there's the simple fact that a simple `enum` type declaration is much cleaner and clearer than several macro or constant definitions. Clearly, enumerated types are a better way to go for fixed sets of data.
+
+*A word about Java enumerated types:* Enumerated types are somewhat new in the Java language, having been introduced in Java 1.5/5.0. As a result, several veteran Java programmers might not be familiar with them, or might prefer the old style of integer constants. We've already discussed the type-checking advantages that enumerated types offer, but Java extends the advantages even more to include the following added benefits:
+ * Enumerated types can be enumerated with the Java 1.5/5.0 "foreach"-style `for` loop
+ * Subsets of enumerated types can be obtained and used like collections.
+ * Enumerated types can be looked-up at run-time by name.
+ * Enumerated types can have constructors so that additional, relevant data can be tacked on to each constant.
+ * Enumerated types can have additional methods that are callable on any of the enumerated values.
+
 == Avoid Using Macros (C/C++) ==
 == Avoid Using Strings as an Interface ==
 == Use Constants Instead of Inline Strings ==
-== Use Enumerated Types ==
+== Minimize the Use of Reflection (Java) ==
+
+
+
+
+
+
+
+
+
+
+
+
+
