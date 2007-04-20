@@ -45,16 +45,15 @@ In addition to the problem of multiple evaluation, there is also the problem of 
 
 In short, preprocessor macro expansion is powerful, but dangerous and easily abused. Although a macro may provide a performance benefit, as it is the equivalent to an inline function, it is more likely that it would lead to duplicate execution or unexpected behavior as a result of bashed local context. If code is frequently referenced, it is far more preferable to put it in a proper function rather than a macro. Any decent C/C++ compiler will optimize/inline that function if it feels necessary, so there really isn't a risk to performance.
 
-*A notable exception:* Although macros are generally discouraged, there are very rare circumstances where they may be preferable or even required. One such case is JNI fault tolerance, which requires callers to setup a stack "save point" upon entry to a JNI invocation.
+*A notable exception:* Although macros are strongly discouraged, there are very rare circumstances where they may be preferable or even required. One such case is in our JNI fault tolerance code, which requires callers to setup a stack "save point" upon entry to a JNI invocation.
 
-The main reason we need a macro is because the save point must live in a function whose invocation is still active (i.e. the invoked JNI function), so we cannot put the logic for the saving in a separate function that is called by the JNI invocation, as the function would return control before we needed to use the save point. Furthermore, it would be a bad idea to have the code for saving the stack at the beginning of each JNI invocation, as the code might need to be changed or could be copied incorrectly into one or more invocations, causing a maintenance nightmare. As a result, the only "clean" way to minimize caller responsibilities while at the same time properly honor the pre-conditions of `setjmp()` are to use a macro that is invoked in each JNI invocation function.
+The main reason we need a macro here is because the save point must live in a function whose invocation is still active (i.e. the invoked JNI function), so we cannot put the logic for the saving in a separate function that is called by the JNI invocation, as the function would return control before we needed to use the save point. Furthermore, it would be a bad idea to have the code for saving the stack at the beginning of each JNI invocation, as the code might need to be changed or could be copied incorrectly into one or more invocations, causing a maintenance nightmare. As a result, the only "clean" way to minimize caller responsibilities while at the same time properly honor the pre-conditions of `setjmp()` are to use a macro that is invoked in each JNI invocation function.
 
 In order to reduce the risk of context clobbering, the macros utilized by JNI fault tolerance are usually called with a block of code as the first parameter. The block causes the compiler to consider the code inside the macro as a separate, inner scope, which reduces some of the bashing that might occur from variables defined and manipulated in the macro itself.
 
 == Avoid Using Strings as an Interface ==
 == Use Constants Instead of Inline Strings ==
 == Minimize the Use of Reflection (Java) ==
-
 
 
 
