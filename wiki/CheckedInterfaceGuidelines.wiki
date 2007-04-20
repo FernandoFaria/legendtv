@@ -23,7 +23,7 @@ Enumerated types are preferred for the simple reason that the compiler can guara
 == Avoid Using Macros (C/C++) ==
 This guideline is sure to receive harsh criticism from C/C++ veterans, but there is a good foundation for it. Admittedly, the C/C++ preprocessor is a very powerful tool that allows developers to perform several "neat" tricks to generate code, remove code that has not been selected at compile-time, and much more. Many developers feel that by putting large blocks of frequently referenced code in macros, they can reduce the amount of code they need to maintain while saving the cost of a function call. Unfortunately, this power comes at the steep cost of context.
 
-Specifically, the C/C++ preprocessor is not *_context-aware_*. That means that using macro "functions" simply causes the preprocessor to drop the text of the macro in place of the macro "function call" (i.e. macro invocation) and replace each reference to one of the macros parameters with the text that was provided for that parameter in the macro invocation. As a result, if a function call or calculation is provided as one of the parameters to the macro, that function call or calculation is dropped in each time that the parameter is referenced in the macro, causing it to be evaluated multiple times. This is inefficient and may lead to unexpected results, which cancels out the savings that might be gained by avoiding a function call.
+Specifically, the C/C++ preprocessor is not *_context-aware_*. That means that using macro "functions" simply causes the preprocessor to drop the text of the macro in place of the macro "function call" (i.e. macro invocation) and replace each reference to one of the macro parameters with the text that was provided for that parameter in the macro invocation. As a result, if a function call or calculation is provided as one of the parameters to the macro, that function call or calculation is dropped in each time that the parameter is referenced in the macro, causing it to be evaluated multiple times. This is inefficient and may lead to unexpected results, which cancels out the savings that might be gained by avoiding a function call.
 
 The following example may help to illustrate this point:
 {{{
@@ -54,7 +54,6 @@ In order to reduce the risk of context clobbering, the macros utilized by JNI fa
 == Avoid Using Strings as an Interface ==
 == Use Constants Instead of Inline Strings ==
 == Minimize the Use of Reflection (Java) ==
-
 
 
 
