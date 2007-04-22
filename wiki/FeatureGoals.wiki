@@ -17,6 +17,7 @@ Features will be delivered during successive iterations. For information on what
   * *[Java3D Java3D interface]* - The user base will most likely have a card with GL support, so we should take advantage of it. This avoids the use of Swing, SWT, or AWT all together, while at the same time bringing performance and simplicity to video playback (we don't have to handle mode switching in/out of OpenGL, SWT/Swing/AWT painting wierdness, etc).
 
 == Normal Priority ==
+  * *[BackupProgram Backup Program]* - Favorite shows, upcoming recordings, preferences, and previously-recorded shows all amount to lots of information; the user should be able to back this information up in case they need to switch machines/versions, etc.
   * *[InterfaceCommandLine Command-line interface]* - Almost all of Linux is driven from the command-line -- even GUI applications usually provide utility programs that can be run from the command line. We should provide this as well, to allow users to schedule programs, monitor status, perform housekeeping, and perhaps even remotely control a front-end; all from the command line.
   * *[InterfaceRemote Remote interface (via LIRC)]* - A TV application should support control from away from the system. LIRC already supports a wide variety of remotes.
   * *[InterfaceWeb Web interface]* - Most major PVR packages have this (ReplayTV, TiVO, BeyondTV, MythTV, etc). This allows people to monitor the system and schedule programming away from home.
