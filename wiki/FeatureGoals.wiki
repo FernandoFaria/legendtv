@@ -30,6 +30,7 @@ Features will be delivered during successive iterations. For information on what
   * *[MythTVFeatureList Most features supported by MythTV]* - There are many features that MythTV provides that we must provide as well. These are too numerous to name here, but include things like LCD support, flexible scheduling options, etc.
 
 == Low Priority ==
+  * *[PIPSupport Picture-In-Picture Support]* - It's commonplace on many TVs and PVRs, why not?
   * *[Plugins Additional Plugins]* - Many other PVR packages have plugins that provide the weather, rent Netflix DVDs, run game emulators, etc. We should write similar plugins.
   * *[RewardTV RewardTV Integration]* - [http://www.rewardtv.com RewardTV] is an awesome site that rewards members for correctly answering trivia questions and surveys about the TV shows or movies that they watched the previous day. It might be nice to have a front-end to the site built-in. There's also the potential for a partnership here.
   * *[VolumeNormalization Volume Normalization]* - There is a growing trend of local affiliates not properly normalizing their audio output between shows and commercials during broadcasts, especially on HD stations. We should build in something to compensate for this.
