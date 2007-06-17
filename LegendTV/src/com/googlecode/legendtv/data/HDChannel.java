@@ -1,4 +1,5 @@
-package com.googlecode.legendtv;
+package com.googlecode.legendtv.data;
+
 
 public class HDChannel
 extends Channel

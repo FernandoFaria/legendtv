@@ -18,6 +18,9 @@ import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.HttpTransportProperties;
 import org.apache.axis2.transport.http.HttpTransportProperties.Authenticator;
 
+import com.googlecode.legendtv.data.Lineup;
+import com.googlecode.legendtv.data.Schedule;
+
 public class DataDirectRequestor
 {
 	private static final String DATADIRECT_NS_URI		= "urn:TMSWebServices";
