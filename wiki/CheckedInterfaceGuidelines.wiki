@@ -54,6 +54,6 @@ In order to reduce the risk of context clobbering, the macros utilized by JNI fa
 == Avoid Using Strings as an Interface ==
 == Use Constants Instead of Inline Strings ==
 == Minimize the Use of Reflection (Java) ==
-
+== Use XML Schemas ==
 
 
