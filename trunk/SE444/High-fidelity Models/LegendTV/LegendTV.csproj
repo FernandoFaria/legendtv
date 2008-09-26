@@ -37,6 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchGuide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchGuide.Designer.cs">
+      <DependentUpon>SearchGuide.cs</DependentUpon>
+    </Compile>
     <Compile Include="SetupWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +65,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchGuide.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SearchGuide.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupWizard.resx">
       <SubType>Designer</SubType>
