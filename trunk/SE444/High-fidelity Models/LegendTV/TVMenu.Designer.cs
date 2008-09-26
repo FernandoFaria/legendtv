@@ -62,7 +62,7 @@ namespace LegendTV
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(160, 70);
             this.settingsButton.TabIndex = 2;
-            this.settingsButton.Text = "Change TV Settings";
+            this.settingsButton.Text = "Search TV Listings";
             this.settingsButton.UseVisualStyleBackColor = true;
             // 
             // musicButton
