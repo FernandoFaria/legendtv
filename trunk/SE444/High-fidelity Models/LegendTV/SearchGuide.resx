@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="description.Text" xml:space="preserve">
+    <value>Las Vegas criminologists use scientific methods to solve grisly murders in this unusually graphic (and hugely popular) drama, which inspired a host of other cop-show 'procedurals.' Methodical Gil Grissom heads the team, assisted by Catherine Willows. An immediate ratings smash for CBS, the series adroitly mixes painstaking deduction, gritty subject matter and intriguing characters. The network quickly capitalized on its megahit with spin-offs 'CSI: Miami' and 'CSI: RIT.'</value>
+  </data>
 </root>

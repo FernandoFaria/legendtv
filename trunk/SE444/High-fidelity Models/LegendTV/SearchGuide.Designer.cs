@@ -28,13 +28,14 @@ namespace LegendTV
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchGuide));
             this.searchField = new System.Windows.Forms.TextBox();
             this.searchFieldLabel = new System.Windows.Forms.Label();
             this.programList = new System.Windows.Forms.ListBox();
             this.showTimeList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.descriptionList = new System.Windows.Forms.ListBox();
             this.exitButton = new System.Windows.Forms.Button();
+            this.description = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // searchField
@@ -44,6 +45,7 @@ namespace LegendTV
             this.searchField.Name = "searchField";
             this.searchField.Size = new System.Drawing.Size(454, 24);
             this.searchField.TabIndex = 0;
+            this.searchField.Text = "CSI";
             // 
             // searchFieldLabel
             // 
@@ -58,6 +60,11 @@ namespace LegendTV
             // programList
             // 
             this.programList.FormattingEnabled = true;
+            this.programList.Items.AddRange(new object[] {
+            "CSI: Crime Scene Investigation",
+            "CSI: Miami",
+            "CSI: RIT",
+            "CSI: Wasilla"});
             this.programList.Location = new System.Drawing.Point(16, 90);
             this.programList.Name = "programList";
             this.programList.Size = new System.Drawing.Size(154, 173);
@@ -66,9 +73,18 @@ namespace LegendTV
             // showTimeList
             // 
             this.showTimeList.FormattingEnabled = true;
+            this.showTimeList.Items.AddRange(new object[] {
+            "Mon  09/29/08 9:00 PM  CBS",
+            "Tue 09/29/08  10:00 PM CBS",
+            "Fri   10/03/08   5:00 PM  USA",
+            "Mon  10/06/08 9:00 PM  CBS",
+            "Tue 10/07/08  10:00 PM CBS",
+            "Fri   10/10/08   5:00 PM  USA",
+            "Mon  10/13/08 9:00 PM  CBS",
+            "Tue 10/14/08  10:00 PM CBS"});
             this.showTimeList.Location = new System.Drawing.Point(185, 90);
             this.showTimeList.Name = "showTimeList";
-            this.showTimeList.Size = new System.Drawing.Size(120, 173);
+            this.showTimeList.Size = new System.Drawing.Size(160, 173);
             this.showTimeList.TabIndex = 3;
             // 
             // label1
@@ -81,14 +97,6 @@ namespace LegendTV
             this.label1.TabIndex = 4;
             this.label1.Text = "Search TV Guide";
             // 
-            // descriptionList
-            // 
-            this.descriptionList.FormattingEnabled = true;
-            this.descriptionList.Location = new System.Drawing.Point(320, 90);
-            this.descriptionList.Name = "descriptionList";
-            this.descriptionList.Size = new System.Drawing.Size(300, 225);
-            this.descriptionList.TabIndex = 5;
-            // 
             // exitButton
             // 
             this.exitButton.Location = new System.Drawing.Point(9, 280);
@@ -99,13 +107,22 @@ namespace LegendTV
             this.exitButton.Text = "Back to TV Menu";
             this.exitButton.UseVisualStyleBackColor = true;
             // 
+            // description
+            // 
+            this.description.Location = new System.Drawing.Point(351, 90);
+            this.description.Multiline = true;
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(269, 224);
+            this.description.TabIndex = 7;
+            this.description.Text = resources.GetString("description.Text");
+            // 
             // SearchGuide
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 326);
+            this.Controls.Add(this.description);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.descriptionList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.showTimeList);
             this.Controls.Add(this.programList);
@@ -125,7 +142,7 @@ namespace LegendTV
         private System.Windows.Forms.ListBox programList;
         private System.Windows.Forms.ListBox showTimeList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox descriptionList;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.TextBox description;
     }
 }
