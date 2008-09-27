@@ -37,6 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OnScreenKeyboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnScreenKeyboard.Designer.cs">
+      <DependentUpon>OnScreenKeyboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="SearchGuide.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,10 @@
     <EmbeddedResource Include="MainMenu.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnScreenKeyboard.resx">
+      <DependentUpon>OnScreenKeyboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

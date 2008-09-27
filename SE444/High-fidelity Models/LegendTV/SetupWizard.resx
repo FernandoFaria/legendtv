@@ -117,14 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        9FMHRxk/AiIAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>1. Turn the contrast of your screen to its lowest setting.
 2. Turn the brightness of your screen to its lowest setting.
-3. Slowly increase the brightness setting until you can just see the triangle in the image to the right.</value>
+3. Slowly increase the brightness setting until you can just see the star in the image to the right.</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>Now it's time to calibrate the way that images appear on your screen, to ensure a high-quality picture.
+    <value>Now it's time to calibrate the way that images appear on your screen to ensure a high-quality picture.
 
-We'll begin with brightness. The brightness setting, or "black level" controls how light or dark the darkest part of an image appears on your screen. Follow these steps to calibrate it:</value>
+We'll begin with brightness. The brightness setting, or "black level" controls how light or dark the darkest part of an image appears on your screen.
+
+Follow these steps to calibrate it:</value>
   </data>
+  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        SUVORK5CYII=
+</value>
+  </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
