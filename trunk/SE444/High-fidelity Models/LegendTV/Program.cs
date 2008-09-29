@@ -14,7 +14,7 @@ namespace LegendTV
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SetupWizard());
+            Application.Run(new FormRunner());
         }
     }
 }
