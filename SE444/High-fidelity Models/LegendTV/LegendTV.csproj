@@ -37,11 +37,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormRunner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRunner.Designer.cs">
+      <DependentUpon>FormRunner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Guide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Guide.Designer.cs">
+      <DependentUpon>Guide.cs</DependentUpon>
+    </Compile>
     <Compile Include="OnScreenKeyboard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OnScreenKeyboard.Designer.cs">
       <DependentUpon>OnScreenKeyboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Playback Screen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Playback Screen.Designer.cs">
+      <DependentUpon>Playback Screen.cs</DependentUpon>
     </Compile>
     <Compile Include="SearchGuide.cs">
       <SubType>Form</SubType>
@@ -63,12 +81,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormRunner.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormRunner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Guide.resx">
+      <DependentUpon>Guide.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OnScreenKeyboard.resx">
       <DependentUpon>OnScreenKeyboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Playback Screen.resx">
+      <DependentUpon>Playback Screen.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
