@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.googlecode.com/p/legendtv/Menus"
+ 		elementFormDefault="qualified"
+ 		xmlns="http://www.w3.org/2001/XMLSchema"
+		xmlns:ltv="http://www.googlecode.com/p/legendtv/Menus"
+ 		xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+		jxb:version="2.1">
+
+	<!-- Root element: contains all of the menu definitions. -->
+ 	<element name="menuList">
+	    <annotation>
+			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+	    	<appinfo>
+	    		<jxb:class>
+	    			<jxb:javadoc>A MenuList contains all of the menu layouts defined in a menu layout file.<!--
+	    			--></jxb:javadoc>
+	    		</jxb:class>
+	    	</appinfo>
+	    </annotation>
+ 		
+	    <complexType>
+	    	<sequence>
+	    		<element ref="ltv:menu" minOccurs="0" maxOccurs="unbounded">
+    			    <annotation>
+						<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+			  			<appinfo>
+			  				<jxb:property name="menus">
+				    			<jxb:javadoc>The list of menus.</jxb:javadoc>
+				    		</jxb:property>
+			  			</appinfo>
+			  		</annotation>
+	    		</element>
+	    	</sequence>
+	    	
+	    	<attribute name="rootMenu" type="string" use="required">
+	    		<annotation>
+	    			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+	    			<appinfo>
+	    				<jxb:property name="rootMenuName">
+	    					<jxb:javadoc>The name of the root menu.</jxb:javadoc>
+	    				</jxb:property>
+	    			</appinfo>
+	    		</annotation>
+	    	</attribute>
+	    </complexType>
+	    
+	    <!-- Ensure that the name of each menu is unique. -->
+	    <key name="PK_Menu_Name">
+	    	<selector xpath=".//ltv:menu"/>
+	    	<field xpath="@name"/>
+	    </key>	    
+	    
+	    <!-- Ensure that the "backTo" attribute of each menu refers to a valid menu. -->	    
+	    <keyref name="FK_Menu_BackTo" refer="ltv:PK_Menu_Name">
+	    	<selector xpath=".//ltv:menu" />
+	    	<field xpath="@backTo" />
+	    </keyref>
+ 	</element>
+
+	<!-- The menu element, which defines a single menu layout. -->
+	<element name="menu">
+	    <annotation>
+			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+	    	<appinfo>
+	    		<jxb:class>
+	    			<jxb:javadoc>A single menu layout.</jxb:javadoc>
+	    		</jxb:class>
+	    	</appinfo>
+	    </annotation>
+	    
+	    <complexType>
+	    	<sequence>
+	    		<element name="title" type="string" minOccurs="1">
+	    			<annotation>
+						<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+			  			<appinfo>
+			  				<jxb:property>
+				    			<jxb:javadoc>The menu title, as displayed to the user.</jxb:javadoc>
+				    		</jxb:property>
+			  			</appinfo>
+			  		</annotation>
+	    		</element>
+	    		
+	    		<element name="control" type="ltv:Control" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+			  			<appinfo>
+			  				<jxb:property name="controlList">
+			  					<jxb:javadoc>The list of controls.</jxb:javadoc>
+			  				</jxb:property>
+			  			</appinfo>
+			  		</annotation>
+				</element>
+	    	</sequence>
+	    	
+	    	<attribute name="name" type="string" use="required">	    	
+    			<annotation>
+					<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		  			<appinfo>
+		  				<jxb:property>
+			    			<jxb:javadoc>The internal name of this menu that is used to refer to it from other <!--
+			    			-->menus.</jxb:javadoc>
+			    		</jxb:property>
+		  			</appinfo>
+		  		</annotation>
+	    	</attribute>
+	    	
+	    	<attribute name="presentation" type="ltv:PresentationType" default="normal">
+			    <annotation>
+					<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		  			<appinfo>
+		  				<jxb:property name="presentationType">
+		  					<jxb:javadoc>The type of presentation for this menu (i.e. as a menu or a modal dialog).<!--
+		  					--></jxb:javadoc>
+		  				</jxb:property>
+		  			</appinfo>
+		  		</annotation>
+	    	</attribute>
+	    	
+	    	<attribute name="previousMenu" type="string" use="optional">
+	    		<annotation>
+		  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+			    	<appinfo>
+		  				<jxb:property name="previousMenuName">
+		  					<jxb:javadoc>The menu that the user will return to after leaving this menu.</jxb:javadoc>
+		  				</jxb:property>
+		  			</appinfo>
+		  		</annotation>
+	    	</attribute>
+	    </complexType>
+
+		<!-- Ensure that each control has a unique name. -->
+		<unique name="PK_Control_Name">
+			<selector xpath=".//ltv:control"/>
+			<field xpath="@name"/>
+		</unique>
+
+	    <!-- Ensure that each content generator has a unique name. -->
+	    <unique name="PK_DynamicContent_Name">
+	    	<selector xpath=".//ltv:dynamicContent"/>
+	    	<field xpath="@name"/>
+	    </unique>
+	    
+	    <!-- Ensure that the "backTo" attribute of each content generator refers to a valid name. -->
+	    <keyref name="FK_DynamicContent_LinkTo" refer="ltv:PK_DynamicContent_Name">
+	    	<selector xpath=".//ltv:dynamicContent" />
+	    	<field xpath="@linkTo" />
+	    </keyref>
+	</element>    
+	
+	<!-- The type for a single menu control. -->
+	<complexType name="Control" abstract="true">
+		<annotation>
+			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+	    	<appinfo>
+	    		<jxb:class>
+	    			<jxb:javadoc>The abstract ancestor of all menu controls.</jxb:javadoc>
+	    		</jxb:class>
+	    	</appinfo>
+	    </annotation>
+	    
+	    <attribute name="name" type="string">
+		    <annotation>
+	  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc>The name of this control.</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+	    </attribute>
+		
+		<attribute name="placement" type="ltv:PlacementType" default="center-left">
+		    <annotation>
+	  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc>The location in the menu where this control should be placed.</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+	    </attribute>
+	    
+		<attribute name="width" type="ltv:Percentage" default="100">
+		    <annotation>
+	  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc>The width of this control, as a percentage of the parent menu width.</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+	    </attribute>
+	    
+		<attribute name="height" type="ltv:Percentage" default="100">
+		    <annotation>
+	  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc>The height of this control, as a percentage of the parent menu height.<!--
+	  					--></jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+	    </attribute>
+	</complexType>
+
+	<!-- An enumeration of the various placements that a control can have on-screen.
+		
+	     TODO: Determine if this information really belongs in the menu information,
+	           or if it should be in the proposed presentation layer instead. -->
+   	<simpleType name="PlacementType">
+   		<annotation>
+			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:typesafeEnumClass name="PlacementType"/>
+  			</appinfo>
+  		</annotation>
+  		
+   		<restriction base="string">
+			<enumeration value="top-left"/>
+			<enumeration value="top-middle"/>
+			<enumeration value="top-right"/>
+			<enumeration value="center-left"/>
+			<enumeration value="center-middle"/>
+			<enumeration value="center-right"/>
+			<enumeration value="bottom-left"/>
+			<enumeration value="bottom-middle"/>
+			<enumeration value="bottom-right"/>
+		</restriction>
+   	</simpleType>
+
+	<!-- A simple type for percentages (0 - 100%). -->
+	<simpleType name="Percentage">
+   		<restriction base="int">
+   			<minExclusive value="0"/>
+   			<maxInclusive value="100"/>
+   		</restriction>
+   	</simpleType>
+   	
+   	<!-- An enumeration of the types of presentation for a menu. This can be either "normal", in which a menu
+   		 represents a separate "area" of the UI and fills the entire screen, or "dialog", in which a menu is only a
+   		 brief segway away from what the user is doing and is displayed as a small window or other overlay above the
+   		 rest of the UI. -->
+  	<simpleType name="PresentationType">
+  		<annotation>
+	  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:typesafeEnumClass name="PresentationType">
+  					<jxb:javadoc><!--
+  					-->An enumeration of the types of presentation for a menu. This can be either "normal", in which a
+<!--				-->menu represents a separate "area" of the UI and fills the entire screen, or "dialog", in which a
+<!--				-->menu is only a brief segway away from what the user is doing and is displayed as a small window
+<!-- 				-->or other overlay above the rest of the UI.<!--
+					--></jxb:javadoc>
+  				</jxb:typesafeEnumClass>
+  			</appinfo>
+  		</annotation>
+  		
+		<restriction base="string">
+			<enumeration value="normal"/>
+			<enumeration value="dialog"/>
+		</restriction>
+	</simpleType>
+	
+	<!-- Type for a dynamicContent element, which describes a reference to a dynamic content generator that the
+		 containing element will use as a data source at run-time.
+   	  -->
+   	<complexType name="DynamicContent">
+   		<annotation>
+	  		<!-- JAXB annotation information, for generating the Java classes from the schema. -->
+  			<appinfo>
+  				<jxb:class name="ContentGeneratorReference">
+  					<jxb:javadoc><!--
+  					-->Type which describes a reference to a dynamic content generator that the
+<!--				-->containing element will use as a data source at run-time.</jxb:javadoc>
+  				</jxb:class>
+  			</appinfo>
+  		</annotation>
+   		
+   		<attribute name="generator" type="string" use="required">
+			<annotation>
+	  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property name="generatorName">
+	  					<jxb:javadoc><!--
+	  					-->&lt;p&gt;The full, package-qualified class name of the dynamic content generator.&lt;/p&gt;
+<!--					-->&lt;p&gt;The class must extend from <!-- 
+						-->com.googlecode.legendtv.data.menu.ContentGenerator.&lt;/p&gt;<!-- 
+						--></jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+  		</attribute>
+  		
+   		<attribute name="name" type="string" use="optional">
+   			<annotation>
+	  			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc>The name of this instance, to relate it to another content generator.</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+   		</attribute>
+   		
+   		<attribute name="linkTo" type="string" use="optional">
+   			<annotation>
+	   			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		    	<appinfo>
+	  				<jxb:property name="linkedReferenceName">
+	  					<jxb:javadoc><!--
+	  					-->&lt;p&gt;The name of a content generator reference to which this reference should be <!--
+	  					-->linked.&lt;/p&gt;
+		    			&lt;p&gt;This is commonly useful when two generators provide information that must correlate.
+		    			</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+   		</attribute>
+   	</complexType>
+
+	<!-- An optionList element, which describes a control that lists several options a user may choose. -->
+    <complexType name="OptionList">
+    	<annotation>
+	  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:class>
+  					<jxb:javadoc>A type of Control that presents a series of options that a user can choose from.<!--
+  					--></jxb:javadoc>
+  				</jxb:class>
+  			</appinfo>
+  		</annotation>
+  		
+   		<complexContent>
+    		<extension base="ltv:Control">
+				<sequence>
+					<element name="content" type="ltv:OptionListContent">
+						<annotation>
+							<appinfo>
+								<jxb:property>
+									<jxb:javadoc>The content of the list.</jxb:javadoc>
+								</jxb:property>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+   	</complexType>
+    
+    <!-- A group to simplify the declaration of the OptionList type above. -->
+    <complexType name="OptionListContent">
+    	<sequence>
+    		<element name="dynamicContent" minOccurs="0" maxOccurs="unbounded" type="ltv:DynamicContent">
+    			<annotation>
+    				<appinfo>
+    					<jxb:property name="contentGeneratorReferences">
+    						<jxb:javadoc>Dynamic content generator references, which are used to add additional
+<!--						-->options to the list at run-time.</jxb:javadoc>
+    					</jxb:property>
+    				</appinfo>
+    			</annotation>
+    		</element>
+
+    		<element name="option" type="ltv:Option" minOccurs="0" maxOccurs="unbounded">
+    			<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		 		<annotation>
+		 			<appinfo>
+		 				<jxb:property name="options">
+ 							<jxb:javadoc>The static options in the list.</jxb:javadoc>
+		 				</jxb:property>
+		 			</appinfo>
+		 		</annotation>
+    		</element>
+    	</sequence>
+    </complexType>
+    
+    <!-- The type for a single menu option. -->
+    <complexType name="Option">
+    	<annotation>
+	  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:class>
+  					<jxb:javadoc>&lt;p&gt;A single option in an OptionList object.&lt;/p&gt;<!--
+  					-->&lt;p&gt;Options can either execute a method or take the user to a different menu.&lt;/p&gt;
+  					</jxb:javadoc>
+  				</jxb:class>
+  			</appinfo>
+  		</annotation>
+   		
+   		<sequence>
+   			<element name="caption" type="string" minOccurs="1">
+	   			<annotation>
+			  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		  			<appinfo>
+		  				<jxb:property>
+		  					<jxb:javadoc>The caption for this option, as displayed to the user.</jxb:javadoc>
+		  				</jxb:property>
+		  			</appinfo>
+		  		</annotation>
+   			</element>
+   			
+   			<element name="action" type="ltv:Action" minOccurs="1">
+	   			<annotation>
+			  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		  			<appinfo>
+		  				<jxb:property>
+		  					<jxb:javadoc>The action to perform if the user chooses this option.</jxb:javadoc>
+		  				</jxb:property>
+		  			</appinfo>
+		  		</annotation>
+   			</element>
+   		</sequence>
+   	</complexType>
+   	
+   	<!-- The type for the action associated with a single OptionList option. -->
+   	<complexType name="Action">
+   		<annotation>
+	  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:class>
+  					<jxb:javadoc>A representation of the action that a single option in an OptionList <!-- 
+  					-->performs.</jxb:javadoc>
+  				</jxb:class>
+  			</appinfo>
+  		</annotation>
+  		
+   		<attribute name="type" type="ltv:ActionType">
+   			<annotation>
+		  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+	  			<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc>The type of this action, either a menu or a method invocation.</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+   		</attribute>
+   		
+   		<attribute name="target" type="string">
+   			<annotation>
+		  		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+	  			<appinfo>
+	  				<jxb:property>
+	  					<jxb:javadoc><!--
+	  					-->&lt;p&gt;The target of the action. This is a menu name if this is a menu action, or a
+<!--					-->class and method name if this is a method action.&lt;/p&gt;	  					
+
+<!--					-->&lt;p&gt;The class and method name should be in form of:
+<!--					-->&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;{package name}.{method name}&lt;/p&gt;
+
+<!--					-->&lt;p&gt;So, for example, if this is was a method action that should trigger the menuSelect()
+<!--					-->method on the org.googlecode.legendtv.DummyClass class, then the target name would be:
+<!--					-->&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;org.googlecode.legendtv.DummyClass.menuSelect
+<!-- 					-->&lt;/p&gt;</jxb:javadoc>
+	  				</jxb:property>
+	  			</appinfo>
+	  		</annotation>
+   		</attribute>
+   	</complexType>
+   	
+   	<!-- An enumeration for the types of action that can be performed for a single menu option. 
+   		 Currently, the actionType can be either "menu", which sends the user to another menu, or "method", which
+		 invokes a java method on a target class.
+	  -->
+   	<simpleType name="ActionType">
+   		<annotation>
+	   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:typesafeEnumClass name="ActionType">
+  					<jxb:javadoc><!--
+  					-->&lt;p&gt;An enumeration for the types of action that can be performed for a single menu
+<!-- 				-->option.&lt;/p&gt;
+  					
+<!--				-->&lt;p&gt;Currently, the actionType can be either "menu", which sends the user to another menu,
+<!--				-->or "method", which invokes a java method on a target class.&lt;/p&gt;<!--
+					--></jxb:javadoc>
+  				</jxb:typesafeEnumClass>
+  			</appinfo>
+  		</annotation>
+  		
+		<restriction base="string">
+			<enumeration value="menu"/>
+			<enumeration value="method"/>
+		</restriction>
+	</simpleType>
+   	
+   	<!-- A grid that presents data in a tabular format. -->
+   	<complexType name="Grid">
+   		<annotation>
+	   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:class>
+  					<jxb:javadoc>A row-major tabular grid for displaying data, with optional column <!--
+  					-->headers.</jxb:javadoc>
+  				</jxb:class>
+  			</appinfo>
+  		</annotation>
+  		
+   		<complexContent>
+   			<extension base="ltv:Control">
+	   			<sequence>
+	   				<element name="headerList" type="ltv:HeaderListContent" minOccurs="0">
+			   			<annotation>
+					   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+				  			<appinfo>
+				  				<jxb:property>
+				  					<jxb:javadoc>The optional list of headers to display above the columns.<!--
+				  					--></jxb:javadoc>
+				  				</jxb:property>
+				  			</appinfo>
+				  		</annotation>
+					</element>
+					
+	   				<element name="content" type="ltv:TableContent">
+						<annotation>
+					   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+				  			<appinfo>
+				  				<jxb:property>
+				  					<jxb:javadoc>The tabular data to display in this grid.</jxb:javadoc>
+				  				</jxb:property>
+				  			</appinfo>
+				  		</annotation>
+					</element>					
+					
+	   				<element name="legend" minOccurs="0" type="ltv:StringContent">
+						<annotation>
+					   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+				  			<appinfo>
+				  				<jxb:property>
+				  					<jxb:javadoc>Optional legend text to display below the grid that explains the
+<!--								-->notation used inside.</jxb:javadoc>
+				  				</jxb:property>
+				  			</appinfo>
+				  		</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="HeaderListContent">
+		<sequence>
+			<element name="dynamicContent" minOccurs="0" maxOccurs="unbounded" type="ltv:DynamicContent">
+				<annotation>
+					<appinfo>
+						<jxb:property name="contentGeneratorReferences">
+							<jxb:javadoc>Dynamic content generator references, which are used to add additional
+<!--						-->headers at run-time.</jxb:javadoc>
+						</jxb:property>
+					</appinfo>
+				</annotation>
+			</element>
+			
+			<element name="header" type="string" minOccurs="0" maxOccurs="unbounded">
+				<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+				<annotation>
+					<appinfo>
+						<jxb:property name="headers">
+							<jxb:javadoc>The static list of column headers.</jxb:javadoc>
+						</jxb:property>
+					</appinfo>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	
+	<!-- Group to simplify the declaration of the grid type above. -->
+	<complexType name="TableContent">
+		<sequence>
+			<element name="dynamicContent" minOccurs="0" maxOccurs="unbounded" type="ltv:DynamicContent">
+				<annotation>
+					<appinfo>
+						<jxb:property name="contentGeneratorReferences">
+							<jxb:javadoc>Dynamic content generator references, which are used to add additional
+<!--						-->rows at run-time.</jxb:javadoc>
+						</jxb:property>
+					</appinfo>
+				</annotation>
+			</element>
+			
+			<element name="row" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+			   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+		  			<appinfo>
+		  				<jxb:property name="rows">
+		  					<jxb:javadoc>The static rows of the Grid.</jxb:javadoc>
+		  				</jxb:property>
+		  			</appinfo>
+		  		</annotation>
+		  		
+				<complexType>
+					<sequence>
+						<element name="column" type="string" maxOccurs="unbounded">
+						<annotation>
+					   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+				  			<appinfo>
+				  				<jxb:property name="columns">
+				  					<jxb:javadoc>The columns of this row in the Grid.</jxb:javadoc>
+				  				</jxb:property>
+				  			</appinfo>
+				  		</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="StringContent">
+		<choice>
+			<element name="dynamicContent" type="ltv:DynamicContent">
+				<annotation>
+					<appinfo>
+						<jxb:property name="dynamicContentReference">
+							<jxb:javadoc>A dynamic content generator reference, which is used to populate 
+<!--						-->the text at run-time.</jxb:javadoc>
+						</jxb:property>
+					</appinfo>
+				</annotation>
+			</element>
+			
+			<element name="text" type="string">
+				<annotation>
+					<appinfo>
+						<jxb:property>
+							<jxb:javadoc>Static text content.</jxb:javadoc>
+						</jxb:property>
+					</appinfo>
+				</annotation>
+			</element>
+		</choice>
+	</complexType>
+
+	<!-- A control that displays text. -->
+	<complexType name="Label">
+		<annotation>
+	   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+  			<appinfo>
+  				<jxb:class>
+  					<jxb:javadoc>A control that displays text.</jxb:javadoc>
+  				</jxb:class>
+  			</appinfo>
+  		</annotation>
+  		
+   		<complexContent>
+			<extension base="ltv:Control">
+				<sequence>
+					<element name="content" type="ltv:StringContent">
+						<annotation>
+				   		<!-- JAXB annotation information, for generating the Java classes from the schema.  -->
+			  				<appinfo>
+				  				<jxb:property>
+				  					<jxb:javadoc>The content of this label.</jxb:javadoc>
+				  				</jxb:property>
+				  			</appinfo>
+			  			</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>
