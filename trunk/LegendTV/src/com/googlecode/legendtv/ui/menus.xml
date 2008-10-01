@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menuList xmlns="http://www.googlecode.com/p/legendtv/Menus"
+	   	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   	  xsi:schemaLocation="http://www.googlecode.com/p/legendtv/Menus ../data/menu/menus.xsd"
+	   	  rootMenu="MainMenu">
+	   	  
+	<menu name="MainMenu">
+		<title>Main Menu</title>
+		<control xsi:type="OptionList">
+			<content>
+				<option>
+					<caption>Manage recordings</caption>
+					<action type="menu" target="RecordingManagement"/>
+				</option>
+				
+				<option>
+					<caption>Control another session</caption>
+					<action type="menu" target="ControlSession"/>
+				</option>
+				
+				<option>
+					<caption>Change settings</caption>
+					<action type="menu" target="Settings"/>
+				</option>
+				
+				<option>
+					<caption>Monitor system status</caption>
+					<action type="menu" target="MonitorSystem"/>
+				</option>
+			</content>
+		</control>
+	</menu>
+	
+	<menu name="RecordingManagement" previousMenu="MainMenu">
+		<title>Manage Recordings</title>
+		<control xsi:type="OptionList">
+			<content>
+				<option>
+					<caption>View available recordings</caption>
+					<action type="menu" target="AvailableRecordings"/>
+				</option>
+				
+				<option>
+					<caption>Schedule a recording</caption>
+					<action type="menu" target="ScheduleRecordingType"/>
+				</option>
+				
+				<option>
+					<caption>View recording schedule</caption>
+					<action type="menu" target="RecordingSchedule"/>
+				</option>
+			</content>
+		</control>
+	</menu>
+	
+	<menu name="ControlSession" previousMenu="MainMenu">
+		<title>Control Another Session</title>
+		
+		<control xsi:type="Label">
+			<content>
+				<text>The following sessions are available for remote control:</text>
+			</content>
+		</control>
+
+		<!-- TODO: Complete -->
+	</menu>
+	
+	<menu name="Settings" previousMenu="MainMenu">
+		<title>Change Settings</title>
+		
+		<!-- TODO: Complete -->
+	</menu>
+	
+	<menu name="MonitorSystem" previousMenu="MainMenu">
+		<title>Monitor System</title>
+		<!-- TODO: Complete -->
+	</menu>
+	
+	<menu name="AvailableRecordings" previousMenu="RecordingManagement">
+		<title>View Available Recordings</title>
+		<control xsi:type="Grid" name="recordingGrid" placement="center-middle" width="100" height="60">
+			<headerList>
+				<dynamicContent generator="com.googlecode.legendtv.ui.generators.RecordingGridHeader"/>
+			</headerList>
+			
+			<content>
+				<dynamicContent name="RecordingGridGenerator"
+								generator="com.googlecode.legendtv.ui.generators.RecordingGrid"/>
+			</content>
+			
+			<legend>
+				<text>&gt; selected item; * being recorded now</text>
+			</legend>
+		</control>
+		<control xsi:type="Label" name="recordingInfo" placement="bottom-middle" width="100" height="20">
+			<content>
+				<dynamicContent generator="intf.generators.RecordingInfo"
+				 				linkTo="RecordingGridGenerator"/>
+			</content>
+		</control>
+	</menu>
+	
+	<menu name="RecordingSchedule" previousMenu="RecordingManagement">
+		<title>View Recording Schedule</title>
+		<control xsi:type="OptionList">
+			<content>
+				<dynamicContent generator="com.googlecode.legendtv.ui.generators.RecordingSchedule"/>
+			</content>
+		</control>
+	</menu>
+	
+	<menu name="ScheduleRecordingType" presentation="dialog" previousMenu="RecordingManagement">
+		<title>What would you like to record?</title>
+		<control xsi:type="OptionList">
+			<content>
+				<option>
+					<caption>Record a show</caption>
+					<action type="menu" target="RecordShow"/>
+				</option>
+				
+				<option>
+					<caption>Record a movie</caption>
+					<action type="menu" target="RecordMovie"/>
+				</option>
+			</content>
+		</control>
+	</menu>
+	
+	<menu name="RecordShow">
+		<title>Record a Show</title>
+		<!-- TODO: Complete -->
+	</menu>
+	
+	<menu name="RecordMovie">
+		<title>Record a Movie</title>
+		<!-- TODO: Complete -->
+	</menu>
+</menuList>
