@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.HeadlessException;
@@ -9,13 +10,9 @@ import javax.swing.JFrame;
  * 
  * @author Guy Paddock (gap7472@rit.edu)
  */
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame
 {
-	/**
-	 * Serialization ID.
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Constructor for MainFrame.
 	 * 
@@ -35,6 +32,9 @@ public class MainFrame extends JFrame
 	{
 		Container	contentPane	= this.getContentPane();
 
+		// Kill the app when closed
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		// Maximize with no title bar
 		this.setUndecorated(true);
 		this.setExtendedState(MAXIMIZED_BOTH);
@@ -43,6 +43,8 @@ public class MainFrame extends JFrame
 		// TODO: Move into theme
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(Color.BLACK);
+		
+		this.setLayout(new BorderLayout());
 	}
 
 	/**
