@@ -19,8 +19,8 @@ public class Channel {
 	private final short number;
 	private final String name;
 
-	public Channel( short number, String name ) {
-		this.number = number;
+	public Channel( short i, String name ) {
+		this.number = i;
 		this.name = name;
 	}
 	
