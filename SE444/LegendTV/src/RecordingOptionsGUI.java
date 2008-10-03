@@ -4,8 +4,20 @@ import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
+/*
+ * Version: $Id$
+ * 
+ * Revisions $Log$
+ */
 
-public class RecordingOptionsGUI implements WindowListener{
+/**
+ * WARNING!!! THIS CLASS IS FAR FROM COMPLETE.  COLORS ON PANELS ARE FOR DEBUGGING PURPOSES!!!
+ * 
+ * This class displays the options for a recorded TV Show.
+ *
+ * @author  Andrew Bona
+ */
+public class RecordingOptionsGUI{
 
 	JFrame frame = new JFrame();
 	JPanel mainPanel, repeatPanel, qualityPanel, expirationPanel, buttonPanel;
@@ -16,37 +28,59 @@ public class RecordingOptionsGUI implements WindowListener{
 	JButton leftArrow1, rightArrow1;
 	JButton leftArrow2, rightArrow2;
 	
+	/**
+	 * This code will be cleaned up at a later date.  The main functionality of this code has been split up
+	 * by carriage returns to show differences in functionality.  Other methods will be created to reduce
+	 * the "God" Constructor.
+	 * 
+	 * 
+	 * @param show  This parameter is not a String, but will be of type "Recorded Program" object
+	 */
 	public RecordingOptionsGUI(String show) {
 		
 		mainPanel = new JPanel( new GridLayout(6, 1) );
 		mainPanel.setBackground(Color.BLACK);
 		GridLayout grid = new GridLayout(1,2);
 		FlowLayout flow = new FlowLayout(FlowLayout.LEFT);
+		
 		JPanel repeatPanel2 = new JPanel( grid );
-		JPanel qualityPanel2 = new JPanel( new GridLayout(1,2) );
-		JPanel expirationPanel2 = new JPanel( new GridLayout(1,2) );
-		repeatPanel2.setBackground(Color.CYAN);
-		qualityPanel2.setBackground(Color.PINK);
-		expirationPanel2.setBackground(Color.YELLOW);
+		JPanel qualityPanel2 = new JPanel( grid );
+		JPanel expirationPanel2 = new JPanel( grid );
+		
+		JPanel repeatPanel3 = new JPanel( flow );
+		JPanel qualityPanel3 = new JPanel( flow );
+		JPanel expirationPanel3 = new JPanel( flow );
+		
+		repeatPanel3.setBackground(Color.BLACK);
+		qualityPanel3.setBackground(Color.BLACK);
+		expirationPanel3.setBackground(Color.BLACK);
+		
+		Font headerFont = new Font(null, Font.BOLD, 32);
+		Font subHeaderFont = new Font(null,Font.ITALIC, 24);
 		
 		repeatPanel = new JPanel( flow );
-		repeatPanel.setBackground(Color.RED);
+		repeatPanel.setBackground(Color.BLACK);
+
 		qualityPanel = new JPanel( flow );
-		qualityPanel.setBackground(Color.GREEN);
+		qualityPanel.setBackground(Color.BLACK);
+
 		expirationPanel = new JPanel( flow );
-		expirationPanel.setBackground(Color.BLUE);
+		expirationPanel.setBackground(Color.BLACK);
+
 		buttonPanel = new JPanel( new FlowLayout(FlowLayout.CENTER) );
-		buttonPanel.setBackground(Color.ORANGE);
+		buttonPanel.setBackground(Color.BLACK);
 		
-		screenLabel = new JLabel("    Recording Options ");
+		screenLabel = new JLabel("   Recording Options ");
 		screenLabel.setForeground(Color.WHITE);
+		screenLabel.setFont(headerFont);
 		showLabel = new JLabel("    Family Guy - 10/4/08 - 8:00 - Channel 6 (Fox)");
 		showLabel.setForeground(Color.WHITE);
-		repeatLabel = new JLabel("  Reoccurring Recording: ");
+		showLabel.setFont(subHeaderFont);
+		repeatLabel = new JLabel("                    Reoccurring Recording: ");
 		repeatLabel.setForeground(Color.WHITE);
-		qualityLabel = new JLabel("  Recording Quality: ");
+		qualityLabel = new JLabel("                    Recording Quality: ");
 		qualityLabel.setForeground(Color.WHITE);
-		expirationLabel = new JLabel("  Expiration: ");
+		expirationLabel = new JLabel("                    Expiration: ");
 		expirationLabel.setForeground(Color.WHITE);
 		repeatOptions = new JLabel("Just this episode");
 		repeatOptions.setForeground(Color.WHITE);
@@ -71,21 +105,24 @@ public class RecordingOptionsGUI implements WindowListener{
 		repeatPanel.add(leftArrow);
 		repeatPanel.add(repeatOptions);
 		repeatPanel.add(rightArrow);
-		repeatPanel2.add(repeatLabel);
+		repeatPanel3.add(repeatLabel);
+		repeatPanel2.add(repeatPanel3);
 		repeatPanel2.add(repeatPanel);
 		
 		qualityPanel.add(qualityLabel);
 		qualityPanel.add(leftArrow1);
 		qualityPanel.add(qualityOptions);
 		qualityPanel.add(rightArrow1);
-		qualityPanel2.add(qualityLabel);
+		qualityPanel3.add(qualityLabel);
+		qualityPanel2.add(qualityPanel3);
 		qualityPanel2.add(qualityPanel);
 		
 		expirationPanel.add(expirationLabel);
 		expirationPanel.add(leftArrow2);
 		expirationPanel.add(expirationOptions);
 		expirationPanel.add(rightArrow2);
-		expirationPanel2.add(expirationLabel);
+		expirationPanel3.add(expirationLabel);
+		expirationPanel2.add(expirationPanel3);
 		expirationPanel2.add(expirationPanel);
 		
 		buttonPanel.add(confirmButton);
@@ -99,6 +136,7 @@ public class RecordingOptionsGUI implements WindowListener{
 		mainPanel.add(buttonPanel);
 	
 		frame.add(mainPanel);
+		frame.setTitle("Legend TV - Recording Options");
 		frame.setVisible(true);
 		
 	}
@@ -110,41 +148,4 @@ public class RecordingOptionsGUI implements WindowListener{
 		// TODO Auto-generated method stub
 		RecordingOptionsGUI gui = new RecordingOptionsGUI("Family Guy");
 	}
-
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		System.exit(1);
-		
-	}
-
-	public void windowClosing(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
