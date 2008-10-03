@@ -34,6 +34,11 @@ public class RecordedProgramsGUI {
 	private DefaultListModel programListModel;
 	private JScrollPane listScroller;
 	
+	private Insets in = new Insets(0,0,0,0);
+	
+	//Icons
+	private Icon testIcon= new ImageIcon("images/button_on_short.png");
+	
 	public RecordedProgramsGUI(LinkedList recordedPrograms){
 		programs = recordedPrograms;
 		programListModel = new DefaultListModel();
@@ -48,9 +53,10 @@ public class RecordedProgramsGUI {
 		programList = new JList(programListModel);
 		
 		programList.setFixedCellHeight(20);
-		listScroller = new JScrollPane();
-		listScroller.add(programList);
-		listScroller.createVerticalScrollBar();
+		programList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		listScroller = new JScrollPane(programList);
+		listScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
 				
 		//Set up the Label
 		screenDescription = new JLabel("Recorded Programs");
@@ -67,13 +73,24 @@ public class RecordedProgramsGUI {
 		programDescription.setEditable(false);
 		
 		//Set up the Button(s)
-		backButton = new JButton("Go Back");  //Include the Image in this line
+
+		backButton = new JButton("Go Back", testIcon);  //Include the Image in this line
 		backButton.setForeground(Color.WHITE);
 		backButton.setIconTextGap(0);
 		
+		//button.setIcon(testIcon2);
+		backButton.setBackground(Color.BLACK);
+		//button.setForeground(Color.WHITE);
+		backButton.setMargin(in);
+		backButton.setVerticalTextPosition(SwingConstants.CENTER);
+		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		backButton.setBorderPainted(false);
+		backButton.setRolloverIcon(testIcon);
+		
 		//Set up the panels and Boxes
-		Box programBox = Box.createVerticalBox();
+		JPanel programBox = new JPanel(new GridLayout(2,1));
 		Box componentBox = Box.createHorizontalBox();
+		//componentBox.
 		Box buttonsBox = Box.createVerticalBox();
 				
 		mainPanel = new JPanel();
@@ -88,7 +105,7 @@ public class RecordedProgramsGUI {
 		componentBox.setAlignmentX((float)0.0);
 		
 		programBox.add(programDescription);
-		programBox.add(programList);
+		programBox.add(listScroller);
 		
 		buttonsBox.add(backButton);
 			
