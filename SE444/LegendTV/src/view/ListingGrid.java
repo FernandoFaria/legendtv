@@ -29,7 +29,7 @@ import javax.swing.JLabel;
  * @author Eric
  *
  */
-public class GuideView extends JComponent implements KeyListener {
+public class ListingGrid extends JComponent implements KeyListener {
 	
 	private static final Color PROGRAM_BORDER_COLOR = Color.BLACK;
 	private static final int GRID_PADDING = 10;
@@ -37,7 +37,7 @@ public class GuideView extends JComponent implements KeyListener {
 	
 	public static void main( String[] args ) {
 		JFrame window = new JFrame( "GuideView Test" );
-		window.add(  new GuideView( 4, 6 ) );
+		window.add(  new ListingGrid( 4, 6 ) );
 		window.pack();
 		window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		window.setVisible( true );
@@ -59,7 +59,7 @@ public class GuideView extends JComponent implements KeyListener {
 	 * The view can merely adjust itself to ensure that the right channels and timeslots are shown.
 	 */
 	
-	public GuideView( int channels, int timeSlots ) {
+	public ListingGrid( int channels, int timeSlots ) {
 		this.channels = channels;
 		this.timeSlots = timeSlots;
 		
