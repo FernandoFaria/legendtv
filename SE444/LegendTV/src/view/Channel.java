@@ -31,4 +31,8 @@ public class Channel {
 	public short getNumber() {
 		return number;
 	}
+	
+	public String toString() {
+		return "[" + number + ": " + name + "]";
+	}
 }
