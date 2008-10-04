@@ -11,6 +11,8 @@
 package view;
 
 import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.Box;
@@ -77,14 +79,22 @@ public class ProgramView extends JComponent {
 		buttonPanel.add( goBack = new JButton( "Go Back" ) );
 		
 		// Now add these panels to the ProgramView screen
-		this.setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
-		this.add( topPanel );
+		this.setLayout( new GridBagLayout() );
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridy = 1;
+		this.add( topPanel, c );
 		
 		description = new JTextArea();
 		description.setEditable( false );
-		this.add( new JScrollPane( description ) );
+		c.gridy = 2;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		this.add( new JScrollPane( description ), c );
 		
-		this.add( buttonPanel );
+		c.gridy = 3;
+		c.weighty = 0;
+		c.fill = GridBagConstraints.NONE;
+		this.add( buttonPanel, c );
 	}
 	
 	public void setProgram( Program p, Channel c ) {
