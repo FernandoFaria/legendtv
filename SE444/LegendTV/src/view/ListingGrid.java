@@ -11,6 +11,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
@@ -26,14 +27,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * @author Eric
  *
  */
-public class ListingGrid extends JComponent implements KeyListener {
+public class ListingGrid extends JPanel implements KeyListener {
 	
-	private static final Color PROGRAM_BORDER_COLOR = Color.BLACK;
+	private static final Color PROGRAM_BORDER_COLOR = Color.WHITE;
+	private static final Color FONT_COLOR = Color.WHITE;
 	private static final int GRID_PADDING = 10;
 	private static final int TIME_SHIFTS = 2;
 	
@@ -75,6 +78,7 @@ public class ListingGrid extends JComponent implements KeyListener {
 		this.timeSlots = timeSlots;
 		
 		this.setLayout( new GridBagLayout() );
+		this.setBackground( Color.BLACK );
 		
 		GridBagConstraints c = new GridBagConstraints();
 		channelLabels = new JLabel[ channels ];
@@ -89,6 +93,8 @@ public class ListingGrid extends JComponent implements KeyListener {
 		for ( int cy = 0; cy < channels; ++cy ) {
 			c.gridy = 2 + cy;	// Grid (1,1) is empty-top-left corner
 			channelLabels[ cy ] = new JLabel( "Channel " + (cy+1) );
+			channelLabels[ cy ].setForeground( FONT_COLOR );
+			channelLabels[ cy ].setBackground( Color.BLACK );
 			channelLabels[ cy ].setBorder( BorderFactory.createRaisedBevelBorder() );
 			this.add( channelLabels[ cy ], c );
 		}
@@ -113,6 +119,8 @@ public class ListingGrid extends JComponent implements KeyListener {
 			c.gridx = 2 + tx;	// Grid (1,1) is empty-top-left corner
 			String timeStr = timeFormat.format( now.getTime() );
 			timeSlotLabels[ tx ] = new JLabel( timeStr );
+			timeSlotLabels[ tx ].setForeground( FONT_COLOR );
+			timeSlotLabels[ tx ].setBackground( Color.BLACK );
 			timeSlotLabels[ tx ].setBorder( BorderFactory.createRaisedBevelBorder() );
 			timeSlotLabels[ tx ].setHorizontalAlignment( JLabel.CENTER );
 			this.add( timeSlotLabels[ tx ], c );
@@ -136,7 +144,10 @@ public class ListingGrid extends JComponent implements KeyListener {
 				// Create the program
 				JLabel program = new JLabel( "No information available" );
 				program.setHorizontalAlignment( JLabel.CENTER );
+				program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
 				program.setOpaque( true );
+				program.setForeground( FONT_COLOR );
+				program.setBackground( Color.DARK_GRAY );
 				program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 				this.add( program, c );
 				programs[chan][time] = program;
@@ -180,9 +191,11 @@ public class ListingGrid extends JComponent implements KeyListener {
 	private void channelRight() {
 		if ( selectedTime < timeSlots-1 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( FONT_COLOR );
 			curSelection.setBackground( null );
 			selectedTime += 1;
 			curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( Color.DARK_GRAY );
 			curSelection.setBackground( Color.YELLOW );
 			
 			// Notify any listeners that we have changed the selected program
@@ -193,9 +206,11 @@ public class ListingGrid extends JComponent implements KeyListener {
 	private void channelLeft() {
 		if ( selectedTime > 0 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( FONT_COLOR );
 			curSelection.setBackground( null );
 			selectedTime -= 1;
 			curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( Color.DARK_GRAY );
 			curSelection.setBackground( Color.YELLOW );
 			
 			// Notify any listeners that we have changed the selected program
@@ -206,9 +221,11 @@ public class ListingGrid extends JComponent implements KeyListener {
 	private void channelDown() {
 		if ( selectedChannel < channels-1 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( FONT_COLOR );
 			curSelection.setBackground( null );
 			selectedChannel += 1;
 			curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( Color.DARK_GRAY );
 			curSelection.setBackground( Color.YELLOW );
 			
 			// Notify any listeners that we have changed the selected program
@@ -219,9 +236,11 @@ public class ListingGrid extends JComponent implements KeyListener {
 	private void channelUp() {
 		if ( selectedChannel > 0 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( FONT_COLOR );
 			curSelection.setBackground( null );
 			selectedChannel -= 1;
 			curSelection = programs[selectedChannel][selectedTime];
+			curSelection.setForeground( Color.DARK_GRAY );
 			curSelection.setBackground( Color.YELLOW );
 			
 			// Notify any listeners that we have changed the selected program
