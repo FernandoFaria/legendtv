@@ -266,6 +266,8 @@ public class MenuGUI extends JPanel {
 	public static void main(String[] args) {
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.add(new MenuGUI());
+		mainFrame.setExtendedState(JFrame.NORMAL);
+		mainFrame.setUndecorated(false);
 		mainFrame.setVisible(true);
 	}
 
