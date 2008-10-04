@@ -128,31 +128,120 @@ public class ListingGrid extends JPanel implements KeyListener {
 			now.add( Calendar.MINUTE, 30 );
 		}
 		
-		// Populate guide with dummy programs
+//		// Populate guide with dummy programs
+//		c.gridwidth = 1;
+//		c.gridheight = 1;
+//		c.ipadx = 0;
+//		c.ipady = 0;
+//		c.weightx = 1;
+//		c.weighty = 1;
+//		c.fill = GridBagConstraints.BOTH;
+//		programs = new JComponent[channels][timeSlots];
+//		for ( int chan = 0; chan < channels; ++chan ) {
+//			c.gridy = 2 + chan;
+//			for ( int time = 0; time < timeSlots; ++time ) {
+//				c.gridx = 2 + time;
+//				// Create the program
+//				JLabel program = new JLabel( "No information available" );
+//				program.setHorizontalAlignment( JLabel.CENTER );
+//				program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+//				program.setOpaque( true );
+//				program.setForeground( FONT_COLOR );
+//				program.setBackground( Color.DARK_GRAY );
+//				program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+//				this.add( program, c );
+//				programs[chan][time] = program;
+//			}
+//		}
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		c.ipadx = 0;
 		c.ipady = 0;
 		c.weightx = 1;
 		c.weighty = 1;
-		c.fill = GridBagConstraints.BOTH;
 		programs = new JComponent[channels][timeSlots];
-		for ( int chan = 0; chan < channels; ++chan ) {
-			c.gridy = 2 + chan;
-			for ( int time = 0; time < timeSlots; ++time ) {
-				c.gridx = 2 + time;
-				// Create the program
-				JLabel program = new JLabel( "No information available" );
-				program.setHorizontalAlignment( JLabel.CENTER );
-				program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
-				program.setOpaque( true );
-				program.setForeground( FONT_COLOR );
-				program.setBackground( Color.DARK_GRAY );
-				program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
-				this.add( program, c );
-				programs[chan][time] = program;
-			}
+		// Add programs for CBS
+		int channel = 0;
+		c.gridy = 2 + channel;
+		for ( int time = 0; time < timeSlots; time += 2 ) {
+			c.gridx = 2 + time;
+			c.gridwidth = 2;
+			// Create the program
+			JLabel program = new JLabel( "CSI" );
+			program.setHorizontalAlignment( JLabel.CENTER );
+			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			program.setOpaque( true );
+			program.setForeground( FONT_COLOR );
+			program.setBackground( Color.DARK_GRAY );
+			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			this.add( program, c );
+			programs[channel][time] = program;
 		}
+		// Add programs for FOX
+		channel = 1;
+		c.gridy = 2 + channel;
+		for ( int time = 0; time < timeSlots; time += 1 ) {
+			c.gridx = 2 + time;
+			c.gridwidth = 1;
+			// Create the program
+			JLabel program = new JLabel( "Family Guy" );
+			program.setHorizontalAlignment( JLabel.CENTER );
+			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			program.setOpaque( true );
+			program.setForeground( FONT_COLOR );
+			program.setBackground( Color.DARK_GRAY );
+			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			this.add( program, c );
+			programs[channel][time] = program;
+		}
+		// Add programs for NBC
+		channel = 2;
+		c.gridy = 2 + channel;
+		for ( int time = 0; time < timeSlots; time += 2 ) {
+			c.gridx = 2 + time;
+			c.gridwidth = 2;
+			// Create the program
+			JLabel program = new JLabel( "Law and Order" );
+			program.setHorizontalAlignment( JLabel.CENTER );
+			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			program.setOpaque( true );
+			program.setForeground( FONT_COLOR );
+			program.setBackground( Color.DARK_GRAY );
+			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			this.add( program, c );
+			programs[channel][time] = program;
+		}
+		// Add programs for PBS
+		channel = 3;
+		c.gridy = 2 + channel;
+		for ( int time = 0; time < timeSlots; time += 3 ) {
+			c.gridx = 2 + time;
+			c.gridwidth = 2;
+			// Create the program
+			JLabel program = new JLabel( "Nova" );
+			program.setHorizontalAlignment( JLabel.CENTER );
+			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			program.setOpaque( true );
+			program.setForeground( FONT_COLOR );
+			program.setBackground( Color.DARK_GRAY );
+			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			this.add( program, c );
+			programs[channel][time] = program;
+			
+			c.gridx = 2 + time+2;
+			c.gridwidth = 1;
+			// Create the program
+			program = new JLabel( "Pledge Drive" );
+			program.setHorizontalAlignment( JLabel.CENTER );
+			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			program.setOpaque( true );
+			program.setForeground( FONT_COLOR );
+			program.setBackground( Color.DARK_GRAY );
+			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			this.add( program, c );
+			programs[channel][time+2] = program;
+		}
+		
 		
 		// Add keylistener to base component
 		this.setFocusable( true );
