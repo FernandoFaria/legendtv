@@ -29,7 +29,6 @@ public class GuideView extends JComponent {
 	public static void main( String[] args ) {
 		JFrame frame = new JFrame( "GuideView Test" );
 		frame.add( new GuideView() );
-		
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		frame.pack();
 		frame.setVisible( true );
@@ -37,6 +36,7 @@ public class GuideView extends JComponent {
 	
 	public GuideView() {
 		this.setLayout( new GridBagLayout() );
+		this.setBackground( Color.BLACK );
 		
 		GridBagConstraints c = new GridBagConstraints();
 		// Add the program view to the top left
@@ -67,7 +67,7 @@ public class GuideView extends JComponent {
 		c.weightx = 0;
 		c.gridy = 2;
 		c.gridheight = 1;
-		c.weighty = 0.7;
+		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
 		ListingGrid listingGrid = new ListingGrid( 4, 6 );
 		this.add( listingGrid, c );
