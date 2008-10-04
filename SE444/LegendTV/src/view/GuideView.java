@@ -26,6 +26,8 @@ import javax.swing.JPanel;
  */
 public class GuideView extends JComponent {
 
+	public static final Color BACKGROUND = Color.BLACK;
+	
 	public static void main( String[] args ) {
 		JFrame frame = new JFrame( "GuideView Test" );
 		frame.add( new GuideView() );
@@ -36,7 +38,7 @@ public class GuideView extends JComponent {
 	
 	public GuideView() {
 		this.setLayout( new GridBagLayout() );
-		this.setBackground( Color.BLACK );
+		this.setBackground( BACKGROUND );
 		
 		GridBagConstraints c = new GridBagConstraints();
 		// Add the program view to the top left
@@ -59,6 +61,8 @@ public class GuideView extends JComponent {
 		c.weighty = 0.3;
 		c.fill = GridBagConstraints.BOTH;
 		JComponent tvView = new JLabel( new ImageIcon( "images/family-guy.jpg" ) );
+		tvView.setBackground( BACKGROUND );
+		tvView.setOpaque( true );
 		this.add( tvView, c );
 		
 		// Add the Listing Grid to the bottom half
