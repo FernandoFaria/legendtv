@@ -1,8 +1,6 @@
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,8 +16,8 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings("serial")
 public class SetupWizard extends JComponent
 {
-	private static final String	TITLE_PREFIX	= "LegendTV Setup - ";	
-	private static final String BUTTON_EXIT		= "Exit System Setup";
+	private static final String	TITLE_PREFIX	= "LegendTV Initial Setup: ";	
+	private static final String BUTTON_EXIT		= "Exit Setup";
 	private static final String BUTTON_PREVIOUS	= "< Previous Step";
 	private static final String BUTTON_NEXT		= "Next Step >";
 	private static final String BUTTON_FINISH	= "Start Using LegendTV >";
@@ -40,6 +38,11 @@ public class SetupWizard extends JComponent
 
 	protected void setCurrentPage(WizardPage page)
 	{
+		if (this.currentPage != null)
+			this.contentPnl.remove(this.currentPage);
+		
+		this.contentPnl.add(page, BorderLayout.CENTER);
+		
 		this.currentPage	= page;
 		
 		this.setHeadingText(page.getTitle());		
@@ -65,12 +68,7 @@ public class SetupWizard extends JComponent
 	
 	public SetupWizard()
 	{
-		this.headingLbl	= new JLabel();
-		this.contentPnl	= new JPanel();
-		this.buttonPnl	= new JPanel();
-		this.exitBtn	= new JButton();
-		this.prevBtn	= new JButton();
-		this.nextBtn	= new JButton();
+		super();		
 		
 		this.setupControls();
 	}
@@ -90,8 +88,10 @@ public class SetupWizard extends JComponent
 	
 	private void setupHeadingText()
 	{
-		this.headingLbl.setForeground(Color.WHITE);
-		this.headingLbl.setFont(new Font("Segoe UI", Font.PLAIN, 48));
+		this.headingLbl	= new JLabel();
+		
+		this.headingLbl.setForeground(UIHelper.getForegroundColor());
+		this.headingLbl.setFont(UIHelper.getHeadingFont());
 		this.headingLbl.setText(TITLE_PREFIX);
 		
 		this.add(this.headingLbl, BorderLayout.NORTH);
@@ -99,55 +99,59 @@ public class SetupWizard extends JComponent
 
 	private void setupContentPanel()
 	{
-		this.contentPnl.setOpaque(false);
+		this.contentPnl	= new JPanel();
+		
+		this.contentPnl.setLayout(new BorderLayout());
 		this.contentPnl.setOpaque(false);		
 		this.add(this.contentPnl, BorderLayout.CENTER);
 	}
 
 	private void setupButtonPanel()
 	{
+		this.buttonPnl	= new JPanel();
+		
 		this.buttonPnl.setOpaque(false);
 		this.buttonPnl.setPreferredSize(new Dimension(0, 60));
 		this.buttonPnl.setLayout(
 				new BoxLayout(this.buttonPnl, BoxLayout.X_AXIS));
 		
 		// Exit Button
-		this.setupButton(this.exitBtn, BUTTON_EXIT,
-				new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						exitBtnClicked();
-					}
-				});
+		this.exitBtn	= this.createButton(BUTTON_EXIT,
+							new ActionListener()
+							{
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									exitBtnClicked();
+								}
+							});
 		
 		this.buttonPnl.add(this.exitBtn);
 		this.buttonPnl.add(Box.createHorizontalGlue());
 		
-		// Previous button		
-		this.setupButton(this.prevBtn, BUTTON_PREVIOUS,
-				new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						prevBtnClicked();
-					}
-				});
+		// Previous button
+		this.prevBtn	= this.createButton(BUTTON_PREVIOUS,
+							new ActionListener()
+							{
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									prevBtnClicked();
+								}
+							});
 		
 		this.buttonPnl.add(this.prevBtn);
 		
 		// Next button
-		this.setupButton(this.nextBtn, BUTTON_NEXT,
-				new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						nextBtnClicked();
-					}
-				});
+		this.nextBtn	= this.createButton(BUTTON_NEXT,
+							new ActionListener()
+							{
+								@Override
+								public void actionPerformed(ActionEvent e)
+								{
+									nextBtnClicked();
+								}
+							});
 		
 		this.buttonPnl.add(Box.createHorizontalStrut(5));
 		this.buttonPnl.add(this.nextBtn);
@@ -155,16 +159,18 @@ public class SetupWizard extends JComponent
 		this.add(this.buttonPnl, BorderLayout.SOUTH);
 	}
 
-	private void setupButton(JButton button, String caption,
-							 ActionListener action)
+	private JButton createButton(String caption, ActionListener action)
 	{
-		Dimension	size	= new Dimension(250, 50);
+		Dimension	size		= new Dimension(250, 50);
+		JButton		button		= new LButton(caption);
 		
-		button.setPreferredSize(size);
-		button.setMinimumSize(size);
-		button.setMaximumSize(size);
-		button.setText(caption);
+		//button.setPreferredSize(size);
+		//button.setMinimumSize(size);
+		//button.setMaximumSize(size);
 		button.addActionListener(action);
+		button.setFocusPainted(false);
+		
+		return button;
 	}
 	
 	private void goToNextPage()
@@ -213,7 +219,7 @@ public class SetupWizard extends JComponent
 		JFrame		mainFrame	= new MainFrame();
 		SetupWizard	wizard		= new SetupWizard();
 		
-		wizard.setCurrentPage(new DisplayDevicePage());
+		wizard.setCurrentPage(new WelcomePage());
 		
 		mainFrame.add(wizard, BorderLayout.CENTER);
 		mainFrame.setVisible(true);
