@@ -18,13 +18,31 @@ import javax.swing.SwingConstants;
  */
 public class LButton extends JButton{
 	
-	private static Icon buttonOffIcon = new ImageIcon("images/button_off_short.png");
-	private static Icon buttonOnIcon = new ImageIcon("images/button_on_short.png");
+	public static final String largeButton = "Large Button";
+	public static final String smallButton = "Small Button";
+	
+	private static Icon smallButtonOffIcon = new ImageIcon("images/button_off_short.png");
+	private static Icon smallButtonOnIcon = new ImageIcon("images/button_on_short.png");
+	private static Icon largeButtonOnIcon = new ImageIcon();
+	private static Icon largeButtonOffIcon = new ImageIcon();
+	
 	private Insets in = new Insets(0,0,0,0);
 	
 	public LButton(String text ){
-		super(text, buttonOffIcon );
+		this(text, smallButton);
+	}
 	
+	public LButton( String text, String size){
+		super(text);
+		
+		if( size.equals(smallButton) ){
+			this.setIcon( smallButtonOffIcon );
+			this.setRolloverIcon(smallButtonOnIcon);
+		}else if( size.equals(largeButton) ){
+			this.setIcon( largeButtonOffIcon );
+			this.setRolloverIcon(smallButtonOnIcon);
+		}
+		
 		this.setBackground(Color.BLACK);
 		this.setIconTextGap(0);
 		this.setForeground(Color.WHITE);
@@ -32,7 +50,7 @@ public class LButton extends JButton{
 		this.setVerticalTextPosition(SwingConstants.CENTER);
 		this.setHorizontalTextPosition(SwingConstants.CENTER);
 		this.setBorderPainted(false);
-		this.setRolloverIcon(buttonOnIcon);
+		
 	}
 
 	
