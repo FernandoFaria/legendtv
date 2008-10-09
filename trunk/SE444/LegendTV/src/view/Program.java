@@ -59,4 +59,13 @@ public class Program {
 	public String getTitle() {
 		return title;
 	}
+	
+	public int getLength(){
+		return length;
+	}
+	
+	public String getRating(){
+		return rating;
+	}
+	
 }
