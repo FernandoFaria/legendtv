@@ -40,7 +40,7 @@ public class LButton extends JButton{
 			this.setRolloverIcon(smallButtonOnIcon);
 		}else if( size.equals(largeButton) ){
 			this.setIcon( largeButtonOffIcon );
-			this.setRolloverIcon(smallButtonOnIcon);
+			this.setRolloverIcon(largeButtonOnIcon);
 		}
 		
 		this.setBackground(Color.BLACK);
