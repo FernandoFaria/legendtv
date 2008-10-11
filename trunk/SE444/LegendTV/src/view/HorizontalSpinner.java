@@ -29,14 +29,8 @@ public class HorizontalSpinner extends JPanel {
 		
 		leftImage = left;
 		rightImage = right;
-		/**
-		options = new JLabel[optionChoices.length];	
+		options = optionChoices;	
 
-		for(int i = 0; i < optionChoices.length; i++){
-			options[i] = new JLabel(optionChoices[i]);
-			options[i].setForeground(Color.WHITE);
-		}*/
-		
 		leftButton = new JButton(leftImage);
 		leftButton.setBackground(Color.DARK_GRAY);
 		leftButton.setBorderPainted(false);
@@ -47,6 +41,7 @@ public class HorizontalSpinner extends JPanel {
 		
 		index = 0;
 		displayLabel = new JLabel(options[index]);
+		displayLabel.setForeground(Color.WHITE);
 		
 
 		this.setLayout( new BoxLayout(this, BoxLayout.X_AXIS) );		
