@@ -2,6 +2,8 @@ package view;
 
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import view.LButton;
 
@@ -32,7 +34,7 @@ public class SearchGuideGUI {
 	private JTextField text;
 	private JTextArea showDescription;
 	
-	private JButton searchButton, backButton, okButton;
+	private JButton searchButton, backButton, confirmButton;
 	private Font headerFont = new Font(null, Font.BOLD, 32);
 	
 	private Insets in = new Insets(0,0,0,0);
@@ -42,28 +44,33 @@ public class SearchGuideGUI {
 	
 	public SearchGuideGUI(){
 		mainPanel = new JPanel( );
-		BoxLayout b = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
-		mainPanel.setLayout( b );
+		BoxLayout b1 = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
+		mainPanel.setLayout( b1 );
 		mainPanel.setBackground(Color.BLACK);
 		mainPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		FlowLayout flow = new FlowLayout();
-		searchPanel = new JPanel(flow);
-		searchResults = new JPanel(flow);
+		searchPanel = new JPanel();
+		searchResults = new JPanel();
+		BoxLayout b2 = new BoxLayout(searchResults, BoxLayout.X_AXIS);
+		searchResults.setLayout(b2);
 		buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS) );
 		searchPanel.setBackground(Color.BLACK);
 		searchResults.setBackground(Color.BLACK);
 		buttonsPanel.setBackground(Color.BLACK);
 		
-JPanel labelPanel = new JPanel();
-labelPanel.setBackground(Color.BLACK);
+		//Setting the page label
 		pageLabel = new JLabel("Search TV Guide");
 		pageLabel.setFont(headerFont);
 		pageLabel.setForeground(Color.WHITE);
-		labelPanel.add(pageLabel);
-		pageLabel.setHorizontalAlignment(JLabel.LEFT);
-		//pageLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+		BorderLayout border = new BorderLayout();
+		JPanel labelPanel = new JPanel(border);
+		labelPanel.add(pageLabel, BorderLayout.WEST);
+		border.getLayoutComponent(BorderLayout.WEST).setMaximumSize(pageLabel.getSize() );
+//		labelPanel.setMinimumSize(pageLabel.getSize());
+		labelPanel.setMaximumSize(new Dimension(10000, (int)pageLabel.getSize().getHeight()));
+		labelPanel.setBackground(Color.BLUE);	
+		
 		
 		searchLabel = new JLabel("Enter search terms(s): ");
 		searchLabel.setForeground(Color.WHITE);
@@ -95,19 +102,27 @@ labelPanel.setBackground(Color.BLACK);
 		timeScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		showDescription = new JTextArea("Las Vegas criminologists use scientific methods to solve grisly murders in this unusually graphic drama", 10, 20);
 		
+		searchResults.setBorder(new EmptyBorder(15, 25, 25, 25));
 		searchResults.add(nameScroll);
+		searchResults.add(Box.createHorizontalStrut(10));
 		searchResults.add(timeScroll);
+		searchResults.add(Box.createHorizontalStrut(10));
 		searchResults.add(showDescription);
+		searchResults.add(Box.createHorizontalStrut(10));
 		searchResults.add(buttonsPanel);
 		
-		JButton confirmButton = new LButton("Select");
-		JButton backButton = new LButton("Back to Menu");
+		confirmButton = new LButton("Select");
+		backButton = new LButton("Back to Menu");
 		buttonsPanel.add(confirmButton);
-		buttonsPanel.add(backButton);
+		buttonsPanel.add(backButton);		
 		
-		
+		mainPanel.add(Box.createVerticalStrut(15));
 		mainPanel.add(labelPanel);
+		Component c = Box.createVerticalStrut(10);
+		c.setMaximumSize(new Dimension(0,10));
+		mainPanel.add(c);
 		mainPanel.add(searchPanel);
+		mainPanel.add(Box.createGlue());
 		mainPanel.add(searchResults);
 		
 		frame.setTitle("LegendTV - Search TV Guide");
