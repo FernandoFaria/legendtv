@@ -1,3 +1,4 @@
+package view.setupwizard;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,6 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import view.LButton;
+import view.MainFrame;
+import view.UIHelper;
+import view.setupwizard.pages.WelcomePage;
 
 @SuppressWarnings("serial")
 public class SetupWizard extends JComponent
@@ -37,11 +43,12 @@ public class SetupWizard extends JComponent
 	}
 
 	protected void setCurrentPage(WizardPage page)
-	{
+	{	
 		if (this.currentPage != null)
 			this.contentPnl.remove(this.currentPage);
 		
 		this.contentPnl.add(page, BorderLayout.CENTER);
+		this.contentPnl.repaint();
 		
 		this.currentPage	= page;
 		
@@ -172,24 +179,6 @@ public class SetupWizard extends JComponent
 		
 		return button;
 	}
-	
-	private void goToNextPage()
-	{
-		WizardPage	nextPage	= this.currentPage.getNextPage();
-		
-		nextPage.setPreviousPage(this.currentPage);
-		this.setCurrentPage(nextPage);
-	}
-
-	private void goToPreviousPage()
-	{
-		this.setCurrentPage(this.currentPage.getPreviousPage());
-	}
-
-	protected void exitBtnClicked()
-	{
-		System.exit(0);
-	}
 
 	protected void prevBtnClicked()
 	{
@@ -203,6 +192,24 @@ public class SetupWizard extends JComponent
 		
 		else
 			finishAndClose();
+	}
+
+	protected void exitBtnClicked()
+	{
+		System.exit(0);
+	}
+	
+	private void goToNextPage()
+	{
+		WizardPage	nextPage	= this.currentPage.getNextPage();
+		
+		nextPage.setPreviousPage(this.currentPage);
+		this.setCurrentPage(nextPage);
+	}
+
+	private void goToPreviousPage()
+	{
+		this.setCurrentPage(this.currentPage.getPreviousPage());
 	}
 
 	private void finishAndClose()

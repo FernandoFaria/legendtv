@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.plaf.basic.*;
 
+import view.MainFrame;
+
 /**
  * MenuGUI.java
  * 

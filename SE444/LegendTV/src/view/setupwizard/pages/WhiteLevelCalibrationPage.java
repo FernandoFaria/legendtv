@@ -1,4 +1,5 @@
-import java.awt.Color;
+package view.setupwizard.pages;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -10,19 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import view.UIHelper;
+import view.setupwizard.WizardPage;
+
 @SuppressWarnings("serial")
-public class BlackLevelCalibrationPage extends WizardPage
+public class WhiteLevelCalibrationPage extends WizardPage
 {
-	private static final String TITLE = "Adjust Brightness";
+	private static final String TITLE = "Adjust Contrast";
 	
 	private static final String	TEXT_EXPLANATORY_LINES[] =
 	{
-		"Now it's time to calibrate the way that images appear on your screen "+
-		"to ensure a high-quality picture.",
-		
-		"We'll begin with brightness. The brightness setting, or \"black level\" "+
-		"controls how light or dark the darkest part of an image appears on your "+
-		"screen.",
+		"Now, we'll calibrate the contrast or \"white level\", which controls "+
+		"how light the lightest part of an image appears on your screen.",
 		
 		"",
 		
@@ -31,11 +31,9 @@ public class BlackLevelCalibrationPage extends WizardPage
 	
 	private static final String TEXT_BULLET_STEPS[]	=
 	{
-		"Turn the contrast of your screen to its lowest setting.",
+		"Ensure the contrast of your screen is at its lowest setting.",
 		
-		"Turn the brightness of your screen to its lowest setting.",
-		
-		"Slowly increase the brightness setting until you can just see the "+
+		"Slowly increase the contrast setting until you can just see the "+
 		"star in the image to the right."
 	};
 	
@@ -44,7 +42,7 @@ public class BlackLevelCalibrationPage extends WizardPage
 	private JLabel	explanatoryBullets;
 	private JLabel	calibrationImage;
 	
-	public BlackLevelCalibrationPage()
+	public WhiteLevelCalibrationPage()
 	{
 		super();
 		
@@ -88,7 +86,7 @@ public class BlackLevelCalibrationPage extends WizardPage
 		this.calibrationImage.setPreferredSize(new Dimension(115, 115));
 		this.calibrationImage.setHorizontalAlignment(SwingConstants.CENTER);
 		this.calibrationImage.setIcon(
-				new ImageIcon("images/CalibrateBrightness.png"));
+				new ImageIcon("images/CalibrateContrast.png"));
 		
 		this.calibrationPanel.add(this.calibrationImage);
 	}
@@ -97,7 +95,6 @@ public class BlackLevelCalibrationPage extends WizardPage
 	{
 		JLabel	label	= new JLabel(content);
 		
-		label.setBorder(new EmptyBorder(20, 0, 0, 0));
 		label.setForeground(UIHelper.getForegroundColor());
 		label.setFont(UIHelper.getBodyFont());
 		

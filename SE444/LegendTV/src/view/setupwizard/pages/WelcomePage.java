@@ -1,8 +1,13 @@
+package view.setupwizard.pages;
+
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+
+import view.UIHelper;
+import view.setupwizard.WizardPage;
 
 @SuppressWarnings("serial")
 public class WelcomePage extends WizardPage
