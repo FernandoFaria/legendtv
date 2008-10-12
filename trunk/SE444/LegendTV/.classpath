@@ -2,5 +2,125 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/batik-anim.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-awt-util.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-bridge.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-codec.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-css.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-dom.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-ext.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-extension.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-gui-util.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-gvt.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-parser.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-script.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-svg-dom.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-svggen.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-swing.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-transcoder.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-util.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/batik-xml.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/pdf-transcoder.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/xalan-2.6.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/xerces_2_5_0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/xml-apis-ext.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/xml-apis.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/js.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xmlgraphics.apache.org/batik/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
