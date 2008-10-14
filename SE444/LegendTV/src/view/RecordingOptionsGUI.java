@@ -1,10 +1,13 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import view.LButton;
 
@@ -22,23 +25,18 @@ import view.LButton;
  *
  * @author  Andrew Bona
  */
-public class RecordingOptionsGUI{
+public class RecordingOptionsGUI {
 
 	private JFrame frame = new JFrame();
-	private JPanel mainPanel, optionsPanel, buttonPanel;
+	private JPanel mainPanel, optionsPanel, buttonPanel, screenLabelPanel;
 	private JLabel screenLabel, showLabel, repeatLabel, qualityLabel, expirationLabel;
 	private JLabel repeatOptions, qualityOptions, expirationOptions;
 	
 	//JButtons
 	private JButton confirmButton, cancelButton;
-	private JButton leftArrow, rightArrow;
-	private JButton leftArrow1, rightArrow1;
-	private JButton leftArrow2, rightArrow2;
 	
-	private Insets in = new Insets(0,0,0,0);
+	//private Insets in = new Insets(0,0,0,0);
 	
-	private Icon buttonOffIcon = new ImageIcon("images/button_off_short.png");
-	private Icon buttonOnIcon = new ImageIcon("images/button_on_short.png");
 	private Icon buttonLeftArrow = new ImageIcon("images/left_arrow.png");
 	private Icon buttonRightArrow = new ImageIcon("images/right_arrow.png");
 	
@@ -52,30 +50,36 @@ public class RecordingOptionsGUI{
 	 */
 	public RecordingOptionsGUI(String show) {
 		
-		mainPanel = new JPanel( new GridLayout(4, 1) );
+		//Main Panel
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		mainPanel.setBackground(Color.BLACK);
-	
-		Font headerFont = new Font(null, Font.BOLD, 32);
-		Font subHeaderFont = new Font(null,Font.ITALIC, 24);
+		mainPanel.setBorder( new EmptyBorder(10, 20, 15, 15) );
 		
 		buttonPanel = new JPanel( new FlowLayout(FlowLayout.CENTER) );
 		buttonPanel.setBackground(Color.BLACK);
 		
-		screenLabel = new JLabel("   Recording Options ");
-		screenLabel.setForeground(Color.WHITE);
-		screenLabel.setFont(headerFont);
+		//Screen label setup
+		screenLabelPanel = new JPanel( new BorderLayout() );
+		screenLabel = new JLabel( "Recording Options " );
+		screenLabel.setForeground( Color.WHITE );
+		screenLabel.setFont( UIHelper.getHeadingFont() );
+		screenLabelPanel.add(screenLabel, BorderLayout.WEST);
+		screenLabelPanel.setBackground(Color.BLACK);
+		screenLabelPanel.setMaximumSize(new Dimension(10000, screenLabel.getHeight()));
 		
-		showLabel = new JLabel("    Family Guy - 10/4/08 - 8:00 - Channel 6 (Fox)");
-		showLabel.setForeground(Color.WHITE);
-		showLabel.setFont(subHeaderFont);
+		//Show label setup
+		showLabel = new JLabel( "Family Guy - 10/4/08 - 8:00 - Channel 6 (Fox)" );
+		showLabel.setForeground( Color.WHITE );
+		showLabel.setFont( UIHelper.getBodyFont() );
 		
-		repeatLabel = new JLabel("Reoccurring Recording:    ");
+		repeatLabel = new JLabel("Reoccurring Recording:");
 		repeatLabel.setForeground(Color.WHITE);
 		
-		qualityLabel = new JLabel("Recording Quality: ");
+		qualityLabel = new JLabel("Recording Quality:");
 		qualityLabel.setForeground(Color.WHITE);
 		
-		expirationLabel = new JLabel("Expiration: ");
+		expirationLabel = new JLabel("Expiration:");
 		expirationLabel.setForeground(Color.WHITE);		
 		
 		repeatOptions = new JLabel("Just this episode");
@@ -97,7 +101,7 @@ public class RecordingOptionsGUI{
 		HorizontalSpinner qualitySpinner = new HorizontalSpinner(buttonLeftArrow, 
 				qualityOptions, buttonRightArrow);
 		
-		String[] expirationOptions = {"Delete after 14 Days", "Delete if space funs low", "Never Delete"};
+		String[] expirationOptions = {"Delete after 14 Days", "Delete if space runs low", "Never Delete"};
 		HorizontalSpinner expirationSpinner = new HorizontalSpinner(buttonLeftArrow, 
 				expirationOptions, buttonRightArrow);
 		
@@ -105,6 +109,7 @@ public class RecordingOptionsGUI{
 		GridBagConstraints repeatConstraints = new GridBagConstraints();
 		repeatConstraints.gridx = 1;
 		repeatConstraints.gridy = 1;
+		repeatConstraints.insets = new Insets(2,2,2,2);	
 		repeatConstraints.anchor = GridBagConstraints.LINE_START;
 		optionsPanel.add(repeatLabel, repeatConstraints );
 		repeatConstraints.gridy = 2;
@@ -124,16 +129,18 @@ public class RecordingOptionsGUI{
 		buttonPanel.add(confirmButton);
 		buttonPanel.add(cancelButton);
 		
-		mainPanel.add(screenLabel);
+		mainPanel.add(screenLabelPanel);
+		mainPanel.add(Box.createVerticalStrut(50));
 		mainPanel.add(showLabel);
+		mainPanel.add(Box.createVerticalStrut(25));
 		mainPanel.add(optionsPanel);
+		mainPanel.add(Box.createVerticalStrut(15));
 		mainPanel.add(buttonPanel);
 	
 		frame.add(mainPanel);
 		frame.setTitle("Legend TV - Recording Options");
 		frame.pack();
 		frame.setVisible(true);
-		
 	}
 
 	/**
@@ -143,4 +150,5 @@ public class RecordingOptionsGUI{
 		// TODO Auto-generated method stub
 		RecordingOptionsGUI gui = new RecordingOptionsGUI("Family Guy");
 	}
+
 }
