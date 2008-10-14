@@ -49,6 +49,7 @@ public class LButton extends JButton{
 		this.setMargin(in);
 		this.setVerticalTextPosition(SwingConstants.CENTER);
 		this.setHorizontalTextPosition(SwingConstants.CENTER);
+		this.setFocusPainted(false);
 		this.setBorderPainted(false);
 		
 	}
