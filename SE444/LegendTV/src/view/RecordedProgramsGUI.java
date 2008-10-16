@@ -3,6 +3,10 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -28,7 +32,7 @@ import view.Program;
  * Revisions:
  *   $Log$
  */
-public class RecordedProgramsGUI extends JPanel implements ActionListener, ListSelectionListener{
+public class RecordedProgramsGUI extends JPanel implements ActionListener, ListSelectionListener, KeyListener{
 	
 	//GUI Components for the Frame and Panels
 	JFrame frame = new JFrame();
@@ -78,6 +82,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		recordedProgramsTable.setAutoCreateRowSorter(true);
 		recordedProgramsTable.changeSelection(0, 0, false, false);
 		recordedProgramsTable.getSelectionModel().addListSelectionListener(this);
+		recordedProgramsTable.addKeyListener(this);
 		tableHead = recordedProgramsTable.getTableHeader();  //The specifications for the column headers
 		tableHead.setReorderingAllowed(false);
 		tableScroller = new JScrollPane(recordedProgramsTable);  //The scroll bar for the table
@@ -145,7 +150,13 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		Component c = Box.createVerticalStrut(35);
 		c.setMaximumSize(new Dimension(0,35));
 		buttonsBox.add(c);
-		buttonsBox.add(backButton);		
+		buttonsBox.add(backButton);
+		
+		//Set the focus changes for the button box
+		watchButton.addKeyListener(this);
+		deleteButton.addKeyListener(this);
+		optionsButton.addKeyListener(this);
+		backButton.addKeyListener(this);
 			
 		//Frame Settings 
 		frame.add(mainPanel);
@@ -220,6 +231,67 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		RecordedProgramsGUI a = new RecordedProgramsGUI(list);
 	}
 
+	public void keyPressed(KeyEvent key) {
+		// TODO Auto-generated method stub
+		if(key.getComponent().equals(recordedProgramsTable)){
+			if(key.getKeyCode() == (KeyEvent.VK_RIGHT)){
+				watchButton.requestFocusInWindow();
+			}
+		}else if(key.getComponent().equals(watchButton)){
+			if(key.getKeyCode() == KeyEvent.VK_DOWN){
+				deleteButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_UP ){
+				backButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_LEFT){
+				recordedProgramsTable.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_ENTER){
+				watchButton.doClick();
+			}
+		}else if(key.getComponent().equals(deleteButton)){
+			if(key.getKeyCode() == KeyEvent.VK_DOWN){
+				optionsButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_UP ){
+				watchButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_LEFT){
+				recordedProgramsTable.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_ENTER){
+				deleteButton.doClick();
+			}
+		}else if(key.getComponent().equals(optionsButton)){
+			if(key.getKeyCode() == KeyEvent.VK_DOWN){
+				backButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_UP ){
+				deleteButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_LEFT){
+				recordedProgramsTable.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_ENTER){
+				optionsButton.doClick();
+			}
+		}else if(key.getComponent().equals(backButton)){
+			if(key.getKeyCode() == KeyEvent.VK_DOWN){
+				watchButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_UP ){
+				optionsButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_LEFT){
+				recordedProgramsTable.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_ENTER){
+				backButton.doClick();
+			}
+		}
+		
+		
+	}
 
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
