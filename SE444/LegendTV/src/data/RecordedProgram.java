@@ -40,9 +40,13 @@ public class RecordedProgram extends Program{
 		expirationDate = newExpiration;
 	}
 	
-	public String toString(){
+	public String toFullDescription(){
 		return getTitle() + '\n'+ '\n' + "Date Recorded: " + getRecordedDate() +'\n'+
 				"Set Expiration Date: " + getExpirationDate() + '\n'+'\n' + getDescription();
+	}
+	
+	public String toString(){
+		return getTitle();
 	}
 
 }
