@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -26,7 +28,7 @@ import view.Program;
  * Revisions:
  *   $Log$
  */
-public class RecordedProgramsGUI extends JPanel implements ActionListener{
+public class RecordedProgramsGUI extends JPanel implements ActionListener, ListSelectionListener{
 	
 	//GUI Components for the Frame and Panels
 	JFrame frame = new JFrame();
@@ -75,6 +77,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener{
 		recordedProgramsTable.setBackground(Color.WHITE);
 		recordedProgramsTable.setAutoCreateRowSorter(true);
 		recordedProgramsTable.changeSelection(0, 0, false, false);
+		recordedProgramsTable.getSelectionModel().addListSelectionListener(this);
 		tableHead = recordedProgramsTable.getTableHeader();  //The specifications for the column headers
 		tableHead.setReorderingAllowed(false);
 		tableScroller = new JScrollPane(recordedProgramsTable);  //The scroll bar for the table
@@ -154,6 +157,49 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener{
 		recordedProgramsTable.requestFocusInWindow();
 	}
 	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String command = e.getActionCommand();
+		
+		if(command.equals("Delete")){
+			Object[] options = {"Confirm Delete", "Cancel Delete"};
+			int n = JOptionPane.showOptionDialog(frame, "Are you sure you want to delete?", "Confirmation Screen",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,     //do not use a custom Icon
+					options,  //the titles of buttons
+					options[1]); //default button title
+			if( n == 0){
+				System.out.println("Delete: " + recordedProgramsTable.getSelectedRow());
+				int selectedRow = recordedProgramsTable.getSelectedRow();
+				Object o = recordedProgramsTable.getValueAt(selectedRow, 0);
+				recordedProgramsTable.changeSelection(selectedRow + 1, 0, false, false);
+				programs.remove(o);
+				tableModel.removeRow(selectedRow);
+			}
+			
+		}else if(command.equals("Watch")){
+			
+		}else if(command.equals("Options")){
+			
+		}else if(command.equals("Back")){
+			
+		}
+		
+	}
+	
+	public void valueChanged(ListSelectionEvent e) {
+		// TODO Auto-generated method stub
+		if(recordedProgramsTable.getSelectedRow() == -1){
+			return;
+		}
+		System.out.println("Change: " + recordedProgramsTable.getSelectedRow());
+		int selectedRow = recordedProgramsTable.getSelectedRow();
+		RecordedProgram o = (RecordedProgram) recordedProgramsTable.getValueAt(selectedRow, 0);
+		programDescription.setText(o.toFullDescription());
+	}
+	
+	
 	public static void main(String[] args){
 		LinkedList<RecordedProgram> list = new LinkedList<RecordedProgram>();
 		list.add( new RecordedProgram("Family Guy", "Peter does something stupid!", Program.TV_14, 30, "10/10/2008", "10/30/2008") );
@@ -174,26 +220,6 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener{
 		RecordedProgramsGUI a = new RecordedProgramsGUI(list);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		String command = e.getActionCommand();
-		
-		if(command.equals("Delete")){
-			
-			int selectedRow = recordedProgramsTable.getSelectedRow();
-			Object o = recordedProgramsTable.getValueAt(selectedRow, 0);
-			programs.remove(o);
-			tableModel.removeRow(selectedRow);
-			
-		}else if(command.equals("Watch")){
-			
-		}else if(command.equals("Options")){
-			
-		}else if(command.equals("Back")){
-			
-		}
-		
-	}
+
 
 }
