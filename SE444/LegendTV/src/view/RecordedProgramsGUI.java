@@ -7,6 +7,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -190,11 +192,11 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 			}
 			
 		}else if(command.equals("Watch")){
-			
+			//Go to the Watch screen
 		}else if(command.equals("Options")){
-			
+			//Go to the Options Screen
 		}else if(command.equals("Back")){
-			
+			//Go back one screen (wherever it was)
 		}
 		
 	}
@@ -204,7 +206,6 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		if(recordedProgramsTable.getSelectedRow() == -1){
 			return;
 		}
-		System.out.println("Change: " + recordedProgramsTable.getSelectedRow());
 		int selectedRow = recordedProgramsTable.getSelectedRow();
 		RecordedProgram o = (RecordedProgram) recordedProgramsTable.getValueAt(selectedRow, 0);
 		programDescription.setText(o.toFullDescription());
