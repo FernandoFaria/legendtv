@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -18,7 +20,7 @@ import javax.swing.SwingConstants;
  * Revisions:
  *   $Log$
  */
-public class LButton extends JButton implements FocusListener{
+public class LButton extends JButton implements FocusListener, MouseListener{
 	
 	public static final String largeButton = "Large Button";
 	public static final String smallButton = "Small Button";
@@ -42,10 +44,10 @@ public class LButton extends JButton implements FocusListener{
 		
 		if( buttonSize.equals(smallButton) ){
 			this.setIcon( smallButtonOffIcon );
-			this.setRolloverIcon(smallButtonOnIcon);
+			//this.setRolloverIcon(smallButtonOnIcon);
 		}else if( buttonSize.equals(largeButton) ){
 			this.setIcon( largeButtonOffIcon );
-			this.setRolloverIcon(largeButtonOnIcon);
+			//this.setRolloverIcon(largeButtonOnIcon);
 		}
 		
 		this.setBackground(Color.BLACK);
@@ -57,6 +59,7 @@ public class LButton extends JButton implements FocusListener{
 		this.setFocusPainted(false);
 		this.addFocusListener(this);
 		this.setBorderPainted(false);
+		this.addMouseListener(this);
 		
 	}
 
@@ -76,6 +79,35 @@ public class LButton extends JButton implements FocusListener{
 		}else if(buttonSize.equals(largeButton)){
 			setIcon(largeButtonOffIcon);
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("Mouse Entered");
+		boolean b = this.requestFocusInWindow();
+		System.out.println(b);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
