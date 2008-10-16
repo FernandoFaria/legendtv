@@ -1,6 +1,8 @@
 package view;
 import java.awt.Color;
 import java.awt.Insets;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,7 +18,7 @@ import javax.swing.SwingConstants;
  * Revisions:
  *   $Log$
  */
-public class LButton extends JButton{
+public class LButton extends JButton implements FocusListener{
 	
 	public static final String largeButton = "Large Button";
 	public static final String smallButton = "Small Button";
@@ -27,6 +29,7 @@ public class LButton extends JButton{
 	private static Icon largeButtonOffIcon = new ImageIcon();
 	
 	private Insets in = new Insets(0,0,0,0);
+	private String buttonSize;
 	
 	public LButton(String text ){
 		this(text, smallButton);
@@ -35,10 +38,12 @@ public class LButton extends JButton{
 	public LButton( String text, String size){
 		super(text);
 		
-		if( size.equals(smallButton) ){
+		this.buttonSize = size;
+		
+		if( buttonSize.equals(smallButton) ){
 			this.setIcon( smallButtonOffIcon );
 			this.setRolloverIcon(smallButtonOnIcon);
-		}else if( size.equals(largeButton) ){
+		}else if( buttonSize.equals(largeButton) ){
 			this.setIcon( largeButtonOffIcon );
 			this.setRolloverIcon(largeButtonOnIcon);
 		}
@@ -50,8 +55,27 @@ public class LButton extends JButton{
 		this.setVerticalTextPosition(SwingConstants.CENTER);
 		this.setHorizontalTextPosition(SwingConstants.CENTER);
 		this.setFocusPainted(false);
+		this.addFocusListener(this);
 		this.setBorderPainted(false);
 		
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		if(buttonSize.equals(smallButton)){
+			setIcon(smallButtonOnIcon);
+		}else if(buttonSize.equals(largeButton)){
+			setIcon(largeButtonOnIcon);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		if(buttonSize.equals(smallButton)){
+			setIcon(smallButtonOffIcon);
+		}else if(buttonSize.equals(largeButton)){
+			setIcon(largeButtonOffIcon);
+		}
 	}
 
 	
