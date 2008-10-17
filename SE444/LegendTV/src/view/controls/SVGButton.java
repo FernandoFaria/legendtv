@@ -244,8 +244,11 @@ implements MouseListener
 		for (ActionListener listener :
 				this.listenerList.getListeners(ActionListener.class))
 		{
+			System.out.println("Firing action!");
 			listener.actionPerformed(event);
 		}
+		
+		System.out.println();
 	}
 	
 	private String toUri(String path)

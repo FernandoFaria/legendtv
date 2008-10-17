@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JLabel;
+
 import view.controls.SVGButton;
 
 /**
@@ -57,6 +59,22 @@ public class UIHelper
 		return Color.WHITE;
 	}
 
+	/**
+	 * Creates a standard label. 
+	 * 
+	 * @param	text	The text to put into the label.
+	 * @return			A new JLabel initialized with the provided text.
+	 */
+	public static JLabel createLabel(String text)
+	{
+		JLabel	label	= new JLabel(text);
+		
+		label.setForeground(UIHelper.getForegroundColor());
+		label.setFont(UIHelper.getBodyFont());
+		
+		return label;
+	}
+	
 	/**
 	 * Creates a standard, scalable button with the specified caption and
 	 * action.
