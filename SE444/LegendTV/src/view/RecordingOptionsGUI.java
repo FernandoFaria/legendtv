@@ -3,6 +3,8 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -25,12 +27,12 @@ import view.LButton;
  *
  * @author  Andrew Bona
  */
-public class RecordingOptionsGUI {
+public class RecordingOptionsGUI extends JPanel implements KeyListener{
 
-	private JFrame frame = new JFrame();
-	private JPanel mainPanel, optionsPanel, buttonPanel, screenLabelPanel;
+	private JPanel optionsPanel, buttonPanel, screenLabelPanel;
 	private JLabel screenLabel, showLabel, repeatLabel, qualityLabel, expirationLabel;
 	private JLabel repeatOptions, qualityOptions, expirationOptions;
+	private HorizontalSpinner repeatSpinner, qualitySpinner, expirationSpinner;
 	
 	//JButtons
 	private JButton confirmButton, cancelButton;
@@ -48,13 +50,12 @@ public class RecordingOptionsGUI {
 	 * 
 	 * @param show  This parameter is not a String, but will be of type "Recorded Program" object
 	 */
-	public RecordingOptionsGUI(String show) {
+	public RecordingOptionsGUI(Program p) {
 		
 		//Main Panel
-		mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		mainPanel.setBackground(Color.BLACK);
-		mainPanel.setBorder( new EmptyBorder(10, 20, 15, 15) );
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setBackground(Color.BLACK);
+		this.setBorder( new EmptyBorder(10, 20, 15, 15) );
 		
 		buttonPanel = new JPanel( new FlowLayout(FlowLayout.CENTER) );
 		buttonPanel.setBackground(Color.BLACK);
@@ -67,20 +68,28 @@ public class RecordingOptionsGUI {
 		screenLabelPanel.add(screenLabel, BorderLayout.WEST);
 		screenLabelPanel.setBackground(Color.BLACK);
 		screenLabelPanel.setMaximumSize(new Dimension(10000, screenLabel.getHeight()));
+		screenLabel.setFocusable(false);
 		
-		//Show label setup
+		//Show label setup 
+		/**
+		 * NEED TO MAKE DYNAMIC!!!!!!!
+		 */
 		showLabel = new JLabel( "Family Guy - 10/4/08 - 8:00 - Channel 6 (Fox)" );
 		showLabel.setForeground( Color.WHITE );
 		showLabel.setFont( UIHelper.getBodyFont() );
+		showLabel.setFocusable(false);
 		
 		repeatLabel = new JLabel("Reoccurring Recording:");
 		repeatLabel.setForeground(Color.WHITE);
+		repeatLabel.setFocusable(false);
 		
 		qualityLabel = new JLabel("Recording Quality:");
 		qualityLabel.setForeground(Color.WHITE);
+		qualityLabel.setFocusable(false);
 		
 		expirationLabel = new JLabel("Expiration:");
-		expirationLabel.setForeground(Color.WHITE);		
+		expirationLabel.setForeground(Color.WHITE);
+		expirationLabel.setFocusable(false);
 		
 		repeatOptions = new JLabel("Just this episode");
 		repeatOptions.setForeground(Color.WHITE);
@@ -94,15 +103,15 @@ public class RecordingOptionsGUI {
 		cancelButton = new LButton("Cancel");
 		
 		String[] repeatOptions = {"Just this once", "All episodes", "All new episodes"};
-		HorizontalSpinner repeatSpinner = new HorizontalSpinner(buttonLeftArrow, 
+		repeatSpinner = new HorizontalSpinner(buttonLeftArrow, 
 				repeatOptions, buttonRightArrow);
 		
 		String[] qualityOptions = {"Low", "Medium", "High"};
-		HorizontalSpinner qualitySpinner = new HorizontalSpinner(buttonLeftArrow, 
+		qualitySpinner = new HorizontalSpinner(buttonLeftArrow, 
 				qualityOptions, buttonRightArrow);
 		
 		String[] expirationOptions = {"Delete after 14 Days", "Delete if space runs low", "Never Delete"};
-		HorizontalSpinner expirationSpinner = new HorizontalSpinner(buttonLeftArrow, 
+		expirationSpinner = new HorizontalSpinner(buttonLeftArrow, 
 				expirationOptions, buttonRightArrow);
 		
 		optionsPanel = new JPanel(new GridBagLayout() );
@@ -129,18 +138,21 @@ public class RecordingOptionsGUI {
 		buttonPanel.add(confirmButton);
 		buttonPanel.add(cancelButton);
 		
-		mainPanel.add(screenLabelPanel);
-		mainPanel.add(Box.createVerticalStrut(50));
-		mainPanel.add(showLabel);
-		mainPanel.add(Box.createVerticalStrut(25));
-		mainPanel.add(optionsPanel);
-		mainPanel.add(Box.createVerticalStrut(15));
-		mainPanel.add(buttonPanel);
-	
-		frame.add(mainPanel);
-		frame.setTitle("Legend TV - Recording Options");
-		frame.pack();
-		frame.setVisible(true);
+		repeatSpinner.addKeyListener(this);
+		qualitySpinner.addKeyListener(this);
+		expirationSpinner.addKeyListener(this);
+		confirmButton.addKeyListener(this);
+		cancelButton.addKeyListener(this);
+		
+		this.add(screenLabelPanel);
+		this.add(Box.createVerticalStrut(50));
+		this.add(showLabel);
+		this.add(Box.createVerticalStrut(25));
+		this.add(optionsPanel);
+		this.add(Box.createVerticalStrut(15));
+		this.add(buttonPanel);
+			
+		
 	}
 
 	/**
@@ -148,7 +160,61 @@ public class RecordingOptionsGUI {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		RecordingOptionsGUI gui = new RecordingOptionsGUI("Family Guy");
+		JFrame frame = new JFrame();
+		Program p = new Program("Family Guy", "Peter does something stupid", Program.TV_14, 20);
+		RecordingOptionsGUI gui = new RecordingOptionsGUI(p);
+		frame.add(gui);
+		frame.setTitle("Legend TV - Recording Options");
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int keyCode = e.getKeyCode();
+		if( repeatSpinner.isFocusOwner() ){
+			if(keyCode == KeyEvent.VK_DOWN){
+				qualitySpinner.requestFocusInWindow();
+			}
+		}else if( qualitySpinner.isFocusOwner() ){
+			if(keyCode == KeyEvent.VK_DOWN){
+				expirationSpinner.requestFocusInWindow();
+			}else if(keyCode == KeyEvent.VK_UP){
+				repeatSpinner.requestFocusInWindow();
+			}			
+		}else if( expirationSpinner.isFocusOwner() ){
+			if(keyCode == KeyEvent.VK_UP){
+				qualitySpinner.requestFocusInWindow();
+			}else if(keyCode == KeyEvent.VK_DOWN){
+				this.confirmButton.requestFocusInWindow();
+			}
+		}else if( confirmButton.isFocusOwner() ){
+			if( keyCode == KeyEvent.VK_UP){
+				expirationSpinner.requestFocusInWindow();
+			}else if( keyCode == KeyEvent.VK_RIGHT){
+				cancelButton.requestFocusInWindow();
+			}
+		}else if( cancelButton.isFocusOwner() ){
+			if( keyCode == KeyEvent.VK_UP){
+				expirationSpinner.requestFocusInWindow();
+			}else if( keyCode == KeyEvent.VK_LEFT){
+				confirmButton.requestFocusInWindow();
+			}			
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
