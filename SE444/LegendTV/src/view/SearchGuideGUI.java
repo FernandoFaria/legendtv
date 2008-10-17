@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import view.LButton;
+import view.controls.LButton;
 
 import java.awt.*;
 
