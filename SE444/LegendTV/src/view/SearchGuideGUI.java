@@ -69,7 +69,7 @@ public class SearchGuideGUI {
 		border.getLayoutComponent(BorderLayout.WEST).setMaximumSize(pageLabel.getSize() );
 //		labelPanel.setMinimumSize(pageLabel.getSize());
 		labelPanel.setMaximumSize(new Dimension(10000, (int)pageLabel.getSize().getHeight()));
-		labelPanel.setBackground(Color.BLUE);	
+		labelPanel.setBackground(Color.BLACK);	
 		
 		
 		searchLabel = new JLabel("Enter search terms(s): ");
