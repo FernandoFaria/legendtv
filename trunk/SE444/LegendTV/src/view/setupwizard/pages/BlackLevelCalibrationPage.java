@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import view.UIHelper;
 import view.setupwizard.WizardPage;
+import view.utils.UIHelper;
 
 @SuppressWarnings("serial")
 public class BlackLevelCalibrationPage extends WizardPage

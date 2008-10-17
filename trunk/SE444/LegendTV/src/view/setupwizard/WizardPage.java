@@ -17,6 +17,11 @@ public abstract class WizardPage extends JComponent
 		this.previousPage	= previousPage;
 	}
 	
-	public abstract WizardPage getNextPage();
 	public abstract String getTitle();
+	public abstract WizardPage getNextPage();
+	
+	public boolean isModal()
+	{
+		return false;
+	}
 }
