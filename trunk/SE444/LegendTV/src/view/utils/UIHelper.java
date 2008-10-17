@@ -2,10 +2,14 @@ package view.utils;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import view.controls.SVGButton;
 
 /**
- * A utility class for providing commonly-used fonts & colors, in addition
- * to converting layout information to JComponent-renderable HTML.
+ * A utility class for providing functionality that is commonly used by the
+ * UI for laying out controls and content.
  * 
  * @author Guy Paddock (gap7472@rit.edu)
  */
@@ -53,6 +57,42 @@ public class UIHelper
 		return Color.WHITE;
 	}
 
+	/**
+	 * Creates a standard, scalable button with the specified caption and
+	 * action.
+	 * 
+	 * @param caption	The caption to display on the specified button.
+	 * @param action	The action to perform, if any, when the button is
+	 * 					activated.
+	 * @return			A new SVGButton instance setup with the provided
+	 * 					caption and action.
+	 */
+	public static SVGButton createButton(String caption, ActionListener action)
+	{
+		SVGButton	button	= null;
+		
+		try
+		{
+			button = new SVGButton(
+							caption,
+							"images/button_normal.svg",
+							"images/button_highlight.svg",
+							"images/button_hover.svg",
+							"images/button_down.svg");
+			
+			if (action != null)
+				button.addActionListener(action);
+		}
+		
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return button;
+	}
+	
 	/**
 	 * Converts an array of Strings into an HTML-formatted string,
 	 * in which each string has become a distinct paragraph of text in the
