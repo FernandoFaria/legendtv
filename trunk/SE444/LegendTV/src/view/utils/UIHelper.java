@@ -3,7 +3,6 @@ package view.utils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JLabel;
 
@@ -89,24 +88,15 @@ public class UIHelper
 	{
 		SVGButton	button	= null;
 		
-		try
-		{
-			button = new SVGButton(
-							caption,
-							"images/button_normal.svg",
-							"images/button_highlight.svg",
-							"images/button_hover.svg",
-							"images/button_down.svg");
-			
-			if (action != null)
-				button.addActionListener(action);
-		}
+		button = new SVGButton(
+						caption,
+						"images/button_normal.svg",
+						"images/button_highlight.svg",
+						"images/button_hover.svg",
+						"images/button_down.svg");
 		
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (action != null)
+			button.addActionListener(action);
 		
 		return button;
 	}
