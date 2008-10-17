@@ -36,10 +36,6 @@ import view.Program;
  */
 public class RecordedProgramsGUI extends JPanel implements ActionListener, ListSelectionListener, KeyListener{
 	
-	//GUI Components for the Frame and Panels
-	JFrame frame = new JFrame();
-	JPanel mainPanel;
-	
 	//GUI Components for the Button Bar
 	JButton backButton, watchButton, deleteButton, optionsButton;
 	
@@ -124,14 +120,13 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		Box componentBox = Box.createHorizontalBox();
 		Box buttonsBox = Box.createVerticalBox();
 						
-		mainPanel = new JPanel();
-		BoxLayout b = new BoxLayout(mainPanel, BoxLayout.Y_AXIS );
-		mainPanel.setLayout(b);
-		mainPanel.setBorder( new EmptyBorder(10, 45, 20, 10) );
-		mainPanel.add(screenDescription);
-		mainPanel.add(Box.createVerticalStrut(25));
-		mainPanel.add(componentBox);
-		mainPanel.setBackground(Color.BLACK);	
+		BoxLayout b = new BoxLayout(this, BoxLayout.Y_AXIS );
+		this.setLayout(b);
+		this.setBorder( new EmptyBorder(10, 45, 20, 10) );
+		this.add(screenDescription);
+		this.add(Box.createVerticalStrut(25));
+		this.add(componentBox);
+		this.setBackground(Color.BLACK);	
 				
 		componentBox.add(programBox);
 		Component horComp = Box.createHorizontalStrut(25);
@@ -159,13 +154,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		deleteButton.addKeyListener(this);
 		optionsButton.addKeyListener(this);
 		backButton.addKeyListener(this);
-			
-		//Frame Settings 
-		frame.add(mainPanel);
-		frame.setTitle("LegendTV - Recorded Programs");
-		frame.pack();
-		frame.setVisible(true);
-		
+	
 		//Grant Focus to the first thing in the table
 		recordedProgramsTable.requestFocusInWindow();
 	}
@@ -175,22 +164,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		String command = e.getActionCommand();
 		
 		if(command.equals("Delete")){
-			Object[] options = {"Confirm Delete", "Cancel Delete"};
-			int n = JOptionPane.showOptionDialog(frame, "Are you sure you want to delete?", "Confirmation Screen",
-					JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE,
-					null,     //do not use a custom Icon
-					options,  //the titles of buttons
-					options[1]); //default button title
-			if( n == 0){
-				System.out.println("Delete: " + recordedProgramsTable.getSelectedRow());
-				int selectedRow = recordedProgramsTable.getSelectedRow();
-				Object o = recordedProgramsTable.getValueAt(selectedRow, 0);
-				recordedProgramsTable.changeSelection(selectedRow + 1, 0, false, false);
-				programs.remove(o);
-				tableModel.removeRow(selectedRow);
-			}
-			
+			deleteFromTable();
 		}else if(command.equals("Watch")){
 			//Go to the Watch screen
 		}else if(command.equals("Options")){
@@ -211,8 +185,35 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		programDescription.setText(o.toFullDescription());
 	}
 	
+	public void deleteFromTable(){
+		Object[] options = {"Confirm Delete", "Cancel Delete"};
+		/*
+		JOptionPane pane = new JOptionPane();
+		pane.setMessage("Are you sure you want to delete?");
+		pane.setMessageType(JOptionPane.OK_CANCEL_OPTION);
+		pane.setBackground(Color.BLACK);
+		LButton confirmButton = new LButton("Delete");
+		LButton cancelButton = new LButton("Cancel");
+		Object[] objects = new Object[] {confirmButton, cancelButton};
+		*/
+		int n = JOptionPane.showOptionDialog(this, "Are you sure you want to delete?", "Confirmation Screen",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,     //do not use a custom Icon
+				options,  //the titles of buttons
+				options[1]); //default button title
+		if( n == 0){
+			int selectedRow = recordedProgramsTable.getSelectedRow();
+			Object o = recordedProgramsTable.getValueAt(selectedRow, 0);
+			recordedProgramsTable.changeSelection(selectedRow + 1, 0, false, false);
+			programs.remove(o);
+			tableModel.removeRow(selectedRow);
+		}
+		
+	}
 	
 	public static void main(String[] args){
+		JFrame frame = new JFrame();
 		LinkedList<RecordedProgram> list = new LinkedList<RecordedProgram>();
 		list.add( new RecordedProgram("Family Guy", "Peter does something stupid!", Program.TV_14, 30, "10/10/2008", "10/30/2008") );
 		list.add( new RecordedProgram("Family Guy", "Peter does something stupid Again!", Program.TV_MA, 30, "10/10/2008", "10/30/2008") );
@@ -230,6 +231,10 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 
 		
 		RecordedProgramsGUI a = new RecordedProgramsGUI(list);
+		frame.add(a);
+		frame.setTitle("LegendTV - Recorded Programs");
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	public void keyPressed(KeyEvent key) {
@@ -237,6 +242,8 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		if(key.getComponent().equals(recordedProgramsTable)){
 			if(key.getKeyCode() == (KeyEvent.VK_RIGHT)){
 				watchButton.requestFocusInWindow();
+			}else if(key.getKeyCode() == KeyEvent.VK_DELETE){
+				deleteFromTable();
 			}
 		}else if(key.getComponent().equals(watchButton)){
 			if(key.getKeyCode() == KeyEvent.VK_DOWN){
