@@ -21,8 +21,8 @@ import javax.swing.table.JTableHeader;
 
 import data.RecordedProgram;
 
-import view.LButton;
 import view.Program;
+import view.controls.LButton;
 
 
 /*

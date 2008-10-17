@@ -11,7 +11,9 @@ import java.awt.event.WindowListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import view.LButton;
+import view.controls.HorizontalSpinner;
+import view.controls.LButton;
+import view.utils.UIHelper;
 
 /*
  * Version: $Id$
