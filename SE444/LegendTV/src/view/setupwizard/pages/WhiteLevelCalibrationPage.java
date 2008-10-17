@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
 import view.utils.UIHelper;
 
@@ -75,10 +76,12 @@ public class WhiteLevelCalibrationPage extends WizardPage
 	
 	/**
 	 * Constructor for WhiteLevelCalibrationPage.
+	 * 
+	 * @param wizard	The parent wizard instance.
 	 */
-	public WhiteLevelCalibrationPage()
+	public WhiteLevelCalibrationPage(SetupWizard wizard)
 	{
-		super();
+		super(wizard);
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 				
@@ -151,6 +154,6 @@ public class WhiteLevelCalibrationPage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new TunerDetectionPage();
+		return new TunerDetectionPage(this.getWizard());
 	}
 }
