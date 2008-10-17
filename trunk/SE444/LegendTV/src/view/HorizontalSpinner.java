@@ -6,8 +6,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
 /*
  * HorizontalSpinner.java
@@ -18,12 +24,15 @@ import javax.swing.*;
  * Revisions:
  *   $Log$
  */
-public class HorizontalSpinner extends JPanel implements ActionListener{
+public class HorizontalSpinner extends JPanel implements ActionListener, KeyListener, FocusListener{
 	
 	private JButton leftButton, rightButton;
 	private Icon leftImage, rightImage;
 	private String[] options;
 	private JLabel displayLabel;
+	
+	private final BevelBorder focusBorder = new BevelBorder(BevelBorder.RAISED, Color.WHITE, Color.WHITE );
+	private final EmptyBorder unfocusedBorder = new EmptyBorder(focusBorder.getBorderInsets(this));
 	
 	private int index;
 	
@@ -40,6 +49,7 @@ public class HorizontalSpinner extends JPanel implements ActionListener{
 		leftButton.setActionCommand("Left");
 		leftButton.setFocusPainted(false);
 		leftButton.addActionListener(this);
+		leftButton.setFocusable(false);
 		
 		rightButton = new JButton(rightImage);
 		rightButton.setBackground(Color.DARK_GRAY);
@@ -47,6 +57,7 @@ public class HorizontalSpinner extends JPanel implements ActionListener{
 		rightButton.setActionCommand("Right");
 		rightButton.addActionListener(this);
 		rightButton.setFocusPainted(false);
+		rightButton.setFocusable(false);
 		
 		index = 0;
 		displayLabel = new JLabel(options[index]);
@@ -56,7 +67,8 @@ public class HorizontalSpinner extends JPanel implements ActionListener{
 			if( optionChoices[maxSize].length() < optionChoices[i].length() ){
 				maxSize = i;
 			}
-		}		
+		}
+		displayLabel.setMinimumSize(new Dimension(displayLabel.HEIGHT, optionChoices[maxSize].length() *100) );
 
 		this.setLayout( new BoxLayout(this, BoxLayout.X_AXIS) );		
 		this.add(leftButton);
@@ -65,6 +77,10 @@ public class HorizontalSpinner extends JPanel implements ActionListener{
 		this.add(Box.createHorizontalGlue());
 		this.add(rightButton);
 		this.setBackground(Color.DARK_GRAY);
+		this.setFocusable(true);
+		this.setBorder(unfocusedBorder);
+		this.addFocusListener(this);
+		this.addKeyListener(this);
 		this.setVisible(true);
 	}
 	
@@ -97,4 +113,42 @@ public class HorizontalSpinner extends JPanel implements ActionListener{
 			displayRightOption();
 		}
 	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if( this.hasFocus() ){
+			if( e.getKeyCode() == KeyEvent.VK_LEFT){
+				displayLeftOption();
+			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+				displayRightOption();
+			}
+		}		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		setBorder(focusBorder);		
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		setBorder(unfocusedBorder);
+	}
+	
+	
 }
