@@ -127,7 +127,6 @@ implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-		this.fireActionEvent();
 	}
 	
 	@Override
