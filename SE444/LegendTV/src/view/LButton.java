@@ -89,9 +89,7 @@ public class LButton extends JButton implements FocusListener, MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("Mouse Entered");
 		boolean b = this.requestFocusInWindow();
-		System.out.println(b);
 	}
 
 	@Override
