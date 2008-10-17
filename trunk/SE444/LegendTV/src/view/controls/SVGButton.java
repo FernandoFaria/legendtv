@@ -14,6 +14,7 @@ import java.util.EnumSet;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.bridge.UserAgentAdapter;
@@ -275,10 +276,19 @@ implements MouseListener
 										"images/button_hover.svg",
 										"images/button_down.svg");
 		
+		testBtn.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				JOptionPane.showMessageDialog(null, "You clicked the button!");
+			}
+		});
+		
 		testFrame.setBackground(Color.BLACK);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		testFrame.setTitle("Test");
-		testFrame.setSize(230, 76);
+		testFrame.setSize(300, 300);
 		
 		testFrame.add(testBtn);
 		
