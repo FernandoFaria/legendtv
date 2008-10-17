@@ -122,7 +122,7 @@ public class SetupWizard extends JComponent
 		this.buttonPnl	= new JPanel();
 		
 		this.buttonPnl.setOpaque(false);
-		this.buttonPnl.setPreferredSize(new Dimension(0, 60));
+		this.buttonPnl.setPreferredSize(new Dimension(0, 80));
 		this.buttonPnl.setLayout(
 				new BoxLayout(this.buttonPnl, BoxLayout.X_AXIS));
 		
@@ -169,33 +169,20 @@ public class SetupWizard extends JComponent
 		
 		this.add(this.buttonPnl, BorderLayout.SOUTH);
 	}
-
+	
 	private SVGButton createButton(String caption, ActionListener action)
 	{
-		SVGButton	button	= null;
+		SVGButton	button	= UIHelper.createButton(caption, action);
 		
-		try
-		{
-			button	= new SVGButton(
-							caption,
-							"images/button_normal.svg",
-							"images/button_highlight.svg",
-							"images/button_hover.svg",
-							"images/button_down.svg");
-			
-			button.addActionListener(action);
-		}
-		
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// FIXME: This should be done automatically!
+		button.setPreferredSize(new Dimension(230, 76));
+		button.setMinimumSize(new Dimension(230, 76));
+		button.setMaximumSize(new Dimension(230, 76));
 		
 		return button;
 	}
-
-	protected void prevBtnClicked()
+	
+	private void prevBtnClicked()
 	{
 		goToPreviousPage();
 	}

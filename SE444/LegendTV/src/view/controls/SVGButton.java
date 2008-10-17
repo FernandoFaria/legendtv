@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Dimension2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
@@ -38,13 +39,13 @@ implements MouseListener
 		Depressed
 	}
 
-	private static final String		TEXT_NODE	= "text";
+	private static final String	TEXT_NODE	= "text";
 	
-	private String					text;
+	private String				text;
 
-	private ButtonState				state;
-	private String[]				imagePaths;
-	private Image[]					images;
+	private ButtonState			state;
+	private String[]			imagePaths;
+	private Image[]				images;
 	
 	public SVGButton(String normalImagePath, String highlightImagePath,
 	 		 		 String hoverImagePath, String depressedImagePath)
@@ -71,7 +72,7 @@ implements MouseListener
 		this.imagePaths[ButtonState.Hover.ordinal()]		= hoverImagePath;
 		this.imagePaths[ButtonState.Depressed.ordinal()]	= depressedImagePath;
 		
-		this.setOpaque(false);
+		this.setOpaque(true);
 		this.setBackground(Color.BLACK);
 				
 		this.setupListeners();
@@ -102,14 +103,7 @@ implements MouseListener
 		
 		super.paintComponent(g);
 		
-		g.drawImage(
-				activeImage,
-				0,
-				0,
-				this.getWidth(),
-				this.getHeight(),
-				Color.BLACK,
-				null);
+		g.drawImage(activeImage, 0, 0, this.getBackground(), null);
 	}
 	
 	@Override
@@ -151,12 +145,6 @@ implements MouseListener
 		this.ReRender();
 	}
 	
-	@Override
-	public Dimension getPreferredSize()
-	{
-		return new Dimension(250, 50);
-	}
-
 	private void setupListeners()
 	{
 		this.addMouseListener(this);
@@ -204,11 +192,6 @@ implements MouseListener
 	private void renderImages()
 	throws IOException
 	{
-		String					parserClassName;
-	    SAXSVGDocumentFactory	docFactory;
-	    
-	    parserClassName	= XMLResourceDescriptor.getXMLParserClassName();
-	    docFactory		= new SAXSVGDocumentFactory(parserClassName);
 
 	    for (ButtonState state : EnumSet.allOf(ButtonState.class))
 	    {
@@ -217,21 +200,26 @@ implements MouseListener
 	    	if (this.imagePaths[stateNum] != null)
 	    	{	
 	    		this.images[stateNum] = this.renderImage(
-	    									this.imagePaths[stateNum],
-	    									docFactory);
-	    	}
+	    									this.imagePaths[stateNum]);
+    		}
 	    }
 	}
 	
-	private Image renderImage(String path,
-							 SAXSVGDocumentFactory docFactory)
+	private Image renderImage(String path)
 	throws IOException
 	{
-		String		docUri			= this.toUri(path);
-		SVGDocument	document		= docFactory.createSVGDocument(docUri);
-		Element		textNode		= document.getElementById(TEXT_NODE);
-		UserAgent	userAgent;
-		SvgImage	imageRenderer;
+		String					docUri			= this.toUri(path),
+								parserClassName;
+		SAXSVGDocumentFactory	docFactory;
+		SVGDocument				document;
+		Element					textNode;
+		UserAgent				userAgent;
+		SvgImage				imageRenderer;
+
+	    parserClassName	= XMLResourceDescriptor.getXMLParserClassName();
+	    docFactory		= new SAXSVGDocumentFactory(parserClassName);
+	    document		= docFactory.createSVGDocument(docUri);
+		textNode		= document.getElementById(TEXT_NODE);
 		
 		if (textNode != null)
 			textNode.setTextContent(this.text);
@@ -249,7 +237,7 @@ implements MouseListener
 		
 		return (imageRenderer.getImage(this.getWidth(), this.getHeight()));
 	}
-	
+
 	private void fireActionEvent()
 	{
 		ActionEvent	event	= new ActionEvent(this, 0, this.getText());
