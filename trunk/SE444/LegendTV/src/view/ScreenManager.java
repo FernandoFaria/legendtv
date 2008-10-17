@@ -99,7 +99,7 @@ public class ScreenManager {
 		@Override
 		public void keyPressed( KeyEvent e ) {
 			JComponent newScreen = buttonScreenMap.get( e.getKeyCode() );
-			if ( newScreen != null ) {
+			if ( newScreen != null && !newScreen.equals( screenStack.peek() ) ) {
 				ScreenManager.this.show( newScreen );
 			}
 		}
