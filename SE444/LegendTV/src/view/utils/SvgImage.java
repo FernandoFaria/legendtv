@@ -215,15 +215,21 @@ public class SvgImage
 	{
 		Dimension2D		documentSize;
 		double 			imageWidth,
-						imageHeight;
+						imageHeight,
+						scale;
 		AffineTransform	transform;
 		
 		documentSize	= this.context.getDocumentSize();
 		imageWidth		= documentSize.getWidth();
-		imageHeight		= documentSize.getHeight();	
-		transform		= AffineTransform.getScaleInstance(
-								desiredWidth / imageWidth,
-								desiredHeight / imageHeight);
+		imageHeight		= documentSize.getHeight();
+		
+		System.out.println(documentSize);
+		
+		scale			= Math.min(
+							(int)(desiredWidth / imageWidth),
+							(int)(desiredHeight / imageHeight));
+		
+		transform		= AffineTransform.getScaleInstance(scale, scale);
 		
 		return transform;
 	}

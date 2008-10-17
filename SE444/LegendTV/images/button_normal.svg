@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="230" height="76">
+	
+	<linearGradient id="uppergrad" x1="0" y1="0" x2="0" y2="100%">
+		<stop stop-color="#707070" offset="0" />
+		<stop stop-color="#515151" offset="70%" />
+		<stop stop-color="#000000" offset="100%" />
+	</linearGradient>
+  
+	<linearGradient id="lowergrad" x1="0" y1="100%" x2="0" y2="100%">
+		<stop stop-color="#1B1B1B" offset="0%" />
+		<stop stop-color="#383838" offset="98%" />
+		<stop stop-color="#000000" offset="100%" />
+	</linearGradient>
+	
+	<rect id="buttonFace" x="15" y="15" width="200"
+		  height="46" />
+
+	<g id="button" fill-opacity="0.9" shape-rendering="crispEdges">
+		<rect id="upperbar" x="16" y="16" width="198" height="22" fill="url(#uppergrad)" />
+		<rect id="lowerbar" x="16" y="54" width="198" height="7" fill="url(#lowergrad)" />
+	</g>
+	
+	<text id="text" x="50%" y="62%" text-anchor="middle" fill="white"
+		  font-family="Segoe UI" font-size="26" >
+		Your Text Here
+    </text>
+</svg>
