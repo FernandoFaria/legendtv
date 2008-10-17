@@ -8,7 +8,7 @@
  * Revisions:
  *		$Log$
  */
-package view;
+package view.utils;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,6 +18,8 @@ import java.util.Stack;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+
+import view.Screen;
 
 /**
  * The <code>ScreenManager</code> is responsible for displaying LegendTV's 
