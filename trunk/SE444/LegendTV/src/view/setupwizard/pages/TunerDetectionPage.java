@@ -29,7 +29,8 @@ public class TunerDetectionPage extends WizardPage
 	};
 	
 	private JLabel			explanatoryLabel;
-	private JProgressBar	detectProgress;
+	private JLabel			progressLabel;
+	private JProgressBar	progressBar;
 	
 	public TunerDetectionPage()
 	{
@@ -46,7 +47,6 @@ public class TunerDetectionPage extends WizardPage
 
 		this.explanatoryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.explanatoryLabel.setBorder(new EmptyBorder(60, 0, 0, 0));
-		this.explanatoryLabel.setSize(0, 200);
 		this.explanatoryLabel.setForeground(UIHelper.getForegroundColor());
 		this.explanatoryLabel.setFont(UIHelper.getBodyFont());
 		

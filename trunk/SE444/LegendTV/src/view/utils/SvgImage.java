@@ -100,9 +100,9 @@ public class SvgImage
 	}
 	
 	/**
-	 * Get the svg root node of the document.
+	 * Gets the SVG root node of the document.
 	 * 
-	 * @return svg root node.
+	 * @return The root note of the SVG document.
 	 */
 	public GraphicsNode getRootSvgNode()
 	{
@@ -110,13 +110,23 @@ public class SvgImage
 	}
 
 	/**
-	 * Get the svg document.
+	 * Gets the SVG document.
 	 * 
-	 * @return the svg document.
+	 * @return The current SVG document.
 	 */
 	public SVGDocument getSvgDocument()
 	{
 		return svgDocument;
+	}
+	
+	/**
+	 * Gets the native size of the SVG image before scaling.
+	 * 
+	 * @return	The native (document) size of the current SVG document.
+	 */
+	public Dimension2D getNativeSize()
+	{
+		return this.context.getDocumentSize();
 	}
 	
 	/**
@@ -187,10 +197,10 @@ public class SvgImage
 				RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-		rootSvgNode.setTransform(createScaleTransform(width, height));
+		//rootSvgNode.setTransform(createScaleTransform(width, height));
 		
 		// Scale image to desired size
-		//g2d.transform(createScaleTransform(width, height));
+		g2d.transform(createScaleTransform(width, height));
 
 		// Paint the SVG document
 		rootSvgNode.paint(g2d);
@@ -223,11 +233,9 @@ public class SvgImage
 		imageWidth		= documentSize.getWidth();
 		imageHeight		= documentSize.getHeight();
 		
-		System.out.println(documentSize);
-		
 		scale			= Math.min(
-							(int)(desiredWidth / imageWidth),
-							(int)(desiredHeight / imageHeight));
+							desiredWidth / imageWidth,
+							desiredHeight / imageHeight);
 		
 		transform		= AffineTransform.getScaleInstance(scale, scale);
 		
