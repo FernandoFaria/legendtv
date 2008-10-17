@@ -4,20 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import view.LButton;
 import view.MainFrame;
-import view.UIHelper;
+import view.controls.SVGButton;
 import view.setupwizard.pages.WelcomePage;
+import view.utils.UIHelper;
 
 @SuppressWarnings("serial")
 public class SetupWizard extends JComponent
@@ -32,7 +32,7 @@ public class SetupWizard extends JComponent
 	JLabel		headingLbl;
 	JPanel		contentPnl,
 				buttonPnl;
-	JButton		exitBtn,
+	SVGButton	exitBtn,
 				prevBtn,
 				nextBtn;
 	WizardPage	currentPage;
@@ -54,8 +54,12 @@ public class SetupWizard extends JComponent
 		
 		this.setHeadingText(page.getTitle());		
 
-		this.prevBtn.setVisible(!this.isFirstPage());
-				
+		this.prevBtn.setVisible(
+				!this.isFirstPage() &&
+				!this.currentPage.isModal());
+		
+		this.nextBtn.setVisible(!this.currentPage.isModal());
+		
 		if (this.isLastPage())
 			this.nextBtn.setText(BUTTON_FINISH);
 		
@@ -166,16 +170,27 @@ public class SetupWizard extends JComponent
 		this.add(this.buttonPnl, BorderLayout.SOUTH);
 	}
 
-	private JButton createButton(String caption, ActionListener action)
+	private SVGButton createButton(String caption, ActionListener action)
 	{
-		Dimension	size		= new Dimension(250, 50);
-		JButton		button		= new LButton(caption);
+		SVGButton	button	= null;
 		
-		//button.setPreferredSize(size);
-		//button.setMinimumSize(size);
-		//button.setMaximumSize(size);
-		button.addActionListener(action);
-		button.setFocusPainted(false);
+		try
+		{
+			button	= new SVGButton(
+							caption,
+							"images/button_normal.svg",
+							"images/button_highlight.svg",
+							"images/button_hover.svg",
+							"images/button_down.svg");
+			
+			button.addActionListener(action);
+		}
+		
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return button;
 	}

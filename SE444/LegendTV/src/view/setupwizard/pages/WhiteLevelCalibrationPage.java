@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import view.UIHelper;
 import view.setupwizard.WizardPage;
+import view.utils.UIHelper;
 
 @SuppressWarnings("serial")
 public class WhiteLevelCalibrationPage extends WizardPage
@@ -110,6 +110,6 @@ public class WhiteLevelCalibrationPage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new WhiteLevelCalibrationPage();
+		return new TunerDetectionPage();
 	}
 }

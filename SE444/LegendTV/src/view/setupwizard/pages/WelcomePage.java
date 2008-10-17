@@ -6,8 +6,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
-import view.UIHelper;
 import view.setupwizard.WizardPage;
+import view.utils.UIHelper;
 
 @SuppressWarnings("serial")
 public class WelcomePage extends WizardPage
