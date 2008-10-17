@@ -6,9 +6,29 @@ import javax.swing.JComponent;
 public abstract class WizardPage extends JComponent
 {
 	/**
+	 * The parent setup wizard instance of this page.
+	 */
+	private SetupWizard	wizard;
+	
+	/**
 	 * The page that was displayed right before this one.
 	 */
-	private WizardPage previousPage;
+	private WizardPage 	previousPage;
+	
+	/**
+	 * Whether or not this page is modal.
+	 */
+	private boolean		isModal;
+	
+	/**
+	 * Initializes this wizard page with the specified parent wizard instance.
+	 * 
+	 * @param wizard	The parent wizard instance.
+	 */
+	public WizardPage(SetupWizard wizard)
+	{
+		this.wizard	= wizard;
+	}
 	
 	/**
 	 * Gets the page that was displayed right before this one.
@@ -37,17 +57,16 @@ public abstract class WizardPage extends JComponent
 	 */
 	public abstract WizardPage getNextPage();
 	
-	
 	/**
-	 * Indicates whether or not this page is modal (user cannot navigate away).
-	 * By default, all page are non-modal. Pages that need to be modal should
-	 * override this default implementation.
+	 * Indicates whether or not this page is modal. If true, the user must
+	 * interact with this page before beign allowed to navigate to the next
+	 * page.
 	 * 
 	 * @return	True if this page is modal, false otherwise.
 	 */
 	public boolean isModal()
 	{
-		return false;
+		return this.isModal;
 	}
 
 	/**
@@ -62,10 +81,28 @@ public abstract class WizardPage extends JComponent
 	 * actions as soon as they are visible.
 	 * 
 	 * The default implementation does nothing.
-	 * 
-	 * @param	wizard	The containing setup wizard instance.
 	 */
-	public void activate(SetupWizard wizard)
+	public void activate()
 	{
+	}
+	
+	/**
+	 * Gets the parent setup wizard instance.
+	 * 
+	 * @return	The parent setup wizard instance.
+	 */
+	protected SetupWizard getWizard()
+	{
+		return this.wizard;
+	}
+		
+	/**
+	 * Sets whether this page is modal or not.
+	 * 
+	 * @param isModal	True if this page should be modal; false otherwise.
+	 */
+	protected void setModal(boolean isModal)
+	{
+		this.isModal	= isModal;
 	}
 }

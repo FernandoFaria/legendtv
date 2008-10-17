@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import view.MainFrame;
 import view.controls.SVGButton;
+import view.setupwizard.pages.ListingsSetupPage;
 import view.setupwizard.pages.WelcomePage;
 import view.utils.UIHelper;
 
@@ -58,7 +59,7 @@ public class SetupWizard extends JComponent
 	 * The text displayed on the next button when the user is viewing the
 	 * last wizard page.
 	 */
-	private static final String BUTTON_FINISH	= "Start Using LegendTV >";
+	private static final String BUTTON_FINISH	= "Start LegendTV";
 	
 	/**
 	 * The window that contains this setup wizard.
@@ -183,6 +184,28 @@ public class SetupWizard extends JComponent
 	}
 	
 	/**
+	 * Method called to force the wizard to re-evaluate what buttons
+	 * are enabled and visible based on information from the current wizard
+	 * pages.
+	 * 
+	 * Wizard pages must call this method after changing internal state that
+	 * might affect the use of the next and previous buttons.
+	 */
+	public void refreshButtonState()
+	{
+		this.prevBtn.setVisible(
+				!this.isAtFirstPage());
+		
+		this.nextBtn.setVisible(!this.currentPage.isModal());
+		
+		if (this.isAtLastPage())
+			this.nextBtn.setText(BUTTON_FINISH);
+		
+		else
+			this.nextBtn.setText(BUTTON_NEXT);
+	}
+	
+	/**
 	 * Sets the text displayed in the heading of the wizard.
 	 * 
 	 * @param heading	The new heading text.
@@ -209,19 +232,9 @@ public class SetupWizard extends JComponent
 		
 		this.setHeadingText(page.getTitle());		
 
-		this.prevBtn.setVisible(
-				!this.isAtFirstPage() &&
-				!this.currentPage.isModal());
+		refreshButtonState();
 		
-		this.nextBtn.setVisible(!this.currentPage.isModal());
-		
-		if (this.isAtLastPage())
-			this.nextBtn.setText(BUTTON_FINISH);
-		
-		else
-			this.nextBtn.setText(BUTTON_NEXT);
-		
-		this.currentPage.activate(this);
+		this.currentPage.activate();
 	}
 	
 	/**
@@ -393,7 +406,7 @@ public class SetupWizard extends JComponent
 		JFrame		mainFrame	= new MainFrame();
 		SetupWizard	wizard		= new SetupWizard();
 		
-		wizard.setCurrentPage(new WelcomePage());
+		wizard.setCurrentPage(new WelcomePage(wizard));
 		
 		mainFrame.add(wizard, BorderLayout.CENTER);
 		mainFrame.setVisible(true);

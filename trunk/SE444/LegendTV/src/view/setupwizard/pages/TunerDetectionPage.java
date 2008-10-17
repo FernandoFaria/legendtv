@@ -91,10 +91,18 @@ public class TunerDetectionPage extends WizardPage
 	
 	/**
 	 * Constructor for TunerDetectionPage.
+	 * 
+	 * @param wizard	The parent wizard instance.
 	 */
-	public TunerDetectionPage()
+	public TunerDetectionPage(SetupWizard wizard)
 	{
+		super(wizard);
+		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		// The detection task on this page completes on its own; the user cannot
+		// proceed until it completes.
+		this.setModal(true);
 		
 		setupExplanatoryText();
 		setupProgressControls();
@@ -164,19 +172,18 @@ public class TunerDetectionPage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new TunerSpacesPage();
+		return new ListingsSetupPage(this.getWizard());
 	}
 	
-	
 	/**
-	 * Indicates whether or not this page is modal (user cannot navigate away).
+	 * Sets which page was displayed right before this one.
 	 * 
-	 * @return	True (this page is modal).
+	 * @param previousPage	The new previous page.
 	 */
 	@Override
-	public boolean isModal()
+	public WizardPage getPreviousPage()
 	{
-		return true;
+		return null;
 	}
 	
 	/**
@@ -186,7 +193,7 @@ public class TunerDetectionPage extends WizardPage
 	 * @param	wizard	The containing setup wizard instance.
 	 */
 	@Override
-	public void activate(final SetupWizard wizard)
+	public void activate()
 	{
 		Timer	progressTimer = new Timer();
 	
@@ -211,7 +218,7 @@ public class TunerDetectionPage extends WizardPage
 				{
 					this.cancel();
 					
-					wizard.goToNextPage();
+					TunerDetectionPage.this.getWizard().goToNextPage();
 				}
 			}
 		},

@@ -11,32 +11,30 @@ import view.setupwizard.WizardPage;
 import view.utils.UIHelper;
 
 /**
- * The opening page that introduces the user to LegendTV and the setup wizard.
+ * The page that singals the completion of the setup wizard.
  * 
  * @author Guy Paddock (gap7472@rit.edu);
  */
 @SuppressWarnings("serial")
-public class WelcomePage extends WizardPage
+public class CompletedSetupPage extends WizardPage
 {	
 	/**
 	 * The title of the page.
 	 */
-	private static final String TITLE = "Welcome";
+	private static final String TITLE = "Setup Completed";
 	
 	/**
 	 * The explanatory text on the page.
 	 */
 	private static final String	TEXT_EXPLANATORY_LINES[] =
 	{
-		"Welcome to LegendTV! This step-by-step wizard will help you setup "+
-		"your system. <br /> This process should take approximately 25 minutes.",
+		"Congradulations! Your system has now been set-up.",
 		
-		"If you are short on time, you may exit this process at any point "+
-		"by selecting 'Exit Setup' below. <br /> Your place will be "+
-		"saved and you can restart where you left off at a later time, but you "+
-		"will not be able to use LegendTV until the setup process is complete.",
+		"To begin using LegendTV, select 'Start LegendTV' below.",
 		
-		"If you are ready to proceed, select 'Next Step >' below."
+		"Alternatively, if you need to make any changes to the information " +
+		"you previously provided, you can select '< Previous Step' below to" +
+		"go back to the previous screen."
 	};
 	
 	/**
@@ -45,11 +43,11 @@ public class WelcomePage extends WizardPage
 	private JLabel	explanatoryLabel;
 	
 	/**
-	 * Constructor for WelcomePage.
+	 * Constructor for CompletedSetupPage.
 	 * 
 	 * @param wizard	The parent wizard instance.
 	 */
-	public WelcomePage(SetupWizard wizard)
+	public CompletedSetupPage(SetupWizard wizard)
 	{
 		super(wizard);
 		
@@ -101,6 +99,6 @@ public class WelcomePage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new BlackLevelCalibrationPage(this.getWizard()); 
+		return null; 
 	}
 }

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
 import view.utils.UIHelper;
 
@@ -81,10 +82,12 @@ public class BlackLevelCalibrationPage extends WizardPage
 	
 	/**
 	 * Constructor for BlackLevelCalibrationPage.
+	 * 
+	 * @param wizard	The parent wizard instance.
 	 */
-	public BlackLevelCalibrationPage()
+	public BlackLevelCalibrationPage(SetupWizard wizard)
 	{
-		super();
+		super(wizard);
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 				
@@ -157,6 +160,6 @@ public class BlackLevelCalibrationPage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new WhiteLevelCalibrationPage();
+		return new WhiteLevelCalibrationPage(this.getWizard());
 	}
 }
