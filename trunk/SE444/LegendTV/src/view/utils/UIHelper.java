@@ -23,7 +23,7 @@ public class UIHelper
 	 */
 	public static Font getHeadingFont()
 	{
-		return new Font("Segoe UI", Font.PLAIN, 48);
+		return new Font("Segoe UI", Font.PLAIN, 36);
 	}
 
 	/**
