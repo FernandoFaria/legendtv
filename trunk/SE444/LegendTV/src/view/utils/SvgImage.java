@@ -187,8 +187,10 @@ public class SvgImage
 				RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
+		rootSvgNode.setTransform(createScaleTransform(width, height));
+		
 		// Scale image to desired size
-		g2d.transform(createScaleTransform(width, height));
+		//g2d.transform(createScaleTransform(width, height));
 
 		// Paint the SVG document
 		rootSvgNode.paint(g2d);
@@ -218,10 +220,10 @@ public class SvgImage
 		
 		documentSize	= this.context.getDocumentSize();
 		imageWidth		= documentSize.getWidth();
-		imageHeight		= documentSize.getHeight();
+		imageHeight		= documentSize.getHeight();	
 		transform		= AffineTransform.getScaleInstance(
-							desiredWidth / imageWidth,
-							desiredHeight / imageHeight);
+								desiredWidth / imageWidth,
+								desiredHeight / imageHeight);
 		
 		return transform;
 	}

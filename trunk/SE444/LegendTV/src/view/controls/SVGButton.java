@@ -100,7 +100,7 @@ implements MouseListener
 	{
 		Image	activeImage	= this.images[this.state.ordinal()];
 		
-		super.paintComponent(g); 
+		super.paintComponent(g);
 		
 		g.drawImage(
 				activeImage,
