@@ -13,6 +13,7 @@ package view;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -30,13 +31,13 @@ public class GuideView extends JComponent {
 	
 	public static void main( String[] args ) {
 		JFrame frame = new JFrame( "GuideView Test" );
-		frame.add( new GuideView() );
+		frame.add( new GuideView( null ) );
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		frame.pack();
 		frame.setVisible( true );
 	}
 	
-	public GuideView() {
+	public GuideView( ActionListener backActionListener ) {
 		this.setLayout( new GridBagLayout() );
 		this.setBackground( BACKGROUND );
 		
@@ -49,7 +50,7 @@ public class GuideView extends JComponent {
 		c.gridheight = 1;
 		c.weighty = 0.3;
 		c.fill = GridBagConstraints.BOTH;
-		ProgramView programView = new ProgramView();
+		ProgramView programView = new ProgramView( backActionListener );
 		this.add( programView, c );
 		
 		// Add the TV preview to the top right

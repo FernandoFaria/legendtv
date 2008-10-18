@@ -103,7 +103,12 @@ public class MainFrame extends JFrame
 				new ActionListener() {
 				@Override
 				public void actionPerformed( ActionEvent e ) {
-					JComponent screen = new GuideView();
+					JComponent screen = new GuideView( new ActionListener() {
+						@Override
+						public void actionPerformed( ActionEvent e ) {
+							screenManager.back();
+						}
+					} );
 					screenManager.show( screen );
 				}
 			} );

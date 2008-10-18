@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -29,6 +30,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import view.controls.LButton;
+import view.controls.SVGButton;
+import view.utils.UIHelper;
 
 /**
  * @author Eric
@@ -48,10 +51,10 @@ public class ProgramView extends JComponent {
 	private final JButton watch;
 	private final JButton otherShowings;
 	private final JButton blockShow;
-	private final JButton goBack;
+	private final SVGButton goBack;
 	private final JTextArea description;
 	
-	public ProgramView() {
+	public ProgramView( ActionListener backAction ) {
 		this.setBackground( BACKGROUND );
 		
 		
@@ -93,7 +96,7 @@ public class ProgramView extends JComponent {
 		buttonPanel.add( watch = new LButton("Watch") );
 		buttonPanel.add( otherShowings = new LButton("<html>Other<br/>Showings</html>") );
 		buttonPanel.add( blockShow = new LButton("<html>Block<br/>Show</html>") );
-		buttonPanel.add( goBack = new LButton( "Go Back" ) );
+		buttonPanel.add( goBack = UIHelper.createButton( "Go Back", backAction ) );
 		
 		// Now add these panels to the ProgramView screen
 		this.setLayout( new GridBagLayout() );
@@ -137,7 +140,7 @@ public class ProgramView extends JComponent {
 	
 	public static void main( String[] args ) {
 		JFrame frame = new JFrame( "Program View Test" );
-		ProgramView view = new ProgramView();
+		ProgramView view = new ProgramView( null );
 		
 		view.setProgram( new Program("Family Guy", "Peter is dumb", Program.TV_14, 30 ), 
 							new Channel( (short) 6, "Fox" ) );
