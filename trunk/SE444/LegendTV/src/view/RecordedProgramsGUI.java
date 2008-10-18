@@ -23,6 +23,7 @@ import data.RecordedProgram;
 
 import view.Program;
 import view.controls.LButton;
+import view.utils.ScreenManager;
 
 
 /*
@@ -52,10 +53,12 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 	private Object[][] tableData;
 	private DefaultTableModel tableModel;
 	private JTableHeader tableHead;
+	private ScreenManager manager;
 	
-	public RecordedProgramsGUI(LinkedList<RecordedProgram> recordedPrograms){
+	public RecordedProgramsGUI(LinkedList<RecordedProgram> recordedPrograms, 
+			ActionListener backListener, ScreenManager sm){
 		programs = recordedPrograms;
-		//programListModel = new DefaultListModel();
+		this.manager = sm;
 		
 		tableData = new Object[ programs.size() ][2];
 				
@@ -103,7 +106,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		//Set up the Button(s)
 		backButton = new LButton("Back to TV Menu");
 		backButton.setActionCommand("Back");
-		backButton.addActionListener(this);
+		backButton.addActionListener(backListener);
 		watchButton = new LButton("Watch");
 		watchButton.setActionCommand("Watch");
 		watchButton.addActionListener(this);
@@ -167,10 +170,9 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 			deleteFromTable();
 		}else if(command.equals("Watch")){
 			//Go to the Watch screen
+			manager.show(new PlaybackScreen(manager));
 		}else if(command.equals("Options")){
 			//Go to the Options Screen
-		}else if(command.equals("Back")){
-			//Go back one screen (wherever it was)
 		}
 		
 	}
@@ -230,7 +232,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		list.add( new RecordedProgram("Altos", "And I'm done!", Program.TV_14, 30, "10/18/2008", "10/30/2008") );
 
 		
-		RecordedProgramsGUI a = new RecordedProgramsGUI(list);
+		RecordedProgramsGUI a = new RecordedProgramsGUI(list, null, null);
 		frame.add(a);
 		frame.setTitle("LegendTV - Recorded Programs");
 		frame.pack();
