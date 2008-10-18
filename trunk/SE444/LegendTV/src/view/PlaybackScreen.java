@@ -5,11 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -19,25 +22,29 @@ import javax.swing.SwingWorker;
 import javax.swing.event.MouseInputAdapter;
 
 import view.controls.SVGButton;
+import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
-public class PlaybackScreen extends JComponent implements ActionListener
+public class PlaybackScreen extends JComponent implements ActionListener, KeyListener
 {
 	private static int HIDE_DELAY	= 5000;
 	
 	
 	private JPanel 		playbackPanel;
-	//Buttons
-	//Play, Fast forward, skip forward, skip backward, rewind, stop
+	//Buttons - play, Fast forward, skip forward, skip backward, rewind, stop
 	private JButton		playPauseBtn, skipForwardBtn, fastForwardBtn, skipBackwardBtn, rewindBtn, stopBtn;
 	private	Timer		hideTimer;
 	private TimerTask	hideTimerTask;
 	private JLabel		currentStatus;
+	private ScreenManager manager;
 	
-	public PlaybackScreen()
+	public PlaybackScreen( ScreenManager sm)
 	{
+		this.manager = sm;
+		
 		layoutControls();
 		
+		this.addKeyListener(this);
 		this.addMouseMotionListener(new MouseInputAdapter()
 		{
 			@Override
@@ -111,6 +118,8 @@ public class PlaybackScreen extends JComponent implements ActionListener
 		this.playbackPanel.add(this.playPauseBtn);
 		this.playbackPanel.add(this.fastForwardBtn);
 		this.playbackPanel.add(this.skipForwardBtn);
+		this.playbackPanel.add(Box.createHorizontalStrut(50));
+		this.playbackPanel.add(this.stopBtn);
 	}
 	
 	protected void showPanel()
@@ -160,7 +169,7 @@ public class PlaybackScreen extends JComponent implements ActionListener
 	{
 		MainFrame	main	= new MainFrame();
 		
-		main.add(new PlaybackScreen());
+		main.add(new PlaybackScreen(null));
 		
 		main.setVisible(true);
 	}
@@ -180,6 +189,28 @@ public class PlaybackScreen extends JComponent implements ActionListener
 		}else{
 			currentStatus.setText(e.getActionCommand());
 			this.playPauseBtn.setText("|>");
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			manager.back();
 		}
 	}
 }
