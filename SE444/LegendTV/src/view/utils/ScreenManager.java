@@ -53,11 +53,12 @@ public class ScreenManager {
 				Screen screen = (Screen) topScreen;
 				screen.onStop();
 			}
-			mainFrame.remove( topScreen );
+			topScreen.setVisible( false );
 			topScreen.removeKeyListener( remoteListener );
 			// Now get the next screen on the list
 			topScreen = screenStack.peek();
-			mainFrame.add( topScreen );
+			mainFrame.setContentPane( topScreen );
+			topScreen.setVisible( true );
 			topScreen.addKeyListener( remoteListener );
 			if ( topScreen instanceof Screen ) {
 				Screen screen = (Screen) topScreen;
@@ -74,11 +75,13 @@ public class ScreenManager {
 				Screen currentScreen = (Screen) currentView;
 				currentScreen.onPause();
 			}
-			mainFrame.remove( currentView );
+			// Set the current view to be invisble
+			currentView.setVisible( false );
 			currentView.removeKeyListener( remoteListener );
 		}
 		// Now initialize the new "top view"
-		mainFrame.add( view );
+		mainFrame.setContentPane( view );
+		view.setVisible( true );
 		view.addKeyListener( remoteListener );
 		if ( view instanceof Screen ) {
 			Screen screen = (Screen) view;
