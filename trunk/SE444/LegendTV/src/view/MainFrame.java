@@ -116,7 +116,7 @@ public class MainFrame extends JFrame
 				}
 			} );
 
-		SVGButton browseRecordings = UIHelper.createButton( "Browse Recorded Programs", 
+		SVGButton browseRecordings = UIHelper.createButton( "Recorded Programs", 
 				new ActionListener() {
 			
 				@Override
