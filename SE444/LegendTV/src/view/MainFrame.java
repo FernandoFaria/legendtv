@@ -5,10 +5,13 @@ import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import data.RecordedProgram;
 
 import view.controls.SVGButton;
 import view.utils.ScreenManager;
@@ -94,7 +97,7 @@ public class MainFrame extends JFrame
 				new ActionListener() {
 				@Override
 				public void actionPerformed( ActionEvent e ) {
-					JComponent screen = new PlaybackScreen();
+					JComponent screen = new PlaybackScreen(screenManager);
 					screenManager.show( screen );
 				}
 			} );
@@ -112,12 +115,32 @@ public class MainFrame extends JFrame
 					screenManager.show( screen );
 				}
 			} );
-		
+
 		SVGButton browseRecordings = UIHelper.createButton( "Browse Recorded Programs", 
 				new ActionListener() {
+			
 				@Override
 				public void actionPerformed( ActionEvent e ) {
-					JComponent screen = new RecordedProgramsGUI( null );
+					LinkedList<RecordedProgram> list = new LinkedList<RecordedProgram>();
+					list.add( new RecordedProgram("Family Guy", "Peter does something stupid!", Program.TV_14, 30, "10/10/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Family Guy", "Peter does something stupid Again!", Program.TV_MA, 30, "10/10/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Price is Right!", "We miss Bob Barker...", Program.TV_14, 30, "10/10/2008", "10/30/2008") );
+					list.add( new RecordedProgram("CSI: NY", "Every cast member is gone...", Program.TV_14, 30, "10/11/2008", "10/30/2008") );
+					list.add( new RecordedProgram("CSI: RIT", "Someone has stolen the tiger!", Program.TV_14, 30, "10/12/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Altos", "There is drama in Altoville", Program.TV_14, 30, "10/08/2008", "10/30/2008") );
+					list.add( new RecordedProgram("CSI: Miami", "It looks like bird.... is the word...", Program.TV_14, 30, "10/15/2008", "10/30/2008") );
+					list.add( new RecordedProgram("CSI: Miami", "Why did you tape this show?", Program.TV_14, 30, "10/22/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Altos", "Peter does something stupid! And he's not even in this show!", Program.TV_G, 30, "10/10/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Altos", "The Sopranos are getting jealous...", Program.TV_14, 30, "10/12/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Altos", "Altos make perfect harmony with the Tenors", Program.TV_14, 30, "10/14/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Altos", "I'm running out of ideas...", Program.TV_14, 30, "10/16/2008", "10/30/2008") );
+					list.add( new RecordedProgram("Altos", "And I'm done!", Program.TV_14, 30, "10/18/2008", "10/30/2008") );
+					JComponent screen = new RecordedProgramsGUI( list, new ActionListener() {
+						@Override
+						public void actionPerformed( ActionEvent e ) {
+							screenManager.back();
+						}
+					}, screenManager);
 					screenManager.show( screen );
 				}
 			} );
