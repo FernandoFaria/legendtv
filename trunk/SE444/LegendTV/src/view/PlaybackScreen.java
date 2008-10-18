@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -25,14 +26,14 @@ import view.controls.SVGButton;
 import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
-public class PlaybackScreen extends JComponent implements ActionListener, KeyListener
+public class PlaybackScreen extends JComponent implements ActionListener
 {
 	private static int HIDE_DELAY	= 5000;
 	
 	
 	private JPanel 		playbackPanel;
 	//Buttons - play, Fast forward, skip forward, skip backward, rewind, stop
-	private JButton		playPauseBtn, skipForwardBtn, fastForwardBtn, skipBackwardBtn, rewindBtn, stopBtn;
+	private JButton		playPauseBtn, skipForwardBtn, fastForwardBtn, skipBackwardBtn, rewindBtn, stopBtn, backBtn;
 	private	Timer		hideTimer;
 	private TimerTask	hideTimerTask;
 	private JLabel		currentStatus;
@@ -44,7 +45,13 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 		
 		layoutControls();
 		
-		this.addKeyListener(this);
+		playbackPanel.addKeyListener(new KeyAdapter(){
+			@Override
+			public void keyPressed(KeyEvent e){
+				System.out.println("ENTERED!");
+				manager.back();
+			}
+		});
 		this.addMouseMotionListener(new MouseInputAdapter()
 		{
 			@Override
@@ -107,12 +114,19 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 		this.stopBtn.setBackground(Color.BLACK);
 		this.stopBtn.setForeground(Color.WHITE);
 		
+		this.backBtn = new JButton("Back to Menu");
+		this.backBtn.addActionListener(this);
+		this.backBtn.setActionCommand("Back");
+		this.backBtn.setBackground(Color.BLACK);
+		this.backBtn.setForeground(Color.WHITE);
+		
 		this.currentStatus = new JLabel("Playing");
 		this.add(this.currentStatus, BorderLayout.NORTH);
 
 		//this.playPauseBtn.setBackground(this.playbackPanel.getBackground());
 		//this.playPauseBtn.setPreferredSize(new Dimension(230, 76));
 		
+		this.playbackPanel.add(Box.createHorizontalStrut(400));
 		this.playbackPanel.add(this.skipBackwardBtn);
 		this.playbackPanel.add(this.rewindBtn);
 		this.playbackPanel.add(this.playPauseBtn);
@@ -120,6 +134,9 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 		this.playbackPanel.add(this.skipForwardBtn);
 		this.playbackPanel.add(Box.createHorizontalStrut(50));
 		this.playbackPanel.add(this.stopBtn);
+		this.playbackPanel.add(Box.createHorizontalStrut(100));
+		this.playbackPanel.add(this.backBtn);
+		
 	}
 	
 	protected void showPanel()
@@ -186,31 +203,11 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 				this.playPauseBtn.setText("||");
 				currentStatus.setText("Playing");
 			}
+		}else if(actionCommand.equals("Back")){
+			manager.back();
 		}else{
 			currentStatus.setText(e.getActionCommand());
 			this.playPauseBtn.setText("|>");
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println(e.getKeyCode());
-		
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-			manager.back();
 		}
 	}
 }
