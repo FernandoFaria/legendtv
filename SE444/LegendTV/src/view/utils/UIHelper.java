@@ -3,6 +3,8 @@ package view.utils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.net.URL;
 
 import javax.swing.JLabel;
 
@@ -99,6 +101,27 @@ public class UIHelper
 			button.addActionListener(action);
 		
 		return button;
+	}
+	
+	/**
+	 * Converts a relative resource path to an absolute URI path that is
+	 * safe for use both inside and outside JAR files.
+	 * 
+	 * @param path	The relative resource file path.
+	 * @return		The URI string corresponding to the provided file path.
+	 * @throws	FileNotFoundException	If the specified resource file does
+	 * 									not exist.
+	 */
+	public static String resourcePathToUri(String path)
+	throws FileNotFoundException
+	{
+		// Prefix a slash so that paths are relative to project root, not class
+		URL	resource	= UIHelper.class.getResource("/" + path);
+		
+		if (resource == null)
+			throw new FileNotFoundException("Resource file not found: /" + path);
+		
+		return resource.toString();
 	}
 	
 	/**
