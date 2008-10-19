@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.EnumSet;
 
 import javax.swing.JComponent;
@@ -23,6 +25,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
 
 import view.utils.SvgImage;
+import view.utils.UIHelper;
 
 /**
  * A button that is rendered using Scalable Vector Graphics (SVG).
@@ -366,7 +369,7 @@ implements MouseListener
 	private Image renderImage(String path)
 	throws IOException
 	{
-		String					docUri			= this.toUri(path),
+		String					docUri,
 								parserClassName;
 		SAXSVGDocumentFactory	docFactory;
 		SVGDocument				document;
@@ -376,6 +379,8 @@ implements MouseListener
 
 	    parserClassName	= XMLResourceDescriptor.getXMLParserClassName();
 	    docFactory		= new SAXSVGDocumentFactory(parserClassName);
+	    
+	    docUri			= UIHelper.resourcePathToUri(path);
 	    document		= docFactory.createSVGDocument(docUri);
 		textNode		= document.getElementById(TEXT_NODE);
 		
@@ -411,17 +416,7 @@ implements MouseListener
 		}
 	}
 	
-	/**
-	 * Private utility method for converting paths to URIs for Batik.
-	 * 
-	 * @param path	The file path.
-	 * @return		The URI string corresponding to the provided file path.
-	 */
-	private String toUri(String path)
-	{
-		// Prefix a slash so that paths are relative to project root, not class
-		return this.getClass().getResource("/" + path).toString();
-	}
+	
 	
 	/**
 	 * Main method used for testing.
