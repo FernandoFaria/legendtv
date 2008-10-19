@@ -112,7 +112,7 @@ public class UIHelper
 	 * @throws	FileNotFoundException	If the specified resource file does
 	 * 									not exist.
 	 */
-	public static String resourcePathToUri(String path)
+	public static String resourcePathToUriPath(String path)
 	throws FileNotFoundException
 	{
 		// Prefix a slash so that paths are relative to project root, not class
