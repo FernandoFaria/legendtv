@@ -419,7 +419,8 @@ implements MouseListener
 	 */
 	private String toUri(String path)
 	{
-		return new File(path).toURI().toString();
+		// Prefix a slash so that paths are relative to project root, not class
+		return this.getClass().getResource("/" + path).toString();
 	}
 	
 	/**
