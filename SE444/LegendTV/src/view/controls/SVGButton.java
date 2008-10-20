@@ -380,7 +380,7 @@ implements MouseListener
 	    parserClassName	= XMLResourceDescriptor.getXMLParserClassName();
 	    docFactory		= new SAXSVGDocumentFactory(parserClassName);
 	    
-	    docUri			= UIHelper.resourcePathToUri(path);
+	    docUri			= UIHelper.resourcePathToUriPath(path);
 	    document		= docFactory.createSVGDocument(docUri);
 		textNode		= document.getElementById(TEXT_NODE);
 		
