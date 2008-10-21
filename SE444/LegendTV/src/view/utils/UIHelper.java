@@ -104,15 +104,15 @@ public class UIHelper
 	}
 	
 	/**
-	 * Converts a relative resource path to an absolute URI path that is
-	 * safe for use both inside and outside JAR files.
+	 * Converts a relative resource path to an absolute URI that is safe for use
+	 * both inside and outside JAR files.
 	 * 
 	 * @param path	The relative resource file path.
-	 * @return		The URI string corresponding to the provided file path.
+	 * @return		The URI corresponding to the provided file path.
 	 * @throws	FileNotFoundException	If the specified resource file does
 	 * 									not exist.
 	 */
-	public static String resourcePathToUriPath(String path)
+	public static URL resourcePathToUrl(String path)
 	throws FileNotFoundException
 	{
 		// Prefix a slash so that paths are relative to project root, not class
@@ -121,7 +121,7 @@ public class UIHelper
 		if (resource == null)
 			throw new FileNotFoundException("Resource file not found: /" + path);
 		
-		return resource.toString();
+		return resource;
 	}
 	
 	/**
