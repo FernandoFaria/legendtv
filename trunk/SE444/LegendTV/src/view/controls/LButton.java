@@ -5,11 +5,14 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import view.utils.UIHelper;
 
 /*
  * LButton.java
@@ -25,13 +28,35 @@ public class LButton extends JButton implements FocusListener, MouseListener{
 	public static final String largeButton = "Large Button";
 	public static final String smallButton = "Small Button";
 	
-	private static Icon smallButtonOffIcon = new ImageIcon("images/button_off_short.png");
-	private static Icon smallButtonOnIcon = new ImageIcon("images/button_on_short.png");
-	private static Icon largeButtonOnIcon = new ImageIcon();
-	private static Icon largeButtonOffIcon = new ImageIcon();
+	private static Icon smallButtonOffIcon;
+	private static Icon smallButtonOnIcon;
+	private static Icon largeButtonOnIcon;
+	private static Icon largeButtonOffIcon;
 	
 	private Insets in = new Insets(0,0,0,0);
 	private String buttonSize;
+	
+	static
+	{
+		try
+		{
+			smallButtonOffIcon	= new ImageIcon(
+										UIHelper.resourcePathToUrl(
+												"images/button_off_short.png"));
+			smallButtonOnIcon	= new ImageIcon(
+										UIHelper.resourcePathToUrl(
+												"images/button_on_short.png"));
+			
+			largeButtonOnIcon = new ImageIcon();
+			largeButtonOffIcon = new ImageIcon();
+		}
+		
+		catch (FileNotFoundException ex)
+		{
+			// Should not happen!
+			ex.printStackTrace();
+		}
+	}
 	
 	public LButton(String text ){
 		this(text, smallButton);
