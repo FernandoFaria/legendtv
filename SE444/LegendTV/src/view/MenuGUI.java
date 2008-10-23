@@ -352,7 +352,12 @@ public class MenuGUI extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (this.key.equals("UP")) {
-				getNorthButton().requestFocus();
+				if (getBottomButton().isFocusOwner()) {
+					getSouthButton().requestFocus();
+				}
+				else {
+					getNorthButton().requestFocus();
+				}
 			}
 			if (this.key.equals("LEFT")) {
 				getWestButton().requestFocus();
