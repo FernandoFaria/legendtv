@@ -1,15 +1,20 @@
 package view.setupwizard.pages;
 
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
+import view.utils.LimitedLengthDocument;
 import view.utils.UIHelper;
 
 @SuppressWarnings("serial")
@@ -26,9 +31,12 @@ public class ListingsSetupPage extends WizardPage
 	private static final String	TEXT_EXPLANATORY_LINES[] =
 	{
 		"It is now time to setup TV listings downloads, so that LegendTV " +
-		"knows what shows are being broadcast in your area.",
+		"knows what shows are being broadcast in your area. The zip code " +
+		"detected for your location is shown below.",
 		
-		"Please enter your zip code:"
+		"If this information is correct, choose &quot;Next Step >&quot; " +
+		"below. If this information is incorrect, please correct it and " +
+		"then choose &quot;Next Step >&quot;."
 	};
 	
 	/**
@@ -36,9 +44,24 @@ public class ListingsSetupPage extends WizardPage
 	 */
 	private JLabel		explanatoryLabel;
 	
-	private JTextArea	zipCodeField;
+	/**
+	 * The panel that contains the zip code label and field.
+	 */
+	private JPanel		zipCodePanel;
 	
 	/**
+	 * The label next to the zip code field.
+	 */
+	private JLabel		zipCodeLabel;
+	
+	/**
+	 * The field that the user enters their zip code in.
+	 */
+	private JTextField	zipCodeField;
+	
+	/**
+	 * Constructor for ListingsSetupPage.
+	 * 
 	 * @param wizard	The parent wizard instance.
 	 */
 	public ListingsSetupPage(SetupWizard wizard)
@@ -50,10 +73,14 @@ public class ListingsSetupPage extends WizardPage
 		this.layoutComponents();
 	}
 
+	/**
+	 * Method for performing layout of all of the components on this
+	 * page.
+	 */
 	private void layoutComponents()
 	{
 		this.setupExplanatoryText();
-		this.setupZipCodeField();
+		this.setupZipCodePanel();
 		
 		this.add(Box.createVerticalGlue());
 	}
@@ -67,27 +94,55 @@ public class ListingsSetupPage extends WizardPage
 										UIHelper.linesToHtmlText(
 											TEXT_EXPLANATORY_LINES));
 		
-		this.explanatoryLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
 		this.explanatoryLabel.setForeground(UIHelper.getForegroundColor());
 		this.explanatoryLabel.setFont(UIHelper.getBodyFont());
-		this.explanatoryLabel.setPreferredSize(new Dimension(100, 400));
 		
+		this.add(Box.createVerticalStrut(UIHelper.STANDARD_MARGIN));
 		this.add(this.explanatoryLabel);
 	}
 
-	private void setupZipCodeField()
+	/**
+	 * Sets-up the zip code field.
+	 */
+	private void setupZipCodePanel()
 	{
-		this.zipCodeField	= new JTextArea();
+		// Zip code panel
+		this.zipCodePanel	= new JPanel();
+
+		this.zipCodePanel.setAlignmentX(LEFT_ALIGNMENT);
+		this.zipCodePanel.setOpaque(false);
+		this.zipCodePanel.setLayout(
+				new BoxLayout(this.zipCodePanel, BoxLayout.X_AXIS));
+
+		this.zipCodePanel.add(Box.createHorizontalGlue());
 		
-		this.zipCodeField.setAlignmentX(LEFT_ALIGNMENT);
-		this.zipCodeField.setMaximumSize(new Dimension(100, 60));		
-		this.zipCodeField.setFont(UIHelper.getBodyFont());
+		// Zip code label
+		this.zipCodeLabel	= new JLabel("Zip code: ");
+		
+		this.zipCodeLabel.setFont(UIHelper.getBodyFont());
+		this.zipCodeLabel.setForeground(UIHelper.getForegroundColor());
+		
+		this.zipCodePanel.add(this.zipCodeLabel);
+		this.zipCodePanel.add(Box.createHorizontalStrut(10));
+		
+		// Zip code field
+		this.zipCodeField	= new JTextField(
+									new LimitedLengthDocument(5),
+									"14623", 0);
+
+		this.zipCodeField.setHorizontalAlignment(JTextField.CENTER);
+		this.zipCodeField.setPreferredSize(new Dimension(80, 40));
+		this.zipCodeField.setMaximumSize(new Dimension(80, 40));		
+		this.zipCodeField.setFont(UIHelper.getBodyFont().deriveFont(Font.BOLD));
 		
 		// Invert colors to make field stand out
 		this.zipCodeField.setBackground(UIHelper.getForegroundColor());
 		this.zipCodeField.setForeground(UIHelper.getBackgroundColor());
 		
-		this.add(this.zipCodeField);
+		this.zipCodePanel.add(this.zipCodeField);
+		this.zipCodePanel.add(Box.createHorizontalGlue());
+		
+		this.add(this.zipCodePanel);
 	}
 	
 	@Override
@@ -100,5 +155,11 @@ public class ListingsSetupPage extends WizardPage
 	public String getTitle()
 	{
 		return TITLE;
+	}
+	
+	@Override
+	public void activate()
+	{
+		this.zipCodeField.requestFocusInWindow();
 	}
 }

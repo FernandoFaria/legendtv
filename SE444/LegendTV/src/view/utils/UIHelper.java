@@ -19,6 +19,11 @@ import view.controls.SVGButton;
 public class UIHelper
 {
 	/**
+	 * The standard amount of space to put between components on screens.
+	 */
+	public static final int STANDARD_MARGIN = 50;
+	
+	/**
 	 * Returns the font to be used for screen headings.
 	 * 
 	 * @return	A font object with the appropriate properties set for

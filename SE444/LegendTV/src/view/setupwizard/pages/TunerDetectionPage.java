@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -132,11 +133,11 @@ public class TunerDetectionPage extends WizardPage
 	private void setupProgressControls()
 	{
 		this.statusLabel	= new JLabel();
-		this.statusLabel.setBorder(new EmptyBorder(10, 0, 0, 0));
 		this.statusLabel.setForeground(UIHelper.getForegroundColor());
 		this.statusLabel.setFont(UIHelper.getBodyFont());
 		this.statusLabel.setSize(1, 200);
-		
+
+		this.add(Box.createVerticalStrut(UIHelper.STANDARD_MARGIN));
 		this.add(this.statusLabel);
 		
 		this.progressBar	= new JProgressBar(
@@ -145,11 +146,11 @@ public class TunerDetectionPage extends WizardPage
 		
 		this.progressBar.setOpaque(false);
 		this.progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.progressBar.setBorder(new EmptyBorder(10, 0, 0, 0));
 		this.progressBar.setMinimumSize(new Dimension(1, 100));
 		this.progressBar.setSize(1, 100);
 		this.progressBar.setPreferredSize(new Dimension(1, 100));
-		
+
+		this.add(Box.createVerticalStrut(10));
 		this.add(this.progressBar);
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -100,10 +101,9 @@ public class WhiteLevelCalibrationPage extends WizardPage
 											TEXT_EXPLANATORY_LINES));
 		
 		this.explanatoryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		this.explanatoryLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
-		this.explanatoryLabel.setSize(0, 400);
 		
-		this.add(this.explanatoryLabel);		
+		this.add(Box.createVerticalStrut(UIHelper.STANDARD_MARGIN));
+		this.add(this.explanatoryLabel);
 	}
 
 	/**
@@ -117,8 +117,6 @@ public class WhiteLevelCalibrationPage extends WizardPage
 		this.calibrationPanel.setLayout(new GridLayout(1, 2));
 		this.calibrationPanel.setOpaque(false);
 		this.calibrationPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		
-		this.add(this.calibrationPanel);
 		
 		this.explanatoryBullets	= UIHelper.createLabel(
 									UIHelper.linesToHtmlList(
@@ -146,6 +144,9 @@ public class WhiteLevelCalibrationPage extends WizardPage
 		}
 		
 		this.calibrationPanel.add(this.calibrationImage);
+		
+		this.add(this.calibrationPanel);
+		this.add(Box.createVerticalGlue());
 	}
 	
 	/**
