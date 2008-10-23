@@ -14,12 +14,16 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+import view.utils.UIHelper;
 
 /**
  * @author Eric
@@ -54,17 +58,22 @@ public class GuideView extends JComponent {
 		this.add( programView, c );
 		
 		// Add the TV preview to the top right
-		c.gridx = 2;
-		c.gridwidth = 1;
-		c.weightx = 0.4;
-		c.gridy = 1;
-		c.gridheight = 1;
-		c.weighty = 0.3;
-		c.fill = GridBagConstraints.BOTH;
-		JComponent tvView = new JLabel( new ImageIcon( "images/family-guy.jpg" ) );
-		tvView.setBackground( BACKGROUND );
-		tvView.setOpaque( true );
-		this.add( tvView, c );
+		try {
+			URL url = UIHelper.resourcePathToUrl( "images/family-guy.jpg" );
+			c.gridx = 2;
+			c.gridwidth = 1;
+			c.weightx = 0.4;
+			c.gridy = 1;
+			c.gridheight = 1;
+			c.weighty = 0.3;
+			c.fill = GridBagConstraints.BOTH;
+			JComponent tvView = new JLabel( new ImageIcon( url ) );
+			tvView.setBackground( BACKGROUND );
+			tvView.setOpaque( true );
+			this.add( tvView, c );
+		} catch ( FileNotFoundException e ) {
+			// Do nothing
+		}
 		
 		// Add the Listing Grid to the bottom half
 		c.gridx = 1;
