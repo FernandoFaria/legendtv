@@ -80,7 +80,7 @@ public class MainFrame extends JFrame
 								"This feature is not yet implemented" );
 					}
 				} );
-		return new MenuGUI(tv, music, video, settings, createExitButton() );
+		return new MenuGUI("Main Menu", tv, music, video, settings, createExitButton() );
 	}
 
 	private MenuGUI createTVMenu() {
@@ -144,7 +144,7 @@ public class MainFrame extends JFrame
 					screenManager.show( screen );
 				}
 			} );
-		return new MenuGUI(watchTv, browseListings, browseRecordings, search, createBackButton() );
+		return new MenuGUI("TV Menu", watchTv, browseListings, browseRecordings, search, createBackButton() );
 	}
 	
 	private SVGButton createExitButton() {

@@ -18,14 +18,14 @@ import view.controls.SVGButton;
  */
 public class MenuGUI extends JPanel {
 	
-	public MenuGUI(SVGButton northButton, SVGButton westButton,
+	public MenuGUI(String title, SVGButton northButton, SVGButton westButton,
 			SVGButton eastButton, SVGButton southButton,
 			SVGButton bottomButton) {
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		
     	JLabel titleLabel = new JLabel("LegendTV");
-    	JLabel centerLabel = new JLabel("Main Menu", SwingConstants.CENTER);
+    	JLabel centerLabel = new JLabel(title, SwingConstants.CENTER);
     	
 
     	
@@ -252,7 +252,7 @@ public class MenuGUI extends JPanel {
 		SVGButton southButton = UIHelper.createButton("South", null);
 		SVGButton bottomButton = UIHelper.createButton("Exit", null);
 			
-		mainFrame.add(new MenuGUI(northButton, westButton, eastButton,
+		mainFrame.add(new MenuGUI("Test", northButton, westButton, eastButton,
 				southButton, bottomButton));
     	
 		/*
