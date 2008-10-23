@@ -353,61 +353,38 @@ public class MenuGUI extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (this.key.equals("UP")) {
 				getNorthButton().requestFocus();
-				unfocusAllButtons();
-				getNorthButton().setLooksFocused(true);
 			}
 			if (this.key.equals("LEFT")) {
 				getWestButton().requestFocus();
-				unfocusAllButtons();
-				getWestButton().setLooksFocused(true);
 			}
 			if (this.key.equals("RIGHT")) {
 				getEastButton().requestFocus();
-				unfocusAllButtons();
-				getEastButton().setLooksFocused(true);
 			}
 			if (this.key.equals("DOWN")) {
 				if (getSouthButton().isFocusOwner()) {
 					getBottomButton().requestFocus();
-					unfocusAllButtons();
-					getBottomButton().setLooksFocused(true);
 				}
 				else {
 					getSouthButton().requestFocus();
-					unfocusAllButtons();
-					getSouthButton().setLooksFocused(true);
 				}
 			}
 			if (this.key.equals("ENTER")) {
 				if (getNorthButton().isFocusOwner()) {
 					getNorthButton().fireActionEvent();
-					unfocusAllButtons();
 				}
 				if (getWestButton().isFocusOwner()) {
 					getWestButton().fireActionEvent();
-					unfocusAllButtons();
 				}
 				if (getEastButton().isFocusOwner()) {
 					getEastButton().fireActionEvent();
-					unfocusAllButtons();
 				}
 				if (getSouthButton().isFocusOwner()) {
 					getSouthButton().fireActionEvent();
-					unfocusAllButtons();
 				}
 				if (getBottomButton().isFocusOwner()) {
 					getBottomButton().fireActionEvent();
-					unfocusAllButtons();
 				}
 			}
-		}
-		
-		private void unfocusAllButtons() {
-			getNorthButton().setLooksFocused(false);
-			getWestButton().setLooksFocused(false);
-			getEastButton().setLooksFocused(false);
-			getSouthButton().setLooksFocused(false);
-			getBottomButton().setLooksFocused(false);
 		}
 	}
 }

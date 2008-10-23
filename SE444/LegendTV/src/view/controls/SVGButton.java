@@ -583,11 +583,6 @@ implements FocusListener, MouseListener, KeyListener
 		}
 	}
 	
-	public void setLooksFocused(boolean focused) {
-		if (focused) setState(ButtonState.Hover);
-		else setState(ButtonState.Normal);
-	}
-	
 	/**
 	 * Main method used for testing.
 	 * 
