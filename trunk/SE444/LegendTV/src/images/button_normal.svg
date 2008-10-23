@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="230" height="76">
-	
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%">
 	<linearGradient id="uppergrad" x1="0" y1="0" x2="0" y2="100%">
 		<stop stop-color="#707070" offset="0" />
 		<stop stop-color="#515151" offset="70%" />
@@ -15,16 +14,16 @@
 		<stop stop-color="#000000" offset="100%" />
 	</linearGradient>
 	
-	<rect id="buttonFace" x="2%" y="2%" width="96%"
-		  height="96%" />
+	<rect id="buttonFace" x="5%" y="5%" width="90%" height="90%" fill="black"
+		  stroke-width="2" stroke="black" />
 
 	<g id="button" fill-opacity="0.9" shape-rendering="crispEdges">
-		<rect id="upperbar" x="2%" y="2%" width="96%" height="48%" fill="url(#uppergrad)" />
-		<rect id="lowerbar" x="2%" y="50%" width="96%" height="48%" fill="url(#lowergrad)" />
+		<rect id="upperbar" x="5%" y="5%" width="90%" height="30%" fill="url(#uppergrad)" />
+		<rect id="lowerbar" x="5%" y="75%" width="90%" height="10%" fill="url(#lowergrad)" />
 	</g>
-	
-	<text id="text" x="50%" y="60%" text-anchor="middle" fill="white"
-		  font-family="Segoe UI" font-size="26" >
+
+	<text id="text" x="50%" y="55%" text-anchor="middle" fill="white"
+		  font-family="Segoe UI" font-size="24pt">
 		Your Text Here
-    </text>
+	</text>
 </svg>
