@@ -14,16 +14,23 @@
 		<stop stop-color="#000000" offset="100%" />
 	</linearGradient>
 	
-	<rect id="buttonFace" x="5%" y="5%" width="90%" height="90%" fill="black"
-		  stroke-width="2" stroke="black" />
+	<!-- Border -->
+	<rect x="5%" y="5%" width="90%" height="90%" stroke-width="2"
+		  stroke="white" />
+		  
+	<!--  Face under gradients -->
+	<rect x="5.5%" y="5.5%" width="89%" height="89%" fill="black" />
 
 	<g id="button" fill-opacity="0.9" shape-rendering="crispEdges">
-		<rect id="upperbar" x="5%" y="5%" width="90%" height="30%" fill="url(#uppergrad)" />
-		<rect id="lowerbar" x="5%" y="75%" width="90%" height="10%" fill="url(#lowergrad)" />
+		<rect id="upperbar" x="5.5%" y="5.5%" width="89%" height="30%"
+			  fill="url(#uppergrad)" />
+			  
+		<rect id="lowerbar" x="5.5%" y="75%" width="89%" height="10%"
+			  fill="url(#lowergrad)" />
 	</g>
 
-	<text id="text" x="50%" y="55%" text-anchor="middle" fill="white"
-		  font-family="Segoe UI" font-size="24pt">
+	<text id="text" x="50%" y="56%" text-anchor="middle" fill="white"
+		  font-family="Segoe UI" font-size="18pt">
 		Your Text Here
 	</text>
 </svg>
