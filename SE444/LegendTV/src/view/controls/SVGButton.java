@@ -478,6 +478,10 @@ implements MouseListener
 		}
 	}
 	
+	public void doClick() {
+		fireActionEvent();
+	}
+	
 	/**
 	 * Main method used for testing.
 	 * 
