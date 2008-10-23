@@ -406,8 +406,8 @@ implements FocusListener, MouseListener, KeyListener
 	 */
 	private void setState(ButtonState newState)
 	{
-		if (this.images[newState.ordinal()] == null)
-			newState	= ButtonState.Normal;
+		//if (this.images[newState.ordinal()] == null)
+		//	newState	= ButtonState.Normal;
 		
 		this.state	= newState;
 		
@@ -443,6 +443,7 @@ implements FocusListener, MouseListener, KeyListener
 			@Override
 			public void run()
 			{
+				// Only render if we have something to render
 				if ((SVGButton.this.getWidth() > 0) &&
 					(SVGButton.this.getHeight() > 0))
 				{
@@ -458,6 +459,7 @@ implements FocusListener, MouseListener, KeyListener
 					}
 				}
 				
+				// Re-draw the current state
 				SVGButton.this.repaint();
 			}
 		}).start();
@@ -476,6 +478,7 @@ implements FocusListener, MouseListener, KeyListener
 	    {
 	    	int	stateNum	= state.ordinal();
 	    	
+	    	// The new state might not have an image
 	    	if (this.imagePaths[stateNum] != null)
 	    	{
 	    		if (this.imageLoaders[stateNum] == null)
@@ -607,6 +610,8 @@ implements FocusListener, MouseListener, KeyListener
 				JOptionPane.showMessageDialog(null, "You clicked the button!");
 			}
 		});
+		
+		testBtn.requestFocusInWindow();
 		
 		testFrame.setBackground(Color.BLACK);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
