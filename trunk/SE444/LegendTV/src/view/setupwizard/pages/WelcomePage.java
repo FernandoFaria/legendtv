@@ -2,6 +2,7 @@ package view.setupwizard.pages;
 
 import java.awt.Dimension;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
@@ -75,10 +76,10 @@ public class WelcomePage extends WizardPage
 										UIHelper.linesToHtmlText(
 											TEXT_EXPLANATORY_LINES));
 		
-		this.explanatoryLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
 		this.explanatoryLabel.setForeground(UIHelper.getForegroundColor());
 		this.explanatoryLabel.setFont(UIHelper.getBodyFont());
-		this.explanatoryLabel.setPreferredSize(new Dimension(100, 400));
+		
+		this.add(Box.createVerticalStrut(UIHelper.STANDARD_MARGIN));
 		this.add(this.explanatoryLabel);
 	}
 	

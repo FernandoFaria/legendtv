@@ -353,24 +353,24 @@ public class MenuGUI extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (this.key.equals("UP")) {
 				if (getBottomButton().isFocusOwner()) {
-					getSouthButton().requestFocus();
+					getSouthButton().requestFocusInWindow();
 				}
 				else {
-					getNorthButton().requestFocus();
+					getNorthButton().requestFocusInWindow();
 				}
 			}
 			if (this.key.equals("LEFT")) {
-				getWestButton().requestFocus();
+				getWestButton().requestFocusInWindow();
 			}
 			if (this.key.equals("RIGHT")) {
-				getEastButton().requestFocus();
+				getEastButton().requestFocusInWindow();
 			}
 			if (this.key.equals("DOWN")) {
 				if (getSouthButton().isFocusOwner()) {
-					getBottomButton().requestFocus();
+					getBottomButton().requestFocusInWindow();
 				}
 				else {
-					getSouthButton().requestFocus();
+					getSouthButton().requestFocusInWindow();
 				}
 			}
 			if (this.key.equals("ENTER")) {

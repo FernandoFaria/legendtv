@@ -28,7 +28,7 @@ public class CompletedSetupPage extends WizardPage
 	 */
 	private static final String	TEXT_EXPLANATORY_LINES[] =
 	{
-		"Congradulations! Your system has now been set-up.",
+		"Congratulations! Your system has now been set-up.",
 		
 		"To begin using LegendTV, select 'Start LegendTV' below.",
 		

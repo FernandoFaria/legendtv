@@ -188,7 +188,7 @@ public class SetupWizard extends JPanel
 	{
 		WizardPage	previousPage = this.currentPage.getPreviousPage();
 		
-		if (this.isAtLastPage())
+		if (this.isAtFirstPage())
 		{
 			throw new IllegalStateException(
 					"The wizard is at the first page -- there is no previous " +
@@ -248,7 +248,7 @@ public class SetupWizard extends JPanel
 		
 		this.setHeadingText(page.getTitle());		
 
-		refreshButtonState();
+		this.refreshButtonState();
 		
 		this.currentPage.activate();
 	}
@@ -264,10 +264,12 @@ public class SetupWizard extends JPanel
 		this.setOpaque(true);
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BorderLayout());
-						
-		setupHeadingText();
-		setupContentPanel();
-		setupButtonPanel();
+
+		this.setupHeadingText();
+		this.setupContentPanel();
+		this.setupButtonPanel();
+		
+		this.nextBtn.requestFocusInWindow();
 	}
 	
 	/**
