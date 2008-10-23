@@ -7,15 +7,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import view.MainFrame;
 import view.controls.SVGButton;
-import view.setupwizard.pages.ListingsSetupPage;
 import view.setupwizard.pages.WelcomePage;
 import view.utils.UIHelper;
 
@@ -33,7 +29,7 @@ import view.utils.UIHelper;
  * @author Guy Paddock (gap7472@rit.edu)
  */
 @SuppressWarnings("serial")
-public class SetupWizard extends JComponent
+public class SetupWizard extends JPanel
 {
 	/**
 	 * The title that prefixes all headings
@@ -60,11 +56,6 @@ public class SetupWizard extends JComponent
 	 * last wizard page.
 	 */
 	private static final String BUTTON_FINISH	= "Start LegendTV";
-	
-	/**
-	 * The window that contains this setup wizard.
-	 */
-	JFrame		parentWindow;
 	
 	/**
 	 * The label for the text heading at the top of screens.
@@ -111,8 +102,32 @@ public class SetupWizard extends JComponent
 		super();		
 		
 		this.layoutControls();
+		
+		this.setCurrentPage(new WelcomePage(this));
 	}
 
+	/**
+	 * Registers a wizard event listener, which will be informed when
+	 * events occur in this wizard instance.
+	 * 
+	 * @param listener	The listener to register.
+	 */
+	public void addEventListener(WizardEventListener listener)
+	{
+		this.listenerList.add(WizardEventListener.class, listener);
+	}
+
+	/**
+	 * Unregisters a wizard event listener, which will no longer be informed of
+	 * events that occur in this wizard instance.
+	 * 
+	 * @param listener	The listener to unregister.
+	 */
+	public void removeEventListener(WizardEventListener listener)
+	{
+		this.listenerList.remove(WizardEventListener.class, listener);
+	}
+	
 	/**
 	 * Gets whether or not the wizard is currently at the first page.
 	 * 
@@ -225,6 +240,7 @@ public class SetupWizard extends JComponent
 		if (this.currentPage != null)
 			this.contentPnl.remove(this.currentPage);
 		
+		this.contentPnl.setOpaque(false);
 		this.contentPnl.add(page, BorderLayout.CENTER);
 		this.contentPnl.repaint();
 		
@@ -242,9 +258,10 @@ public class SetupWizard extends JComponent
 	 */
 	private void layoutControls()
 	{
-		// Inherit background
-		this.setOpaque(false);
-
+		this.setBackground(UIHelper.getBackgroundColor());
+		this.setForeground(UIHelper.getForegroundColor());
+		
+		this.setOpaque(true);
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BorderLayout());
 						
@@ -276,7 +293,8 @@ public class SetupWizard extends JComponent
 		this.contentPnl	= new JPanel();
 		
 		this.contentPnl.setLayout(new BorderLayout());
-		this.contentPnl.setOpaque(false);		
+		this.contentPnl.setOpaque(false);
+		
 		this.add(this.contentPnl, BorderLayout.CENTER);
 	}
 
@@ -392,23 +410,10 @@ public class SetupWizard extends JComponent
 	 */
 	private void finishAndClose()
 	{
-		// TODO Advance to main menu
-		System.exit(0);
-	}
-
-	/**
-	 * Main method used for testing.
-	 * 
-	 * @param args	Command-line arguments (unused).
-	 */
-	public static void main(String[] args)
-	{
-		JFrame		mainFrame	= new MainFrame();
-		SetupWizard	wizard		= new SetupWizard();
-		
-		wizard.setCurrentPage(new WelcomePage(wizard));
-		
-		mainFrame.add(wizard, BorderLayout.CENTER);
-		mainFrame.setVisible(true);
+		for (WizardEventListener listener :
+			this.listenerList.getListeners(WizardEventListener.class))
+		{
+			listener.wizardCompleted();
+		}
 	}
 }

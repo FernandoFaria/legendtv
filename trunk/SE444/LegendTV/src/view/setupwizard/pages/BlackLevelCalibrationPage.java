@@ -3,6 +3,7 @@ package view.setupwizard.pages;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.FileNotFoundException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -135,8 +136,20 @@ public class BlackLevelCalibrationPage extends WizardPage
 				
 		this.calibrationImage.setPreferredSize(new Dimension(115, 115));
 		this.calibrationImage.setHorizontalAlignment(SwingConstants.CENTER);
-		this.calibrationImage.setIcon(
-				new ImageIcon("images/CalibrateBrightness.png"));
+		
+		try
+		{
+			this.calibrationImage.setIcon(
+					new ImageIcon(
+							UIHelper.resourcePathToUrl(
+								"images/CalibrateBrightness.png")));
+		}
+		
+		catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		
 		this.calibrationPanel.add(this.calibrationImage);
 	}

@@ -101,6 +101,6 @@ public class WelcomePage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new BlackLevelCalibrationPage(this.getWizard()); 
+		return new BlackLevelCalibrationPage(this.getWizard());
 	}
 }
