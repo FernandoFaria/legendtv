@@ -1,5 +1,6 @@
 package view.controls;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -7,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.io.IOException;
 import java.util.EnumSet;
 
@@ -17,6 +20,12 @@ import javax.swing.JOptionPane;
 import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
+import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
+import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.apache.batik.swing.svg.SVGUserAgentAdapter;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
@@ -92,6 +101,8 @@ implements MouseListener
 	 */
 	private Image[]				images;
 	
+	private JSVGCanvas[]		imageLoaders;
+	
 	/**
 	 * Initializes a new instance of SVG button with the specified
 	 * images for the various button states.
@@ -145,12 +156,15 @@ implements MouseListener
 					 String depressedImagePath)
 	throws IllegalArgumentException
 	{
+		int	numStates	= ButtonState.values().length;
+		
     	if (normalImagePath == null)
     		throw new IllegalArgumentException("normalImagePath must be set.");
 		
 		this.text				= text;
-		this.images				= new Image[ButtonState.values().length];
-		this.imagePaths			= new String[ButtonState.values().length];
+		this.images				= new Image[numStates];
+		this.imagePaths			= new String[numStates];
+		this.imageLoaders		= new JSVGCanvas[numStates];
 		
 		this.imagePaths[ButtonState.Normal.ordinal()]		= normalImagePath;
 		this.imagePaths[ButtonState.Highlighted.ordinal()]	= highlightImagePath;
@@ -319,19 +333,31 @@ implements MouseListener
 	 */
 	private void ReRender()
 	{
-		try
+		// Move off the event dispatch thread to prevent a deadlock condition
+		// with Batik needed a lock on the AWT event thread during rendering.
+		(new Thread()
 		{
-			if ((this.getWidth() > 0) && (this.getHeight() > 0))
-				this.renderImages();
-		
-			this.repaint();
-		}
-		
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			@Override
+			public void run()
+			{
+				if ((SVGButton.this.getWidth() > 0) &&
+					(SVGButton.this.getHeight() > 0))
+				{
+					try
+					{
+						SVGButton.this.renderImages();
+					}
+					
+					catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				SVGButton.this.repaint();
+			}
+		}).start();
 	}
 	
 	/**
@@ -348,54 +374,85 @@ implements MouseListener
 	    	int	stateNum	= state.ordinal();
 	    	
 	    	if (this.imagePaths[stateNum] != null)
-	    	{	
-	    		this.images[stateNum] = this.renderImage(
-	    									this.imagePaths[stateNum]);
-    		}
+	    	{
+	    		if (this.imageLoaders[stateNum] == null)
+	    			initializeLoader(state);
+	    		
+    			this.renderImage(state);
+	    	}
 	    }
 	}
 	
 	/**
-	 * Method called to render a button state image from the SVG resource
-	 * at the specified file path.
+	 * Initializes a JSVGCanvas which provides SVG image loading functionality.
 	 * 
-	 * @param	path	The file path of the SVG resource to render into
-	 * 					an image.
-	 * @return			The rendered button state image.
+	 * @param state	The button state for which a loader is being initialized.
 	 */
-	private Image renderImage(String path)
+	private void initializeLoader(final ButtonState state)
+	{
+		JSVGCanvas	loader		= new JSVGCanvas(
+										new SVGUserAgentAdapter(),
+										false,
+										false);
+		final int	stateNum	= state.ordinal();
+		
+		loader.addSVGDocumentLoaderListener(
+				new SVGDocumentLoaderAdapter()
+				{
+					@Override
+					public void documentLoadingCompleted(
+									SVGDocumentLoaderEvent e)
+					{
+						SVGDocument	document;
+						Element		textNode;
+
+					    document	= e.getSVGDocument();
+						textNode	= document.getElementById(TEXT_NODE);
+						
+						if (textNode != null)
+							textNode.setTextContent(SVGButton.this.text);
+
+					}
+				});
+		
+		loader.addGVTTreeRendererListener(
+			new GVTTreeRendererAdapter()
+			{
+				@Override
+				public void gvtRenderingCompleted(GVTTreeRendererEvent e)
+				{
+					SVGButton.this.images[stateNum]	= e.getImage();
+					
+					SVGButton.this.repaint();
+				}
+			});
+		
+		this.imageLoaders[stateNum] = loader;
+	}
+	
+	/**
+	 * Method called to render a button state image.
+	 * 
+	 * @param	state	The button state for which an image is being rendered.
+	 */
+	private void renderImage(ButtonState state)
 	throws IOException
 	{
-		String					docUri,
-								parserClassName;
-		SAXSVGDocumentFactory	docFactory;
-		SVGDocument				document;
-		Element					textNode;
-		UserAgent				userAgent;
-		SvgImage				imageRenderer;
+		int			stateNum	= state.ordinal();
+		JSVGCanvas	loader		= this.imageLoaders[stateNum];
+		
+		this.images[stateNum] = null;
+		
+		// Stop any previous processing since we reuse existing loaders.
+		loader.stopProcessing();
+		
+		// Adjust size appropriately.
+		loader.setSize(this.getSize());
 
-	    parserClassName	= XMLResourceDescriptor.getXMLParserClassName();
-	    docFactory		= new SAXSVGDocumentFactory(parserClassName);
-	    
-	    docUri			= UIHelper.resourcePathToUrl(path).toString();
-	    document		= docFactory.createSVGDocument(docUri);
-		textNode		= document.getElementById(TEXT_NODE);
-		
-		if (textNode != null)
-			textNode.setTextContent(this.text);
-		
-		userAgent	= new UserAgentAdapter()
-		{
-			@Override
-			public void displayError(Exception e)
-			{
-				e.printStackTrace();
-			}
-		};
-		
-		imageRenderer	= new SvgImage(document, userAgent);
-		
-		return (imageRenderer.getImage(this.getWidth(), this.getHeight()));
+		// Have the appropriate loader re-render the image
+		loader.loadSVGDocument(
+				UIHelper.resourcePathToUrl(
+						this.imagePaths[stateNum]).toString());
 	}
 
 	/**
@@ -413,8 +470,6 @@ implements MouseListener
 		}
 	}
 	
-	
-	
 	/**
 	 * Main method used for testing.
 	 * 
@@ -430,6 +485,7 @@ implements MouseListener
 										"images/button_hover.svg",
 										"images/button_down.svg");
 		
+		testFrame.setLayout(new BorderLayout());
 		testBtn.addActionListener(new ActionListener()
 		{
 			@Override
@@ -442,9 +498,9 @@ implements MouseListener
 		testFrame.setBackground(Color.BLACK);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		testFrame.setTitle("Test");
-		testFrame.setSize(300, 300);
+		testFrame.setSize(250, 100);
 		
-		testFrame.add(testBtn);
+		testFrame.add(testBtn, BorderLayout.CENTER);
 		
 		testFrame.setVisible(true);
 	}
