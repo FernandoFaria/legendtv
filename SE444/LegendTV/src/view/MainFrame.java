@@ -5,15 +5,22 @@ import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.mozilla.javascript.tools.debugger.Main;
+
 import data.RecordedProgram;
 
 import view.controls.SVGButton;
+import view.setupwizard.SetupWizard;
+import view.setupwizard.WizardEventListener;
+import view.setupwizard.pages.ListingsSetupPage;
 import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
@@ -38,10 +45,37 @@ public class MainFrame extends JFrame
 		
 		this.setupControls();
 		
-		screenManager = new ScreenManager( this );
+		screenManager = new ScreenManager(this);
+	}
+
+	/**
+	 * Starts the first-run wizard.
+	 */
+	private void startWizard()
+	{
+		SetupWizard	wizard = new SetupWizard();
+		
+		wizard.addEventListener(new WizardEventListener()
+		{
+			@Override
+			public void wizardCompleted()
+			{
+				MainFrame.this.startNormalMode();
+			}
+		});
+		
+		screenManager.show(wizard);
+	}
+	
+	/**
+	 * Starts the system in normal mode (i.e. at main menu).
+	 */
+	private void startNormalMode()
+	{
 		MenuGUI tvMenu = createTVMenu();
 		MenuGUI mainMenu = createMainMenu( tvMenu );
-		screenManager.show( mainMenu );
+		
+		screenManager.show(mainMenu);
 	}
 	
 	private MenuGUI createMainMenu( MenuGUI tvMenu ) {
@@ -180,9 +214,8 @@ public class MainFrame extends JFrame
 		this.setExtendedState(MAXIMIZED_BOTH);
 
 		// Black & white themeing
-		// TODO: Move into theme
-		contentPane.setForeground(Color.WHITE);
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setForeground(UIHelper.getForegroundColor());
+		contentPane.setBackground(UIHelper.getBackgroundColor());
 		
 		this.setLayout(new BorderLayout());
 	}
@@ -194,6 +227,15 @@ public class MainFrame extends JFrame
 	 */
 	public static void main(String[] args)
 	{
-		new MainFrame().setVisible(true);
+		MainFrame			mainFrame	= new MainFrame();
+		Collection<String>	argsList	= Arrays.asList(args);
+		
+		if (argsList.contains("/skipWizard"))
+			mainFrame.startNormalMode();
+		
+		else
+			mainFrame.startWizard();
+		
+		mainFrame.setVisible(true);
 	}
 }

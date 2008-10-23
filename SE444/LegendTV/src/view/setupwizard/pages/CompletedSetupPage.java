@@ -51,7 +51,7 @@ public class CompletedSetupPage extends WizardPage
 	{
 		super(wizard);
 		
-		layoutControls();		
+		layoutControls();
 	}
 
 	/**

@@ -2,6 +2,7 @@ package view.setupwizard.pages;
 
 import java.awt.Dimension;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -11,6 +12,7 @@ import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
 import view.utils.UIHelper;
 
+@SuppressWarnings("serial")
 public class ListingsSetupPage extends WizardPage
 {
 	/**
@@ -26,7 +28,7 @@ public class ListingsSetupPage extends WizardPage
 		"It is now time to setup TV listings downloads, so that LegendTV " +
 		"knows what shows are being broadcast in your area.",
 		
-		"Please enter your zip code: (TO BE COMPLETED)"
+		"Please enter your zip code:"
 	};
 	
 	/**
@@ -44,9 +46,16 @@ public class ListingsSetupPage extends WizardPage
 		super(wizard);
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		//this.setModal(true);
 		
+		this.layoutComponents();
+	}
+
+	private void layoutComponents()
+	{
 		this.setupExplanatoryText();
+		this.setupZipCodeField();
+		
+		this.add(Box.createVerticalGlue());
 	}
 
 	/**
@@ -62,7 +71,23 @@ public class ListingsSetupPage extends WizardPage
 		this.explanatoryLabel.setForeground(UIHelper.getForegroundColor());
 		this.explanatoryLabel.setFont(UIHelper.getBodyFont());
 		this.explanatoryLabel.setPreferredSize(new Dimension(100, 400));
+		
 		this.add(this.explanatoryLabel);
+	}
+
+	private void setupZipCodeField()
+	{
+		this.zipCodeField	= new JTextArea();
+		
+		this.zipCodeField.setAlignmentX(LEFT_ALIGNMENT);
+		this.zipCodeField.setMaximumSize(new Dimension(100, 60));		
+		this.zipCodeField.setFont(UIHelper.getBodyFont());
+		
+		// Invert colors to make field stand out
+		this.zipCodeField.setBackground(UIHelper.getForegroundColor());
+		this.zipCodeField.setForeground(UIHelper.getBackgroundColor());
+		
+		this.add(this.zipCodeField);
 	}
 	
 	@Override
