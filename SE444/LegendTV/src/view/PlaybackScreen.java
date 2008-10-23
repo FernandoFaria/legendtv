@@ -26,7 +26,7 @@ import view.controls.SVGButton;
 import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
-public class PlaybackScreen extends JComponent implements ActionListener
+public class PlaybackScreen extends JComponent implements ActionListener, KeyListener
 {
 	private static int HIDE_DELAY	= 5000;
 	
@@ -45,13 +45,8 @@ public class PlaybackScreen extends JComponent implements ActionListener
 		
 		layoutControls();
 		
-		playbackPanel.addKeyListener(new KeyAdapter(){
-			@Override
-			public void keyPressed(KeyEvent e){
-				System.out.println("ENTERED!");
-				manager.back();
-			}
-		});
+		this.addKeyListener(this);
+		
 		this.addMouseMotionListener(new MouseInputAdapter()
 		{
 			@Override
@@ -209,5 +204,33 @@ public class PlaybackScreen extends JComponent implements ActionListener
 			currentStatus.setText(e.getActionCommand());
 			this.playPauseBtn.setText("|>");
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("It works!");
+		int keyCode = e.getKeyCode();
+		
+		if(keyCode == KeyEvent.VK_SPACE){
+			if(this.playPauseBtn.getText().equals("||")){
+				this.playPauseBtn.setText("|>");
+				currentStatus.setText("Paused");
+			}else{
+				this.playPauseBtn.setText("||");
+				currentStatus.setText("Playing");
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
