@@ -176,6 +176,9 @@ public class ListingGrid extends JPanel implements KeyListener {
 			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			this.add( program, c );
 			programs[channel][time] = program;
+			if ( time + 1 < timeSlots ) {
+				programs[channel][time+1] = program;
+			}
 		}
 		// Add programs for FOX
 		channel = 1;
@@ -210,6 +213,9 @@ public class ListingGrid extends JPanel implements KeyListener {
 			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			this.add( program, c );
 			programs[channel][time] = program;
+			if ( time + 1 < timeSlots ) {
+				programs[channel][time+1] = program;
+			}
 		}
 		// Add programs for PBS
 		channel = 3;
@@ -227,6 +233,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			this.add( program, c );
 			programs[channel][time] = program;
+			programs[channel][time+1] = program;
 			
 			c.gridx = 2 + time+2;
 			c.gridwidth = 1;
@@ -281,7 +288,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 		if ( selectedTime < timeSlots-1 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( FONT_COLOR );
-			curSelection.setBackground( null );
+			curSelection.setBackground( Color.DARK_GRAY );
 			selectedTime += 1;
 			curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( Color.DARK_GRAY );
@@ -296,7 +303,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 		if ( selectedTime > 0 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( FONT_COLOR );
-			curSelection.setBackground( null );
+			curSelection.setBackground( Color.DARK_GRAY );
 			selectedTime -= 1;
 			curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( Color.DARK_GRAY );
@@ -311,7 +318,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 		if ( selectedChannel < channels-1 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( FONT_COLOR );
-			curSelection.setBackground( null );
+			curSelection.setBackground( Color.DARK_GRAY );
 			selectedChannel += 1;
 			curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( Color.DARK_GRAY );
@@ -326,7 +333,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 		if ( selectedChannel > 0 ) {
 			JComponent curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( FONT_COLOR );
-			curSelection.setBackground( null );
+			curSelection.setBackground( Color.DARK_GRAY );
 			selectedChannel -= 1;
 			curSelection = programs[selectedChannel][selectedTime];
 			curSelection.setForeground( Color.DARK_GRAY );
