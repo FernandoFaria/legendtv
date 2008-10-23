@@ -41,8 +41,7 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 	
 	//private Insets in = new Insets(0,0,0,0);
 	
-	private Icon buttonLeftArrow = new ImageIcon("images/left_arrow.png");
-	private Icon buttonRightArrow = new ImageIcon("images/right_arrow.png");
+	private Icon buttonLeftArrow, buttonRightArrow;
 	
 	/**
 	 * This code will be cleaned up at a later date.  The main functionality of this code has been split up
@@ -73,10 +72,7 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 		screenLabel.setFocusable(false);
 		
 		//Show label setup 
-		/**
-		 * NEED TO MAKE DYNAMIC!!!!!!!
-		 */
-		showLabel = new JLabel( "Family Guy - 10/4/08 - 8:00 - Channel 6 (Fox)" );
+		showLabel = new JLabel( p.getTitle() );
 		showLabel.setForeground( Color.WHITE );
 		showLabel.setFont( UIHelper.getBodyFont() );
 		showLabel.setFocusable(false);
@@ -103,6 +99,16 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 		confirmButton = new LButton("OK");
 	
 		cancelButton = new LButton("Cancel");
+		
+		try{
+			buttonLeftArrow = new ImageIcon( UIHelper.resourcePathToUrl(
+				"images/left_arrow.png"));
+		
+			buttonRightArrow = new ImageIcon(UIHelper.resourcePathToUrl(
+				"images/right_arrow.png"));
+		}catch(Exception e){
+			
+		}
 		
 		String[] repeatOptions = {"Just this once", "All episodes", "All new episodes"};
 		repeatSpinner = new HorizontalSpinner(buttonLeftArrow, 
