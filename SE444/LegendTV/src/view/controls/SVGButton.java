@@ -478,6 +478,11 @@ implements MouseListener
 		}
 	}
 	
+	public void setLooksFocused(boolean focused) {
+		if (focused) setState(ButtonState.Hover);
+		else setState(ButtonState.Normal);
+	}
+	
 	public void doClick() {
 		fireActionEvent();
 	}
