@@ -8,6 +8,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import view.controls.LButton;
+import view.utils.ScreenManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,8 +46,12 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 	
 	private SearchDatabase database = new SearchDatabase();
 	
-	public SearchGuideGUI(){
+	private ScreenManager manager;
+	
+	public SearchGuideGUI(ScreenManager sm){
 
+		this.manager = sm;
+		
 		BoxLayout b1 = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout( b1 );
 		this.setBackground( Color.BLACK );
@@ -152,7 +157,7 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		
-		SearchGuideGUI search = new SearchGuideGUI();
+		SearchGuideGUI search = new SearchGuideGUI(null);
 		
 		frame.setTitle("LegendTV - Search TV Guide");
 		frame.add(search);
@@ -168,7 +173,7 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		}else if( e.getActionCommand().equals("OK") ){
 			
 		}else if( e.getActionCommand().equals("Back") ){
-			
+			manager.back();
 		}
 	}
 
