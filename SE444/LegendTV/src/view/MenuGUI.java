@@ -380,23 +380,23 @@ public class MenuGUI extends JPanel {
 			}
 			if (this.key.equals("ENTER")) {
 				if (getNorthButton().isFocusOwner()) {
-					getNorthButton().doClick();
+					getNorthButton().fireActionEvent();
 					unfocusAllButtons();
 				}
 				if (getWestButton().isFocusOwner()) {
-					getWestButton().doClick();
+					getWestButton().fireActionEvent();
 					unfocusAllButtons();
 				}
 				if (getEastButton().isFocusOwner()) {
-					getEastButton().doClick();
+					getEastButton().fireActionEvent();
 					unfocusAllButtons();
 				}
 				if (getSouthButton().isFocusOwner()) {
-					getSouthButton().doClick();
+					getSouthButton().fireActionEvent();
 					unfocusAllButtons();
 				}
 				if (getBottomButton().isFocusOwner()) {
-					getBottomButton().doClick();
+					getBottomButton().fireActionEvent();
 					unfocusAllButtons();
 				}
 			}

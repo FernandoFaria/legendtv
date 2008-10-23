@@ -8,13 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
 import java.io.IOException;
 import java.util.EnumSet;
 
@@ -22,20 +19,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import org.apache.batik.bridge.UserAgent;
-import org.apache.batik.bridge.UserAgentAdapter;
-import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.SVGUserAgentAdapter;
-import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
 
-import view.utils.SvgImage;
 import view.utils.UIHelper;
 
 /**
@@ -106,6 +98,10 @@ implements FocusListener, MouseListener, KeyListener
 	 */
 	private Image[]				images;
 	
+	/**
+	 * The canvases that are used to render the vector SVG resources into the
+	 * images used for each state of this button.
+	 */
 	private JSVGCanvas[]		imageLoaders;
 	
 	/**
@@ -217,8 +213,17 @@ implements FocusListener, MouseListener, KeyListener
 	}
 	
 	/**
-	 * Overrides the setBounds method to ensure that the images for
-	 * this button's states are re-rendered on resize.
+	 * Moves and resizes this component. The new location of the top-left corner
+	 * is specified by x and y, and the new size is specified by width and
+	 * height.
+	 * 
+	 * This override ensures that the images for this button's states are
+	 * re-rendered on resize.
+	 * 
+	 * @param	x		the new x-coordinate of this component
+	 * @param	y		the new y-coordinate of this component
+	 * @param	width	the new width of this component
+	 * @param	height	the new height of this component
 	 */
 	@Override
 	public void setBounds(int x, int y, int width, int height)
@@ -231,6 +236,8 @@ implements FocusListener, MouseListener, KeyListener
 	/**
 	 * Overrides the default JComponent paint code to paint this
 	 * component.
+	 * 
+	 * @param	g	This component's graphics context.
 	 */
 	@Override
 	protected void paintComponent(Graphics g)
@@ -244,6 +251,8 @@ implements FocusListener, MouseListener, KeyListener
 	
 	/**
 	 * Handles the event when the mouse enters the bounds of this button.
+	 * 
+	 * @param	e	The corresponding mouse event.
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e)
@@ -263,7 +272,7 @@ implements FocusListener, MouseListener, KeyListener
 	/**
 	 * Handles the event when the mouse leaves the bounds of this button.
 	 * 
-	 * @param	e	The mouse event.
+	 * @param	e	The corresponding mouse event.
 	 */
 	@Override
 	public void mouseExited(MouseEvent e)
@@ -275,7 +284,7 @@ implements FocusListener, MouseListener, KeyListener
 	 * Handles the event when the user presses the mouse button down on this
 	 * button.
 	 * 
-	 * @param	e	The mouse event.
+	 * @param	e	The corresponding mouse event.
 	 */
 	@Override
 	public void mousePressed(MouseEvent e)
@@ -290,7 +299,7 @@ implements FocusListener, MouseListener, KeyListener
 	 * Handles the event when the user quickly clicks this button.
 	 * This event handler does nothing, but is required by the interface.
 	 * 
-	 * @param	e	The mouse event.
+	 * @param	e	The corresponding mouse event.
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e)
@@ -300,6 +309,8 @@ implements FocusListener, MouseListener, KeyListener
 	/**
 	 * Handles the event when the user releases the mouse button over this
 	 * button.
+	 * 
+	 * @param	e	The corresponding mouse event.
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e)
@@ -312,6 +323,12 @@ implements FocusListener, MouseListener, KeyListener
 		}
 	}
 	
+	/**
+	 * Handles the event when the user presses a key while this button has
+	 * focus.
+	 * 
+	 * @param	e	The corresponding key event.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
@@ -322,6 +339,12 @@ implements FocusListener, MouseListener, KeyListener
 		}
 	}
 
+	/**
+	 * Handles the event when the user releases a held key while this button has
+	 * focus.
+	 * 
+	 * @param	e	The corresponding key event.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
@@ -333,6 +356,11 @@ implements FocusListener, MouseListener, KeyListener
 		}
 	}
 
+	/**
+	 * Handles the event when the user types key while this button has focus.
+	 * 
+	 * @param	e	The corresponding key event.
+	 */
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
@@ -340,6 +368,8 @@ implements FocusListener, MouseListener, KeyListener
 
 	/**
 	 * Handles the event when this button receives focus.
+	 * 
+	 * @param	e	The corresponding focus event.
 	 */
 	@Override
 	public void focusGained(FocusEvent e)
@@ -349,6 +379,8 @@ implements FocusListener, MouseListener, KeyListener
 
 	/**
 	 * Handles the event when this button loses focus.
+	 * 
+	 * @param	e	The corresponding focus event.
 	 */
 	@Override
 	public void focusLost(FocusEvent e)
@@ -458,6 +490,7 @@ implements FocusListener, MouseListener, KeyListener
 	 * Initializes a JSVGCanvas which provides SVG image loading functionality.
 	 * 
 	 * @param state	The button state for which a loader is being initialized.
+	 * @see	ButtonState
 	 */
 	private void initializeLoader(final ButtonState state)
 	{
@@ -505,6 +538,7 @@ implements FocusListener, MouseListener, KeyListener
 	 * Method called to render a button state image.
 	 * 
 	 * @param	state	The button state for which an image is being rendered.
+	 * @see	ButtonState
 	 */
 	private void renderImage(ButtonState state)
 	throws IOException
@@ -538,7 +572,7 @@ implements FocusListener, MouseListener, KeyListener
 	 * Method called to inform all action listeners that this button
 	 * has been activated.
 	 */
-	private void fireActionEvent()
+	public void fireActionEvent()
 	{
 		ActionEvent	event	= new ActionEvent(this, 0, this.getText());
 		
@@ -552,10 +586,6 @@ implements FocusListener, MouseListener, KeyListener
 	public void setLooksFocused(boolean focused) {
 		if (focused) setState(ButtonState.Hover);
 		else setState(ButtonState.Normal);
-	}
-	
-	public void doClick() {
-		fireActionEvent();
 	}
 	
 	/**
