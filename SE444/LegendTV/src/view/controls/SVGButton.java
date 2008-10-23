@@ -448,11 +448,19 @@ implements MouseListener
 		
 		// Adjust size appropriately.
 		loader.setSize(this.getSize());
-
-		// Have the appropriate loader re-render the image
-		loader.loadSVGDocument(
-				UIHelper.resourcePathToUrl(
-						this.imagePaths[stateNum]).toString());
+		
+		try
+		{
+			// Have the appropriate loader re-render the image
+			loader.loadSVGDocument(
+					UIHelper.resourcePathToUrl(
+							this.imagePaths[stateNum]).toString());
+		}
+		
+		catch (NullPointerException ex)
+		{
+			// TODO: Actually prevent this!
+		}
 	}
 
 	/**

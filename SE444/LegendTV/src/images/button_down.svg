@@ -8,15 +8,19 @@
 		<stop stop-color="#707070" offset="100" />
 	</linearGradient>
 
-	<rect id="buttonFace" x="5%" y="5%" width="90%" height="90%" fill="black"
-		  filter="url(#Glow)" />
+	<!-- Border -->
+	<rect x="5%" y="5%" width="90%" height="90%" stroke-width="2"
+		  stroke="white" filter="url(#Glow)" />
+		  
+	<!--  Face under gradients -->
+	<rect x="5.5%" y="5.5%" width="89%" height="89%" fill="black" />
 
 	<g id="button" fill-opacity="0.9" shape-rendering="crispEdges">
-		<rect x="5%" y="5%" width="90%" height="90%" fill="url(#gradient)" />
+		<rect x="5.5%" y="5.5%" width="89%" height="89%" fill="url(#gradient)" />
 	</g>
 	
-	<text id="text" x="50%" y="55%" text-anchor="middle" fill="white"
-		  font-family="Segoe UI" font-size="24pt" filter="url(#Glow)">
+	<text id="text" x="50%" y="56%" text-anchor="middle" fill="white"
+		  font-family="Segoe UI" font-size="18pt" filter="url(#Glow)">
 		Your Text Here
     </text>
 	
