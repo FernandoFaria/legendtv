@@ -1,9 +1,11 @@
 package view.setupwizard;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import view.controls.SVGButton;
 import view.setupwizard.pages.WelcomePage;
+import view.utils.ListBasedFocusTraversalPolicy;
 import view.utils.UIHelper;
 
 /**
@@ -104,6 +107,23 @@ public class SetupWizard extends JPanel
 		this.layoutControls();
 		
 		this.setCurrentPage(new WelcomePage(this));
+		
+		setupFocus();
+	}
+
+	private void setupFocus()
+	{
+		this.setFocusTraversalPolicyProvider(true);
+		
+		this.setFocusTraversalPolicy(
+				new ListBasedFocusTraversalPolicy(
+						Arrays.asList(
+								new Component[]
+	                            {
+									this.nextBtn,
+									this.exitBtn,
+									this.prevBtn
+	                            })));
 	}
 
 	/**
@@ -268,8 +288,6 @@ public class SetupWizard extends JPanel
 		this.setupHeadingText();
 		this.setupContentPanel();
 		this.setupButtonPanel();
-		
-		this.nextBtn.requestFocusInWindow();
 	}
 	
 	/**
