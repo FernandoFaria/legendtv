@@ -6,6 +6,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -41,7 +46,7 @@ import view.utils.UIHelper;
 @SuppressWarnings("serial")
 public class SVGButton
 extends JComponent
-implements MouseListener
+implements FocusListener, MouseListener, KeyListener
 {
 	/**
 	 * A private enumeration of the possible states of the button.
@@ -171,6 +176,7 @@ implements MouseListener
 		this.imagePaths[ButtonState.Hover.ordinal()]		= hoverImagePath;
 		this.imagePaths[ButtonState.Depressed.ordinal()]	= depressedImagePath;
 		
+		this.setFocusable(true);
 		this.setOpaque(true);
 		this.setBackground(Color.BLACK);
 				
@@ -196,7 +202,7 @@ implements MouseListener
 	{
 		this.text = text;
 		
-		this.ReRender();
+		this.reRender();
 	}
 	
 	/**
@@ -208,6 +214,18 @@ implements MouseListener
 	public void addActionListener(ActionListener listener)
 	{
 		this.listenerList.add(ActionListener.class, listener);
+	}
+	
+	/**
+	 * Overrides the setBounds method to ensure that the images for
+	 * this button's states are re-rendered on resize.
+	 */
+	@Override
+	public void setBounds(int x, int y, int width, int height)
+	{
+		super.setBounds(x, y, width, height);
+		
+		this.reRender();
 	}
 	
 	/**
@@ -230,11 +248,22 @@ implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-		this.setState(ButtonState.Hover);
+		// TODO:	Fix this so that it doesn't look depressed after a screen
+		//			change when a button on the other screen in the same
+		//			position was depressed
+
+		// Allow user to depress button, drag off, and drag back on.
+		//if ((e.getModifiers() & InputEvent.BUTTON1_MASK) > 0)
+		//	this.setState(ButtonState.Depressed);
+		
+		//else
+			this.setState(ButtonState.Hover);
 	}
 
 	/**
 	 * Handles the event when the mouse leaves the bounds of this button.
+	 * 
+	 * @param	e	The mouse event.
 	 */
 	@Override
 	public void mouseExited(MouseEvent e)
@@ -245,20 +274,26 @@ implements MouseListener
 	/**
 	 * Handles the event when the user presses the mouse button down on this
 	 * button.
+	 * 
+	 * @param	e	The mouse event.
 	 */
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
 		if (e.getButton() == MouseEvent.BUTTON1)
+		{
 			this.setState(ButtonState.Depressed);
+		}
 	}
 
 	/**
 	 * Handles the event when the user quickly clicks this button.
 	 * This event handler does nothing, but is required by the interface.
+	 * 
+	 * @param	e	The mouse event.
 	 */
 	@Override
-	public void mouseClicked(MouseEvent arg0)
+	public void mouseClicked(MouseEvent e)
 	{
 	}
 	
@@ -269,22 +304,56 @@ implements MouseListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		this.switchToNormalState();
-
-		if (e.getButton() == MouseEvent.BUTTON1)
+		if (this.state	== ButtonState.Depressed)
+		{
+			this.switchToNormalState();
+			
 			this.fireActionEvent();
+		}
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER) ||
+			(e.getKeyCode() == KeyEvent.VK_SPACE))
+		{
+			this.setState(ButtonState.Depressed);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if (this.state	== ButtonState.Depressed)
+		{
+			this.switchToNormalState();
+
+			this.fireActionEvent();
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e)
+	{
 	}
 
 	/**
-	 * Overrides the setBounds method to ensure that the images for
-	 * this button's states are re-rendered on resize.
+	 * Handles the event when this button receives focus.
 	 */
 	@Override
-	public void setBounds(int x, int y, int width, int height)
+	public void focusGained(FocusEvent e)
 	{
-		super.setBounds(x, y, width, height);
-		
-		this.ReRender();
+		this.setState(ButtonState.Highlighted);
+	}
+
+	/**
+	 * Handles the event when this button loses focus.
+	 */
+	@Override
+	public void focusLost(FocusEvent e)
+	{
+		this.switchToNormalState();
 	}
 	
 	/**
@@ -292,7 +361,9 @@ implements MouseListener
 	 */
 	private void setupListeners()
 	{
+		this.addFocusListener(this);
 		this.addMouseListener(this);
+		this.addKeyListener(this);
 	}
 	
 	/**
@@ -331,7 +402,7 @@ implements MouseListener
 	 * Method called to re-render the button's information in response to size
 	 * or text changes.
 	 */
-	private void ReRender()
+	private void reRender()
 	{
 		// Move off the event dispatch thread to prevent a deadlock condition
 		// with Batik needed a lock on the AWT event thread during rendering.
