@@ -88,7 +88,7 @@ public class MainFrame extends JFrame
 			new ActionListener() {
 			@Override
 			public void actionPerformed( ActionEvent e ) {
-				JComponent screen = new SearchGuideGUI();
+				JComponent screen = new SearchGuideGUI(screenManager);
 				screenManager.show( screen );
 			}
 		} );
