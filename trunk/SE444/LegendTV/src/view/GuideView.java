@@ -11,18 +11,20 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import view.utils.ListBasedFocusTraversalPolicy;
 import view.utils.ScreenManager;
 import view.utils.UIHelper;
 

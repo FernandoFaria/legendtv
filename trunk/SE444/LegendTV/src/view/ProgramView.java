@@ -193,7 +193,7 @@ public class ProgramView extends JComponent implements ProgramSelectListener {
 			if ( program != null ) {
 				screenManager.show( 
 						new RecordingOptionsGUI( screenManager, program ) );
-				
+				ProgramView.this.getParent().requestFocusInWindow();
 			}
 		}
 	}
