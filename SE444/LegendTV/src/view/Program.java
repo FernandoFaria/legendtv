@@ -89,11 +89,15 @@ public class Program {
 		}
 	}
 	
+	// Immutable fields
 	private final String title;
 	private final String description;
 	private final String rating;
 	private final ImageIcon ratingIcon;
 	private final int length;
+	
+	// Mutable fields
+	private boolean isRecording;
 
 	public Program( String title, String description, String rating, int length ) {
 		this.title = title;
@@ -134,5 +138,13 @@ public class Program {
 	
 	public ImageIcon getRatingIcon() {
 		return ratingIcon;
+	}
+	
+	public void setRecording( boolean isRecording ) {
+		this.isRecording = isRecording;
+	}
+	
+	public boolean isRecording() {
+		return isRecording;
 	}
 }

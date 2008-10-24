@@ -46,6 +46,7 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener, ActionLi
 	//private Insets in = new Insets(0,0,0,0);
 	
 	private Icon buttonLeftArrow, buttonRightArrow;
+	private final Program program;
 	
 	/**
 	 * This code will be cleaned up at a later date.  The main functionality of this code has been split up
@@ -58,6 +59,7 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener, ActionLi
 	public RecordingOptionsGUI( ScreenManager screenManager, Program p ) {
 		
 		this.screenManager = screenManager;
+		this.program = p;
 		//Main Panel
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBackground(Color.BLACK);
@@ -234,6 +236,9 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener, ActionLi
 
 	@Override
 	public void actionPerformed( ActionEvent e ) {
+		if ( e.getSource() == confirmButton ) {
+			program.setRecording( true );
+		}
 		screenManager.back();
 	}
 
