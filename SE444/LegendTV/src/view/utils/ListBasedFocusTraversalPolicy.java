@@ -3,6 +3,7 @@ package view.utils;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListBasedFocusTraversalPolicy extends FocusTraversalPolicy
@@ -11,7 +12,7 @@ public class ListBasedFocusTraversalPolicy extends FocusTraversalPolicy
 
 	public ListBasedFocusTraversalPolicy(List<Component> focusPath)
 	{
-		this.focusPath = focusPath;
+		this.focusPath = new ArrayList<Component>(focusPath);
 	}
 
 	@Override
