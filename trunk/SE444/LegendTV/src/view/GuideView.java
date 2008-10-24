@@ -84,6 +84,7 @@ public class GuideView extends JComponent {
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
 		ListingGrid listingGrid = new ListingGrid( 4, 6 );
+		listingGrid.addProgramSelectionListener( programView );
 		this.add( listingGrid, c );
 	}
 }
