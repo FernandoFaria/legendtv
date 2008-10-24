@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.EnumSet;
 
+import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -232,6 +234,14 @@ implements FocusListener, MouseListener, KeyListener
 		
 		this.reRender();
 	}
+
+	@Override
+	public void doLayout()
+	{
+		this.switchToNormalState();
+	
+		super.doLayout();
+	}
 	
 	/**
 	 * Overrides the default JComponent paint code to paint this
@@ -262,10 +272,10 @@ implements FocusListener, MouseListener, KeyListener
 		//			position was depressed
 
 		// Allow user to depress button, drag off, and drag back on.
-		//if ((e.getModifiers() & InputEvent.BUTTON1_MASK) > 0)
-		//	this.setState(ButtonState.Depressed);
-		
-		//else
+//		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) > 0)
+//			this.setState(ButtonState.Depressed);
+//		
+//		else
 			this.setState(ButtonState.Hover);
 	}
 
