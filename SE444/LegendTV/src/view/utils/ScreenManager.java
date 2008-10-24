@@ -86,6 +86,7 @@ public class ScreenManager {
 		if ( view instanceof Screen ) {
 			Screen screen = (Screen) view;
 			screen.onStart();
+			screen.onResume();
 		}
 		mainFrame.repaint();
 		screenStack.add( view );

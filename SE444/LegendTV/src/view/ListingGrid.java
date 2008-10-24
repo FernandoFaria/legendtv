@@ -287,7 +287,6 @@ public class ListingGrid extends JPanel implements KeyListener {
 		// Add keylistener to base component
 		this.setFocusable( true );
 		this.addKeyListener( this );
-		this.requestFocusInWindow();
 	}
 	
 	public void addProgramSelectionListener( ProgramSelectListener psl ) {
