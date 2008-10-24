@@ -22,20 +22,26 @@ public class SearchDatabase {
 		showTitlesList = new LinkedList<ProgramListing>();
 		showTimesList = new LinkedList<ProgramListing>();
 		shows = new LinkedList<ProgramListing>();
+		
 		Channel cbs = new Channel((short)4, "CBS");
+		Channel fox =  new Channel((short)6, "Fox");
+		Channel nbc = new Channel((short)2, "NBC");
+		
 		shows.add( new ProgramListing("CSI" , "The original", Program.TV_14, 30, cbs , "10/16/08", "9:00PM") );
 		shows.add( new ProgramListing("CSI" , "The original times two", Program.TV_14, 30, cbs , "10/23/08", "9:00PM"));
 		shows.add( new ProgramListing("CSI: Miami", "It looks like that bird... is the word..", Program.TV_14, 29, cbs, "10/18/08", "10:00PM" ) );
-		//showTitlesList.add("CSI: RIT");
-		//showTitlesList.add("CSI: Wasilla");
-		
-		/*
-		showTimesListModel.add(0, "Mon 09/29/08 9:00PM CBS");
-		showTimesListModel.add(1, "Mon 09/29/08 10:00PM CBS");
-		showTimesListModel.add(2, "Tue 09/30/08 9:00PM CBS");
-		showTimesListModel.add(3, "Fri 10/3/08 10:00PM USA");
-		showTimesListModel.add(4, "Mon 09/29/08 9:00PM CBS");
-		*/
+		shows.add( new ProgramListing("Family Guy", "Peter does something stupid", Program.TV_14, 30, nbc, "10/24/08", "10:00PM" ));
+		shows.add( new ProgramListing("Family Guy", "Peanut Butter Jelly Time!!!", Program.TV_14, 30, fox, "10/24/08", "10:00PM" ));
+		shows.add( new ProgramListing("Family Guy", "Chicken Fight.... Part 1", Program.TV_14, 30, cbs, "10/24/08", "10:00PM" ));
+		shows.add( new ProgramListing("Family Guy", "Chicken FIght Part 2", Program.TV_14, 30, cbs, "10/25/08", "10:00PM" ));
+		shows.add( new ProgramListing("Family Guy", "ooooooo!!!  Piece of Candy!!!", Program.TV_14, 30, cbs, "10/26/08", "9:00PM" ));
+		shows.add( new ProgramListing("Family Guy", "Itsgonnarain!!!", Program.TV_14, 30, cbs, "10/28/08", "8:00PM" ));
+		shows.add( new ProgramListing("Law and Order", "The original", Program.TV_14, 60, nbc, "10/30/2008", "9:00PM"));
+		shows.add( new ProgramListing("Law and Order", "Laws versus order", Program.TV_14, 60, nbc, "10/30/2008", "9:00PM"));
+		shows.add( new ProgramListing("Law and Order: Criminal Intent", "TCriminals have some intent", Program.TV_14, 60, nbc, "10/30/2008", "9:00PM"));
+		shows.add( new ProgramListing("Law and Order: Criminal Intent", "What is going on with those darn criminals?!?", Program.TV_14, 60, nbc, "10/30/2008", "9:00PM"));
+		shows.add( new ProgramListing("Law and Order: SVU", "Special Victims Unit", Program.TV_14, 60, nbc, "10/30/2008", "9:00PM"));
+		shows.add( new ProgramListing("Law and Order: SVU", "DRAMA!!!!", Program.TV_14, 60, nbc, "10/30/2008", "9:00PM"));
 	}
 	
 	public void getShowTitles(DefaultListModel titles, String searchKey){
@@ -69,9 +75,13 @@ public class SearchDatabase {
 			int i = 0;
 			while( it.hasNext() ){
 				ProgramListing p = it.next();
-				System.out.println( p.getTitle() );
-				if(p.getTitle().equals(searchKey)){
-					times.add(i, p);
+				if(!searchKey.equals(null)){
+					if(p.getTitle().equals(searchKey)){
+						times.add(i, p);
+						i++;
+					}
+				}else{
+					times.add(i,p);
 					i++;
 				}
 			}
