@@ -98,7 +98,7 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		nameScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		timeScroll = new JScrollPane(showTimes);
 		timeScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		showDescription = new JTextArea("", 10, 20);
+		showDescription = new JTextArea(" ", 10, 20);
 		showDescription.setEnabled(false);
 		showDescription.setBackground(Color.DARK_GRAY);
 		showDescription.setForeground(Color.WHITE);
@@ -124,8 +124,8 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		searchResults.add(showDescription, c);
 		//searchResults.add(Box.createHorizontalStrut(10));
 		c.gridx = 4;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
 		searchResults.add(buttonsPanel, c);
 		
 		confirmButton = new LButton("Select");
@@ -202,7 +202,6 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		if(e.getSource().equals(showNames)){
 			database.getTimesList(showTimesListModel, (String) showNames.getSelectedValue() );
 		}else if(e.getSource().equals(showTimes)){
-			System.out.println("Display description");
 			if(showTimes.getSelectedIndex() != -1 ){
 				showDescription.setText( ((ProgramListing) showTimes.getSelectedValue()).getDescription() );
 			}else{
