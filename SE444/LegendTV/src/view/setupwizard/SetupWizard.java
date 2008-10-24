@@ -121,7 +121,7 @@ public class SetupWizard extends JPanel
 		
 		this.layoutControls();
 		
-		this.setCurrentPage(new TVReceptionMethodPage(this));
+		this.setCurrentPage(new WelcomePage(this));
 		this.setupFocus();
 	}
 
