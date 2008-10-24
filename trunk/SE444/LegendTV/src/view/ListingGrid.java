@@ -187,6 +187,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 			if ( time + 1 < timeSlots ) {
@@ -211,6 +212,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 		}
@@ -232,6 +234,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 			if ( time + 1 < timeSlots ) {
@@ -256,6 +259,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 			programs[channel][time+1] = programSq;
@@ -274,6 +278,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time+2] = programSq;
 		}

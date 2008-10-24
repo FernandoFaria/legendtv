@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.Date;
@@ -33,6 +34,7 @@ import javax.swing.JTextArea;
 
 import view.controls.LButton;
 import view.controls.SVGButton;
+import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
 /**
@@ -55,8 +57,11 @@ public class ProgramView extends JComponent implements ProgramSelectListener {
 	private final JButton blockShow;
 	private final SVGButton goBack;
 	private final JTextArea description;
+	private Program program;
+	private final ScreenManager screenManager;
 	
-	public ProgramView( ActionListener backAction ) {
+	public ProgramView( ScreenManager screenManager ) {
+		this.screenManager = screenManager;
 		this.setBackground( BACKGROUND );
 		
 		
@@ -104,11 +109,19 @@ public class ProgramView extends JComponent implements ProgramSelectListener {
 		// Create container of action buttons at bottom
 		Container buttonPanel = new JPanel( new GridLayout( 1, 0 ) );
 		buttonPanel.add( simpleRecord = new LButton("<html>One-Touch<br/>Record</html>") );
-		buttonPanel.add( advRecord = new LButton("<html>Advanced<br/>Record</html>" ) );
+		advRecord = new LButton("<html>Advanced<br/>Record</html>" );
+		advRecord.addActionListener( new AdvancedRecordingListener() );
+		buttonPanel.add( advRecord );
 		buttonPanel.add( watch = new LButton("Watch") );
 		buttonPanel.add( otherShowings = new LButton("<html>Other<br/>Showings</html>") );
 		buttonPanel.add( blockShow = new LButton("<html>Block<br/>Show</html>") );
-		buttonPanel.add( goBack = UIHelper.createButton( "Go Back", backAction ) );
+		buttonPanel.add( goBack = UIHelper.createButton( "Go Back", 
+				new ActionListener() {
+					@Override
+					public void actionPerformed( ActionEvent e ) {
+						ProgramView.this.screenManager.back();
+					}
+		}) );
 		
 		// Now add these panels to the ProgramView screen
 		this.setLayout( new GridBagLayout() );
@@ -145,6 +158,7 @@ public class ProgramView extends JComponent implements ProgramSelectListener {
 	}
 	
 	public void setProgram( Program p, Channel c ) {
+		program = p;
 		showTitle.setText( p.getTitle() );
 		description.setText( p.getDescription() );
 		channel.setText( c.toString() );
@@ -171,5 +185,15 @@ public class ProgramView extends JComponent implements ProgramSelectListener {
 	@Override
 	public void programSelected( Channel channel, Date time, Program program ) {
 		this.setProgram( program, channel );
+	}
+	
+	private class AdvancedRecordingListener implements ActionListener {
+		@Override
+		public void actionPerformed( ActionEvent e ) {
+			if ( program != null ) {
+				screenManager.show( new RecordingOptionsGUI( program ) );
+				
+			}
+		}
 	}
 }

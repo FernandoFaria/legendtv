@@ -23,6 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
 /**
@@ -41,7 +42,7 @@ public class GuideView extends JComponent {
 		frame.setVisible( true );
 	}
 	
-	public GuideView( ActionListener backActionListener ) {
+	public GuideView( ScreenManager screenManager ) {
 		this.setLayout( new GridBagLayout() );
 		this.setBackground( BACKGROUND );
 		
@@ -54,7 +55,7 @@ public class GuideView extends JComponent {
 		c.gridheight = 1;
 		c.weighty = 0.3;
 		c.fill = GridBagConstraints.BOTH;
-		ProgramView programView = new ProgramView( backActionListener );
+		ProgramView programView = new ProgramView( screenManager );
 		this.add( programView, c );
 		
 		// Add the TV preview to the top right
