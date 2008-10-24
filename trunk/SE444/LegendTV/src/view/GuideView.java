@@ -11,20 +11,17 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.LayoutFocusTraversalPolicy;
 
-import view.utils.ListBasedFocusTraversalPolicy;
 import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
@@ -32,9 +29,10 @@ import view.utils.UIHelper;
  * @author Eric
  *
  */
-public class GuideView extends JComponent {
+public class GuideView extends JComponent implements Screen {
 
 	public static final Color BACKGROUND = Color.BLACK;
+	private ListingGrid listingGrid;
 	
 	public static void main( String[] args ) {
 		JFrame frame = new JFrame( "GuideView Test" );
@@ -86,8 +84,34 @@ public class GuideView extends JComponent {
 		c.gridheight = 1;
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
-		ListingGrid listingGrid = new ListingGrid( 4, 6 );
+		listingGrid = new ListingGrid( 4, 6 );
 		listingGrid.addProgramSelectionListener( programView );
 		this.add( listingGrid, c );
+		
+		this.setFocusTraversalPolicyProvider( true );
+		this.setFocusTraversalPolicy( new LayoutFocusTraversalPolicy() );
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onResume() {
+		listingGrid.requestFocusInWindow();
+	}
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		
 	}
 }
