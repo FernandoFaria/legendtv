@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import view.controls.HorizontalSpinner;
 import view.controls.LButton;
+import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
 /*
@@ -29,12 +30,15 @@ import view.utils.UIHelper;
  *
  * @author  Andrew Bona
  */
-public class RecordingOptionsGUI extends JPanel implements KeyListener{
+public class RecordingOptionsGUI extends JPanel implements KeyListener, ActionListener{
 
 	private JPanel optionsPanel, buttonPanel, screenLabelPanel;
 	private JLabel screenLabel, showLabel, repeatLabel, qualityLabel, expirationLabel;
 	private JLabel repeatOptions, qualityOptions, expirationOptions;
 	private HorizontalSpinner repeatSpinner, qualitySpinner, expirationSpinner;
+	
+	// The Screen Manager allows us to move back to the previous screen.
+	private final ScreenManager screenManager;
 	
 	//JButtons
 	private JButton confirmButton, cancelButton;
@@ -51,8 +55,9 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 	 * 
 	 * @param show  This parameter is not a String, but will be of type "Recorded Program" object
 	 */
-	public RecordingOptionsGUI(Program p) {
+	public RecordingOptionsGUI( ScreenManager screenManager, Program p ) {
 		
+		this.screenManager = screenManager;
 		//Main Panel
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBackground(Color.BLACK);
@@ -97,8 +102,10 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 		expirationOptions.setForeground(Color.WHITE);
 		
 		confirmButton = new LButton("OK");
+		confirmButton.addActionListener( this );
 	
 		cancelButton = new LButton("Cancel");
+		cancelButton.addActionListener( this );
 		
 		try{
 			buttonLeftArrow = new ImageIcon( UIHelper.resourcePathToUrl(
@@ -170,7 +177,7 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 		// TODO Auto-generated method stub
 		JFrame frame = new JFrame();
 		Program p = new Program("Family Guy", "Peter does something stupid", Program.TV_14, 20);
-		RecordingOptionsGUI gui = new RecordingOptionsGUI(p);
+		RecordingOptionsGUI gui = new RecordingOptionsGUI(null, p);
 		frame.add(gui);
 		frame.setTitle("Legend TV - Recording Options");
 		frame.pack();
@@ -223,6 +230,11 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void actionPerformed( ActionEvent e ) {
+		screenManager.back();
 	}
 
 }

@@ -191,7 +191,8 @@ public class ProgramView extends JComponent implements ProgramSelectListener {
 		@Override
 		public void actionPerformed( ActionEvent e ) {
 			if ( program != null ) {
-				screenManager.show( new RecordingOptionsGUI( program ) );
+				screenManager.show( 
+						new RecordingOptionsGUI( screenManager, program ) );
 				
 			}
 		}
