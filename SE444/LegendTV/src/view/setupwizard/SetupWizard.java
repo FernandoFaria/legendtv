@@ -1,19 +1,34 @@
 package view.setupwizard;
 
+import java.awt.AWTKeyStroke;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.LayoutFocusTraversalPolicy;
 import javax.swing.border.EmptyBorder;
 
+import sun.awt.KeyboardFocusManagerPeerImpl;
 import view.controls.SVGButton;
+import view.setupwizard.pages.ZipCodePage;
+import view.setupwizard.pages.TVReceptionMethodPage;
 import view.setupwizard.pages.WelcomePage;
 import view.utils.ListBasedFocusTraversalPolicy;
 import view.utils.UIHelper;
@@ -106,16 +121,18 @@ public class SetupWizard extends JPanel
 		
 		this.layoutControls();
 		
-		this.setCurrentPage(new WelcomePage(this));
-		
-		setupFocus();
+		this.setCurrentPage(new TVReceptionMethodPage(this));
+		this.setupFocus();
 	}
 
+	/**
+	 * Sets-up the focus traversal policy for the button panel.
+	 */
 	private void setupFocus()
 	{
-		this.setFocusTraversalPolicyProvider(true);
+		this.buttonPnl.setFocusTraversalPolicyProvider(true);
 		
-		this.setFocusTraversalPolicy(
+		this.buttonPnl.setFocusTraversalPolicy(
 				new ListBasedFocusTraversalPolicy(
 						Arrays.asList(
 								new Component[]
@@ -124,6 +141,8 @@ public class SetupWizard extends JPanel
 									this.exitBtn,
 									this.prevBtn
 	                            })));
+		
+		UIHelper.addArrowKeyFocusMappings();
 	}
 
 	/**

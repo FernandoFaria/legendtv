@@ -1,13 +1,20 @@
 package view.utils;
 
+import java.awt.AWTKeyStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import view.controls.HorizontalSpinner;
 import view.controls.SVGButton;
 
 /**
@@ -109,6 +116,41 @@ public class UIHelper
 	}
 	
 	/**
+	 * Creates a common horizontal spin control.
+	 * 
+	 * @param options	The options to support in the control.
+	 * 
+	 * @return	The new HorizontalSpinner control instance.
+	 */
+	public static HorizontalSpinner createHorizontalSpinner(String[] options)
+	{
+		HorizontalSpinner	retVal	= null;
+		
+		try
+		{
+			ImageIcon	leftArrow,
+						rightArrow;
+			
+			leftArrow	= new ImageIcon(
+								UIHelper.resourcePathToUrl(
+										"images/left_arrow.png"));
+	
+			rightArrow	= new ImageIcon(
+								UIHelper.resourcePathToUrl(
+										"images/right_arrow.png"));
+			
+			retVal	= new HorizontalSpinner(leftArrow, options, rightArrow);
+		}
+		
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}		
+		
+		return retVal;
+	}
+	
+	/**
 	 * Converts a relative resource path to an absolute URI that is safe for use
 	 * both inside and outside JAR files.
 	 * 
@@ -177,5 +219,93 @@ public class UIHelper
 		text.append("</ol></body></html>");
 		
 		return text.toString();
+	}
+	
+	public static void removeArrowKeyFocusMappings()
+	{
+		KeyboardFocusManager	focusMgr;
+		Set<AWTKeyStroke>		backwardKeys,
+								forwardKeys,
+								upKeys,
+								downKeys;
+		
+		focusMgr = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		
+		backwardKeys	= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
+		
+		forwardKeys		= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+		
+		upKeys			= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.UP_CYCLE_TRAVERSAL_KEYS));
+		
+		downKeys		= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.DOWN_CYCLE_TRAVERSAL_KEYS));
+
+		backwardKeys.remove(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_LEFT, 0));
+		forwardKeys.remove(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_RIGHT, 0));
+		upKeys.remove(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_UP, 0));
+		downKeys.remove(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_DOWN, 0));
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, backwardKeys);
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, forwardKeys);
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.UP_CYCLE_TRAVERSAL_KEYS, upKeys);
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.DOWN_CYCLE_TRAVERSAL_KEYS, downKeys);
+	}
+	
+	public static void addArrowKeyFocusMappings()
+	{
+		KeyboardFocusManager	focusMgr;
+		Set<AWTKeyStroke>		backwardKeys,
+								forwardKeys,
+								upKeys,
+								downKeys;
+		
+		focusMgr = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		
+		backwardKeys	= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
+		
+		forwardKeys		= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+		
+		upKeys			= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.UP_CYCLE_TRAVERSAL_KEYS));
+		
+		downKeys		= new HashSet<AWTKeyStroke>(
+								focusMgr.getDefaultFocusTraversalKeys(
+										KeyboardFocusManager.DOWN_CYCLE_TRAVERSAL_KEYS));
+
+		backwardKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_LEFT, 0));
+		forwardKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_RIGHT, 0));
+		upKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_UP, 0));
+		downKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_DOWN, 0));
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, backwardKeys);
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, forwardKeys);
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.UP_CYCLE_TRAVERSAL_KEYS, upKeys);
+		
+		focusMgr.setDefaultFocusTraversalKeys(
+				KeyboardFocusManager.DOWN_CYCLE_TRAVERSAL_KEYS, downKeys);
 	}
 }

@@ -173,7 +173,7 @@ public class TunerDetectionPage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new ListingsSetupPage(this.getWizard());
+		return new ZipCodePage(this.getWizard());
 	}
 	
 	/**

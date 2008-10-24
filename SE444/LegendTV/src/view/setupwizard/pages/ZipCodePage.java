@@ -2,23 +2,27 @@ package view.setupwizard.pages;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
+import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.KeyStroke;
 
 import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
+import view.utils.EditableFocusMappingDisabler;
 import view.utils.LimitedLengthDocument;
 import view.utils.UIHelper;
 
 @SuppressWarnings("serial")
-public class ListingsSetupPage extends WizardPage
+public class ZipCodePage extends WizardPage
 {
 	/**
 	 * The title of the page.
@@ -64,13 +68,32 @@ public class ListingsSetupPage extends WizardPage
 	 * 
 	 * @param wizard	The parent wizard instance.
 	 */
-	public ListingsSetupPage(SetupWizard wizard)
+	public ZipCodePage(SetupWizard wizard)
 	{
 		super(wizard);
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		this.layoutComponents();
+		this.setModal(false);
+	}
+	
+	@Override
+	public WizardPage getNextPage()
+	{
+		return new TVReceptionMethodPage(this.getWizard());
+	}
+
+	@Override
+	public String getTitle()
+	{
+		return TITLE;
+	}
+	
+	@Override
+	public void activate()
+	{
+		this.zipCodeField.requestFocusInWindow();
 	}
 
 	/**
@@ -125,7 +148,14 @@ public class ListingsSetupPage extends WizardPage
 		this.zipCodePanel.add(this.zipCodeLabel);
 		this.zipCodePanel.add(Box.createHorizontalStrut(10));
 		
-		// Zip code field
+		this.setupZipCodeField();
+		
+		this.add(this.zipCodePanel);
+	}
+
+	private void setupZipCodeField()
+	{
+		InputMap zipInputMap;
 		this.zipCodeField	= new JTextField(
 									new LimitedLengthDocument(5),
 									"14623", 0);
@@ -139,27 +169,59 @@ public class ListingsSetupPage extends WizardPage
 		this.zipCodeField.setBackground(UIHelper.getForegroundColor());
 		this.zipCodeField.setForeground(UIHelper.getBackgroundColor());
 		
+		zipInputMap	= this.zipCodeField.getInputMap();
+		
+		// Map ESC to BACKSPACE (Remote "CLEAR" button)
+		zipInputMap.put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+				zipInputMap.get(
+						KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0)));
+		
+		this.zipCodeField.addKeyListener(new KeyAdapter()
+		{
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+				// Allow ENTER to go to the next component
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					ZipCodePage.this.zipCodeField.transferFocus();
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e)
+			{
+				// Don't allow the user to proceed with an incorrect zip code
+				ZipCodePage.this.setModal(
+						!ZipCodePage.this.isValidZipCode());
+				
+				ZipCodePage.this.getWizard().refreshButtonState();
+			}
+		});
+		
+		// Remove the mappings on the arrow keys when editing text
+		this.zipCodeField.addFocusListener(new EditableFocusMappingDisabler());
+		
+		// Add verification of the zip code
+		this.zipCodeField.setInputVerifier(new InputVerifier()
+		{
+			@Override
+			public boolean verify(JComponent input)
+			{
+				return ZipCodePage.this.isValidZipCode();
+			}
+		});
+		
 		this.zipCodePanel.add(this.zipCodeField);
 		this.zipCodePanel.add(Box.createHorizontalGlue());
+	}
+	
+	private boolean isValidZipCode()
+	{
+		String	zipCode = ZipCodePage.this.zipCodeField.getText();
+		boolean matches	= zipCode.matches("^\\d{5}$");
 		
-		this.add(this.zipCodePanel);
+		return matches;
 	}
 	
-	@Override
-	public WizardPage getNextPage()
-	{
-		return new CompletedSetupPage(this.getWizard());
-	}
-
-	@Override
-	public String getTitle()
-	{
-		return TITLE;
-	}
 	
-	@Override
-	public void activate()
-	{
-		this.zipCodeField.requestFocusInWindow();
-	}
 }
