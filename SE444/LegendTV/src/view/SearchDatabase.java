@@ -70,22 +70,23 @@ public class SearchDatabase {
 	
 	public void getTimesList( DefaultListModel times, String searchKey ){
 		times.clear();
-		if( !searchKey.equals("No shows found") ){
-			Iterator<ProgramListing> it = showTimesList.iterator();
-			int i = 0;
+		Iterator<ProgramListing> it = showTimesList.iterator();
+		int i = 0;
+		if( searchKey != null && !searchKey.equals("No shows found") ){
 			while( it.hasNext() ){
 				ProgramListing p = it.next();
-				if(!searchKey.equals(null)){
-					if(p.getTitle().equals(searchKey)){
-						times.add(i, p);
-						i++;
-					}
-				}else{
-					times.add(i,p);
+				if(p.getTitle().equals(searchKey)){
+					times.add(i, p);
 					i++;
 				}
-			}
-			
+			}			
+		}else{
+			while( it.hasNext() ){
+				ProgramListing p = it.next();
+				times.add(i, p);
+				i++;
+
+			}	
 		}
 	}
 	
