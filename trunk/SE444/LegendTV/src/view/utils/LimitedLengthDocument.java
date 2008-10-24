@@ -41,7 +41,7 @@ public class LimitedLengthDocument extends PlainDocument
 			throws BadLocationException
 	{
 		int maxInsertLength	= this.maxLength - this.getLength();
-
+		
 		if (str.length() > maxInsertLength)
 			str = str.substring(0, maxInsertLength);
 		

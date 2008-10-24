@@ -259,14 +259,11 @@ public class MenuGUI extends JPanel {
 				"RIGHTkeypressed");
     	this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"),
 				"DOWNkeypressed");
-    	this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"),
-				"ENTERkeypressed");
 
     	this.getActionMap().put("UPkeypressed", new MenuGUIAction("UP"));
     	this.getActionMap().put("LEFTkeypressed", new MenuGUIAction("LEFT"));
     	this.getActionMap().put("RIGHTkeypressed", new MenuGUIAction("RIGHT"));
     	this.getActionMap().put("DOWNkeypressed", new MenuGUIAction("DOWN"));
-    	this.getActionMap().put("ENTERkeypressed", new MenuGUIAction("ENTER"));
 	}
 	
 	public SVGButton getNorthButton() {
@@ -371,23 +368,6 @@ public class MenuGUI extends JPanel {
 				}
 				else {
 					getSouthButton().requestFocusInWindow();
-				}
-			}
-			if (this.key.equals("ENTER")) {
-				if (getNorthButton().isFocusOwner()) {
-					getNorthButton().fireActionEvent();
-				}
-				if (getWestButton().isFocusOwner()) {
-					getWestButton().fireActionEvent();
-				}
-				if (getEastButton().isFocusOwner()) {
-					getEastButton().fireActionEvent();
-				}
-				if (getSouthButton().isFocusOwner()) {
-					getSouthButton().fireActionEvent();
-				}
-				if (getBottomButton().isFocusOwner()) {
-					getBottomButton().fireActionEvent();
 				}
 			}
 		}

@@ -54,7 +54,7 @@ public class WelcomePage extends WizardPage
 	{
 		super(wizard);
 		
-		layoutControls();		
+		this.layoutControls();		
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class WelcomePage extends WizardPage
 	{
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		setupExplanatoryText();
+		this.setupExplanatoryText();
 	}
 
 	/**

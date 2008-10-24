@@ -20,7 +20,7 @@ import data.RecordedProgram;
 import view.controls.SVGButton;
 import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardEventListener;
-import view.setupwizard.pages.ListingsSetupPage;
+import view.setupwizard.pages.ZipCodePage;
 import view.utils.ScreenManager;
 import view.utils.UIHelper;
 
