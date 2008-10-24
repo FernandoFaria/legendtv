@@ -171,7 +171,8 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		if( e.getActionCommand().equals("Search") ){
 			database.getShowTitles( showNameListModel, text.getText() );
 		}else if( e.getActionCommand().equals("OK") ){
-			
+			// TODO Get the program  
+			//manager.show(new RecordingOptionsGUI());
 		}else if( e.getActionCommand().equals("Back") ){
 			manager.back();
 		}
