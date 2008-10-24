@@ -187,7 +187,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
-			this.addMouseListener( clickListener );
+			programSq.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 			if ( time + 1 < timeSlots ) {
@@ -212,7 +212,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
-			this.addMouseListener( clickListener );
+			programSq.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 		}
@@ -234,7 +234,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
-			this.addMouseListener( clickListener );
+			programSq.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 			if ( time + 1 < timeSlots ) {
@@ -259,7 +259,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
-			this.addMouseListener( clickListener );
+			programSq.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time] = programSq;
 			programs[channel][time+1] = programSq;
@@ -278,7 +278,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 			programSq.setBackground( Color.DARK_GRAY );
 			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
 			programSq.putClientProperty( PROGRAM_KEY, program );
-			this.addMouseListener( clickListener );
+			programSq.addMouseListener( clickListener );
 			this.add( programSq, c );
 			programs[channel][time+2] = programSq;
 		}
@@ -431,15 +431,27 @@ public class ListingGrid extends JPanel implements KeyListener {
 
 	private MouseAdapter clickListener = new MouseAdapter() {
 		public void mouseClicked( MouseEvent e ) {
-			Component program = e.getComponent();
+			Component programLabel = e.getComponent();
 			JComponent selectedProgram = null;
 			for ( int channel = 0; channel < channels; ++channel ) {
 				for ( int time = 0; time < timeSlots; ++time ) {
-					if ( programs[channel][time] == program ) {
+					if ( programs[channel][time] == programLabel ) {
+						// Re-color the previously selected label
+						JComponent oldProgram =  programs[ selectedChannel][ selectedTime ];
+						Program program = (Program) oldProgram.getClientProperty( PROGRAM_KEY );
+						oldProgram.setForeground( FONT_COLOR );
+						if ( program.isRecording() ) {
+							oldProgram.setBackground( Color.RED.darker() );
+						} else {
+							oldProgram.setBackground( Color.DARK_GRAY );
+						}
+						
 						selectedProgram = programs[ channel][ time ];
 						// Save the channel and time before leaving the recording
 						selectedChannel = channel;
 						selectedTime = time;
+						selectedProgram.setForeground( Color.DARK_GRAY );
+						selectedProgram.setBackground( Color.YELLOW );
 						break;
 					}
 				}
