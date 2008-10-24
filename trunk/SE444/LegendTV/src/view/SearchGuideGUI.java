@@ -26,7 +26,7 @@ import java.awt.event.KeyListener;
  * Revisions:
  *   $Log$
  */
-public class SearchGuideGUI extends JPanel implements ActionListener, KeyListener, ListSelectionListener{
+public class SearchGuideGUI extends JPanel implements ActionListener, KeyListener, ListSelectionListener, Screen{
 
 	//GUI Components for the Panels	
 	private JPanel searchPanel, searchResults, buttonsPanel;
@@ -104,11 +104,15 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		showDescription.setForeground(Color.WHITE);
 		showDescription.setWrapStyleWord(true);
 		showDescription.setMaximumSize(new Dimension(10,20));
+		showDescription.setFocusable(false);
 		showNames.addListSelectionListener(this);
 		showTimes.addListSelectionListener(this);
+		showNames.addKeyListener(this);
+		showTimes.addKeyListener(this);
 		
 		
 		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(10,5,10,5);
 		c.gridx = 1;
 		c.gridy = 1;
 		c.insets = new Insets(0,0,10,10);
@@ -116,13 +120,10 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		searchResults.add(nameScroll, c);
-		//searchResults.add(Box.createHorizontalStrut(10));
 		c.gridx = 2;
 		searchResults.add(timeScroll, c);
-		//searchResults.add(Box.createHorizontalStrut(10));
 		c.gridx = 3;
 		searchResults.add(showDescription, c);
-		//searchResults.add(Box.createHorizontalStrut(10));
 		c.gridx = 4;
 		c.weightx = 1.0;
 		c.weighty = 1.0;
@@ -131,11 +132,15 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		confirmButton = new LButton("Select");
 		confirmButton.setActionCommand("OK");
 		confirmButton.addActionListener(this);
+		confirmButton.addKeyListener(this);
 		backButton = new LButton("Back to Menu");
 		backButton.setActionCommand("Back");
 		backButton.addActionListener(this);
+		backButton.addKeyListener(this);
 		buttonsPanel.add(confirmButton);
 		buttonsPanel.add(backButton);		
+		
+		text.requestFocusInWindow();
 		
 		this.add(Box.createVerticalStrut(15));
 		this.add(labelPanel);
@@ -181,7 +186,45 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		int keyCode = e.getKeyCode();
+		if(keyCode == KeyEvent.VK_RIGHT){
+			if(e.getComponent().equals(text)){
+				System.out.println("text-Right");
+				searchButton.requestFocusInWindow();
+			}else if(e.getComponent().equals(showNames)){
+				System.out.println("showNames-Right");
+				showTimes.requestFocusInWindow();
+				showTimes.setSelectedIndex(0);
+			}else if(e.getComponent().equals(showTimes)){
+				System.out.println("showTimes-Right");
+				confirmButton.requestFocusInWindow();
+			}
+		}else if(keyCode == KeyEvent.VK_DOWN){
+			if(e.getComponent().equals(text) || e.getComponent().equals(searchButton)){
+				System.out.println("Down");
+				showNames.requestFocusInWindow();
+				showNames.setSelectedIndex(0);
+			}else if(e.getComponent().equals(confirmButton) ){
+				backButton.requestFocusInWindow();
+			}
+		}else if(keyCode  == KeyEvent.VK_LEFT){
+			if(e.getComponent().equals(searchButton)){
+				System.out.println("search-Right");
+				text.requestFocusInWindow();
+			}else if(e.getComponent().equals(showNames)){
+				System.out.println("showNames-Right");
+				showTimes.requestFocusInWindow();
+				showTimes.setSelectedIndex(0);
+			}else if(e.getComponent().equals(showTimes)){
+				System.out.println("showTimes-Right");
+				confirmButton.requestFocusInWindow();
+			}
+		}else if(keyCode == KeyEvent.VK_UP){
+			if(e.getComponent().equals(backButton)){
+				System.out.println("back-up");
+				confirmButton.requestFocusInWindow();
+			}
+		}
 	}
 
 
@@ -209,6 +252,34 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 				showDescription.setText("");
 			}
 		}
+	}
+
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		text.requestFocusInWindow();
+	}
+
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
