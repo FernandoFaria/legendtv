@@ -123,11 +123,11 @@ public class RecordingOptionsGUI extends JPanel implements KeyListener, ActionLi
 		repeatSpinner = new HorizontalSpinner(buttonLeftArrow, 
 				repeatOptions, buttonRightArrow);
 		
-		String[] qualityOptions = {"Low", "Medium", "High"};
+		String[] qualityOptions = {"Low", "Normal", "High"};
 		qualitySpinner = new HorizontalSpinner(buttonLeftArrow, 
 				qualityOptions, buttonRightArrow);
 		
-		String[] expirationOptions = {"Delete after 14 Days", "Delete if space runs low", "Never Delete"};
+		String[] expirationOptions = {"Delete after 7 Days", "Delete if space runs low", "Never Delete"};
 		expirationSpinner = new HorizontalSpinner(buttonLeftArrow, 
 				expirationOptions, buttonRightArrow);
 		
