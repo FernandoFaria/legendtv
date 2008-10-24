@@ -17,6 +17,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -37,7 +39,7 @@ import view.utils.UIHelper;
  * @author Eric
  *
  */
-public class ProgramView extends JComponent {
+public class ProgramView extends JComponent implements ProgramSelectListener {
 
 	private static final Color BACKGROUND = Color.BLACK;
 	private static final Color FONT_COLOR = Color.WHITE;
@@ -75,10 +77,20 @@ public class ProgramView extends JComponent {
 		Container rightLabels = new JPanel();
 		rightLabels.setBackground( BACKGROUND );
 		rightLabels.add( Box.createHorizontalGlue() );
-		ratingIcon = new JLabel( new ImageIcon( "images/tv_14.jpg" ) );
+		ratingIcon = new JLabel();
+		try {
+			ratingIcon.setIcon( new ImageIcon( UIHelper.resourcePathToUrl( "images/tv_14.jpg" ) ) );
+		} catch ( FileNotFoundException e ) {
+			// Don't set an image for the rating
+		}
 		ratingIcon.setAlignmentY( JComponent.TOP_ALIGNMENT );
 		rightLabels.add(  ratingIcon );
-		channelIcon = new JLabel( new ImageIcon( "images/fox_logo.gif" ) );
+		channelIcon = new JLabel();
+		try {
+			channelIcon.setIcon( new ImageIcon( UIHelper.resourcePathToUrl( "images/fox_logo.gif" ) ) );
+		} catch ( FileNotFoundException e ) {
+			// Don't set any image for the channel
+		}
 		channelIcon.setAlignmentY( JComponent.TOP_ALIGNMENT );
 		rightLabels.add( channelIcon );
 		
@@ -136,6 +148,8 @@ public class ProgramView extends JComponent {
 		showTitle.setText( p.getTitle() );
 		description.setText( p.getDescription() );
 		channel.setText( c.toString() );
+		ratingIcon.setIcon( p.getRatingIcon() );
+		
 	}
 	
 	public static void main( String[] args ) {
@@ -152,5 +166,10 @@ public class ProgramView extends JComponent {
 		
 		view.setProgram( new Program("CSI:RIT", "An SE major is killed by his team members", Program.TV_MA, 60 ), 
 				new Channel( (short) 2, "CBS" ) );
+	}
+
+	@Override
+	public void programSelected( Channel channel, Date time, Program program ) {
+		this.setProgram( program, channel );
 	}
 }

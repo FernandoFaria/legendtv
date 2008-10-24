@@ -11,11 +11,14 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +42,7 @@ public class ListingGrid extends JPanel implements KeyListener {
 	private static final Color FONT_COLOR = Color.WHITE;
 	private static final int GRID_PADDING = 10;
 	private static final int TIME_SHIFTS = 2;
+	private static final Object PROGRAM_KEY = "Program Key";
 	
 	public static void main( String[] args ) {
 		JFrame window = new JFrame( "GuideView Test" );
@@ -55,6 +59,11 @@ public class ListingGrid extends JPanel implements KeyListener {
 		window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		window.setVisible( true );
 	}
+	
+	private final Channel[] channelList = { new Channel( (short)2, "CBS" ), 
+											new Channel( (short)3, "FOX" ),
+											new Channel( (short)4, "NBC" ), 
+											new Channel( (short)5, "PBS" ) };
 	
 	private final int channels;
 	private final int timeSlots;
@@ -167,17 +176,21 @@ public class ListingGrid extends JPanel implements KeyListener {
 			c.gridx = 2 + time;
 			c.gridwidth = 2;
 			// Create the program
-			JLabel program = new JLabel( "CSI" );
-			program.setHorizontalAlignment( JLabel.CENTER );
-			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
-			program.setOpaque( true );
-			program.setForeground( FONT_COLOR );
-			program.setBackground( Color.DARK_GRAY );
-			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
-			this.add( program, c );
-			programs[channel][time] = program;
+			Program program = new Program( "CSI", 
+					"The CSI team solves a grisly homicide with fake technology and witty banter", 
+					Program.TV_14, 60);
+			JLabel programSq = new JLabel( program.getTitle() );
+			programSq.setHorizontalAlignment( JLabel.CENTER );
+			programSq.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			programSq.setOpaque( true );
+			programSq.setForeground( FONT_COLOR );
+			programSq.setBackground( Color.DARK_GRAY );
+			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.add( programSq, c );
+			programs[channel][time] = programSq;
 			if ( time + 1 < timeSlots ) {
-				programs[channel][time+1] = program;
+				programs[channel][time+1] = programSq;
 			}
 		}
 		// Add programs for FOX
@@ -187,15 +200,19 @@ public class ListingGrid extends JPanel implements KeyListener {
 			c.gridx = 2 + time;
 			c.gridwidth = 1;
 			// Create the program
-			JLabel program = new JLabel( "Family Guy" );
-			program.setHorizontalAlignment( JLabel.CENTER );
-			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
-			program.setOpaque( true );
-			program.setForeground( FONT_COLOR );
-			program.setBackground( Color.DARK_GRAY );
-			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
-			this.add( program, c );
-			programs[channel][time] = program;
+			Program program = new Program( "Family Guy", 
+					"Peter does something stupid", 
+					Program.TV_14, 30);
+			JLabel programSq = new JLabel( program.getTitle() );
+			programSq.setHorizontalAlignment( JLabel.CENTER );
+			programSq.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			programSq.setOpaque( true );
+			programSq.setForeground( FONT_COLOR );
+			programSq.setBackground( Color.DARK_GRAY );
+			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.add( programSq, c );
+			programs[channel][time] = programSq;
 		}
 		// Add programs for NBC
 		channel = 2;
@@ -204,17 +221,21 @@ public class ListingGrid extends JPanel implements KeyListener {
 			c.gridx = 2 + time;
 			c.gridwidth = 2;
 			// Create the program
-			JLabel program = new JLabel( "Law and Order" );
-			program.setHorizontalAlignment( JLabel.CENTER );
-			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
-			program.setOpaque( true );
-			program.setForeground( FONT_COLOR );
-			program.setBackground( Color.DARK_GRAY );
-			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
-			this.add( program, c );
-			programs[channel][time] = program;
+			Program program = new Program( "Law and Order", 
+					"The police investiage a violent crime", 
+					Program.TV_14, 60);
+			JLabel programSq = new JLabel( program.getTitle() );
+			programSq.setHorizontalAlignment( JLabel.CENTER );
+			programSq.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			programSq.setOpaque( true );
+			programSq.setForeground( FONT_COLOR );
+			programSq.setBackground( Color.DARK_GRAY );
+			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.add( programSq, c );
+			programs[channel][time] = programSq;
 			if ( time + 1 < timeSlots ) {
-				programs[channel][time+1] = program;
+				programs[channel][time+1] = programSq;
 			}
 		}
 		// Add programs for PBS
@@ -224,29 +245,37 @@ public class ListingGrid extends JPanel implements KeyListener {
 			c.gridx = 2 + time;
 			c.gridwidth = 2;
 			// Create the program
-			JLabel program = new JLabel( "Nova" );
-			program.setHorizontalAlignment( JLabel.CENTER );
-			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
-			program.setOpaque( true );
-			program.setForeground( FONT_COLOR );
-			program.setBackground( Color.DARK_GRAY );
-			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
-			this.add( program, c );
-			programs[channel][time] = program;
-			programs[channel][time+1] = program;
+			Program program = new Program( "Nova", 
+											"Biologists explore the life of ants", 
+											Program.TV_G, 60);
+			JLabel programSq = new JLabel( program.getTitle() );
+			programSq.setHorizontalAlignment( JLabel.CENTER );
+			programSq.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			programSq.setOpaque( true );
+			programSq.setForeground( FONT_COLOR );
+			programSq.setBackground( Color.DARK_GRAY );
+			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.add( programSq, c );
+			programs[channel][time] = programSq;
+			programs[channel][time+1] = programSq;
 			
 			c.gridx = 2 + time+2;
 			c.gridwidth = 1;
 			// Create the program
-			program = new JLabel( "Pledge Drive" );
-			program.setHorizontalAlignment( JLabel.CENTER );
-			program.setFont( new Font( "Arial", Font.BOLD, 16 ) );
-			program.setOpaque( true );
-			program.setForeground( FONT_COLOR );
-			program.setBackground( Color.DARK_GRAY );
-			program.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
-			this.add( program, c );
-			programs[channel][time+2] = program;
+			program = new Program( "Pledge Drive", 
+									"Minor celeberities beg you for money", 
+									Program.TV_G, 30);
+			programSq = new JLabel( program.getTitle() );
+			programSq.setHorizontalAlignment( JLabel.CENTER );
+			programSq.setFont( new Font( "Arial", Font.BOLD, 16 ) );
+			programSq.setOpaque( true );
+			programSq.setForeground( FONT_COLOR );
+			programSq.setBackground( Color.DARK_GRAY );
+			programSq.setBorder( BorderFactory.createLineBorder( PROGRAM_BORDER_COLOR ) );
+			programSq.putClientProperty( PROGRAM_KEY, program );
+			this.add( programSq, c );
+			programs[channel][time+2] = programSq;
 		}
 		
 		
@@ -345,8 +374,9 @@ public class ListingGrid extends JPanel implements KeyListener {
 	}
 
 	protected void fireSelectionEvent() {
-		Channel channel = null;
-		Program program = null;
+		Channel channel = channelList[ selectedChannel ];
+		JComponent programSquare = programs[ selectedChannel ] [ selectedTime ];
+		Program program = (Program) programSquare.getClientProperty( PROGRAM_KEY );
 		Date time = null;
 		ProgramSelectListener[] ll = selectListenerList.toArray( new ProgramSelectListener[ selectListenerList.size() ] );
 		for ( ProgramSelectListener psl : selectListenerList ) {
@@ -374,4 +404,26 @@ public class ListingGrid extends JPanel implements KeyListener {
 	public void keyTyped( KeyEvent arg0 ) {
 		// TODO Auto-generated method stub
 	}
+
+	private MouseAdapter clickListener = new MouseAdapter() {
+		public void mouseClicked( MouseEvent e ) {
+			Component program = e.getComponent();
+			JComponent selectedProgram = null;
+			for ( int channel = 0; channel < channels; ++channel ) {
+				for ( int time = 0; time < timeSlots; ++time ) {
+					if ( programs[channel][time] == program ) {
+						selectedProgram = programs[ channel][ time ];
+						// Save the channel and time before leaving the recording
+						selectedChannel = channel;
+						selectedTime = time;
+						break;
+					}
+				}
+				if ( selectedProgram != null ) {
+					break;
+				}
+			}
+			fireSelectionEvent();
+		}
+	};
 }
