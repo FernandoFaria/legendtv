@@ -98,12 +98,11 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		nameScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		timeScroll = new JScrollPane(showTimes);
 		timeScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		showDescription = new JTextArea(" ", 10, 20);
+		showDescription = new JTextArea("", 10, 20);
 		showDescription.setEnabled(false);
 		showDescription.setBackground(Color.DARK_GRAY);
 		showDescription.setForeground(Color.WHITE);
 		showDescription.setWrapStyleWord(true);
-		showDescription.setMaximumSize(new Dimension(10,20));
 		showDescription.setFocusable(false);
 		showNames.addListSelectionListener(this);
 		showTimes.addListSelectionListener(this);
@@ -112,10 +111,10 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		
 		
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(10,5,10,5);
+		c.insets = new Insets(25,5,10,5);
 		c.gridx = 1;
 		c.gridy = 1;
-		c.insets = new Insets(0,0,10,10);
+		//c.insets = new Insets(0,0,10,10);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
 		c.weighty = 1.0;
@@ -125,8 +124,8 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		c.gridx = 3;
 		searchResults.add(showDescription, c);
 		c.gridx = 4;
-		c.weightx = 1.0;
-		c.weighty = 1.0;
+		c.weightx = 0.0;
+		c.weighty = 0.0;
 		searchResults.add(buttonsPanel, c);
 		
 		confirmButton = new LButton("Select");
@@ -150,6 +149,7 @@ public class SearchGuideGUI extends JPanel implements ActionListener, KeyListene
 		this.add(searchPanel);
 		this.add(Box.createGlue());
 		this.add(searchResults);
+		this.add(Box.createVerticalStrut(100));
 		
 	}
 	
