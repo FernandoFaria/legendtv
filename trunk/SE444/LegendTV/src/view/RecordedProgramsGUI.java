@@ -24,6 +24,7 @@ import data.RecordedProgram;
 import view.Program;
 import view.controls.LButton;
 import view.utils.ScreenManager;
+import view.utils.UIHelper;
 
 
 /*
@@ -41,7 +42,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 	JButton backButton, watchButton, deleteButton, optionsButton;
 	
 	//GUI Component for the description
-	JTextArea programDescription;
+	JLabel programDescription;
 	
 	//GUI Component for the Label
 	JLabel screenDescription = new JLabel("Recorded Programs");
@@ -96,12 +97,14 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		screenDescription.setFont(labelFont);
 		
 		//Set up the program description 
-		String displayString = programs.get(0).toFullDescription();		
-		programDescription = new JTextArea();
+		String displayString = UIHelper.linesToHtmlText(programs.get(0).toFullDescription());		
+		programDescription = new JLabel();
+		programDescription.setOpaque(true);
 		programDescription.setBackground(Color.DARK_GRAY);
 		programDescription.setForeground(Color.WHITE);
+		programDescription.setVerticalAlignment(SwingConstants.TOP);
 		programDescription.setText(displayString);
-		programDescription.setEditable(false);
+		//programDescription.setEditable(false);
 		
 		//Set up the Button(s)
 		backButton = new LButton("Back to TV Menu");
@@ -184,7 +187,7 @@ public class RecordedProgramsGUI extends JPanel implements ActionListener, ListS
 		}
 		int selectedRow = recordedProgramsTable.getSelectedRow();
 		RecordedProgram o = (RecordedProgram) recordedProgramsTable.getValueAt(selectedRow, 0);
-		programDescription.setText(o.toFullDescription());
+		programDescription.setText(UIHelper.linesToHtmlText(o.toFullDescription()));
 	}
 	
 	public void deleteFromTable(){
