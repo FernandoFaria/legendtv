@@ -14,11 +14,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.event.MouseInputAdapter;
 
@@ -34,6 +37,7 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 	private JPanel 		playbackPanel;
 	//Buttons - play, Fast forward, skip forward, skip backward, rewind, stop
 	private JButton		playPauseBtn, skipForwardBtn, fastForwardBtn, skipBackwardBtn, rewindBtn, stopBtn, backBtn;
+	private Icon		playIcon, pauseIcon, skipToEndIcon, forwardIcon, skipToStartIcon, rewindIcon, stopIcon;
 	private	Timer		hideTimer;
 	private TimerTask	hideTimerTask;
 	private JLabel		currentStatus;
@@ -42,6 +46,18 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 	public PlaybackScreen( ScreenManager sm)
 	{
 		this.manager = sm;
+		try{
+			this.playIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/play.png"));
+			this.pauseIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/pause.png"));
+			this.skipToEndIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/SkipToEnd.png"));
+			this.forwardIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/FFWD.png"));
+			this.skipToStartIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/SkipToStart.png"));
+			this.rewindIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/Rewind.png"));
+			this.stopIcon = new ImageIcon(UIHelper.resourcePathToUrl("images/Stop.png"));
+			
+		}catch(Exception e){
+			
+		}
 		
 		layoutControls();
 		
@@ -65,7 +81,7 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 	
 		this.playbackPanel	= new JPanel();
 
-		this.playbackPanel.setBackground(Color.DARK_GRAY);
+		this.playbackPanel.setBackground(Color.BLACK);
 		this.playbackPanel.setVisible(false);
 		this.playbackPanel.setPreferredSize(new Dimension(1, 80));
 		
@@ -73,63 +89,83 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 		
 		
 		//Set the Buttons 
-		this.playPauseBtn = new JButton("||");
+		this.playPauseBtn = new JButton(pauseIcon);
 		this.playPauseBtn.addActionListener(this);
 		this.playPauseBtn.setActionCommand("Play/Pause");
 		this.playPauseBtn.setBackground(Color.BLACK);
 		this.playPauseBtn.setForeground(Color.WHITE);
+		this.playPauseBtn.setFocusPainted(false);
+		this.playPauseBtn.setBorderPainted(false);
 		
-		this.skipForwardBtn = new JButton("|> |");
+		this.skipForwardBtn = new JButton(skipToEndIcon);
 		this.skipForwardBtn.addActionListener(this);
 		this.skipForwardBtn.setActionCommand("Skip Forward");
 		this.skipForwardBtn.setBackground(Color.BLACK);
 		this.skipForwardBtn.setForeground(Color.WHITE);
+		this.skipForwardBtn.setFocusPainted(false);
+		this.skipForwardBtn.setBorderPainted(false);
 		
-		this.fastForwardBtn = new JButton("|> |>");
+		this.fastForwardBtn = new JButton(forwardIcon);
 		this.fastForwardBtn.addActionListener(this);
 		this.fastForwardBtn.setActionCommand("Fast Forward");
 		this.fastForwardBtn.setBackground(Color.BLACK);
 		this.fastForwardBtn.setForeground(Color.WHITE);
+		this.fastForwardBtn.setFocusPainted(false);
+		this.fastForwardBtn.setBorderPainted(false);
 		
-		this.skipBackwardBtn = new JButton("| <|");
+		this.skipBackwardBtn = new JButton(skipToStartIcon);
 		this.skipBackwardBtn.addActionListener(this);
-		this.skipBackwardBtn.setActionCommand("Skip Backward");
+		this.skipBackwardBtn.setActionCommand("Skip to the start of the show");
 		this.skipBackwardBtn.setBackground(Color.BLACK);
 		this.skipBackwardBtn.setForeground(Color.WHITE);
+		this.skipBackwardBtn.setFocusPainted(false);
+		this.skipBackwardBtn.setBorderPainted(false);
 		
-		this.rewindBtn = new JButton("<| <|");
+		this.rewindBtn = new JButton(rewindIcon);
 		this.rewindBtn.addActionListener(this);
 		this.rewindBtn.setActionCommand("Rewind");
 		this.rewindBtn.setBackground(Color.BLACK);
 		this.rewindBtn.setForeground(Color.WHITE);
+		this.rewindBtn.setFocusPainted(false);
+		this.rewindBtn.setBorderPainted(false);
 		
-		this.stopBtn = new JButton("Stop");
+		this.stopBtn = new JButton(stopIcon);
 		this.stopBtn.addActionListener(this);
 		this.stopBtn.setActionCommand("Stop");
 		this.stopBtn.setBackground(Color.BLACK);
 		this.stopBtn.setForeground(Color.WHITE);
+		this.stopBtn.setFocusPainted(false);
+		this.stopBtn.setBorderPainted(false);
 		
 		this.backBtn = new JButton("Back to Menu");
+		try{
+			this.backBtn.setIcon(new ImageIcon(UIHelper.resourcePathToUrl("images/button_off_short.png")));
+			this.backBtn.setRolloverIcon(new ImageIcon(UIHelper.resourcePathToUrl("images/button_on_short.png")));
+		}catch(Exception e){
+			
+		}
+		this.backBtn.setIconTextGap(0);
+		this.backBtn.setVerticalTextPosition(SwingConstants.CENTER);
+		this.backBtn.setHorizontalTextPosition(SwingConstants.CENTER);
 		this.backBtn.addActionListener(this);
 		this.backBtn.setActionCommand("Back");
 		this.backBtn.setBackground(Color.BLACK);
 		this.backBtn.setForeground(Color.WHITE);
+		this.backBtn.setFocusPainted(false);
+		this.backBtn.setBorderPainted(false);
 		
 		this.currentStatus = new JLabel("Playing");
-		this.add(this.currentStatus, BorderLayout.NORTH);
+		currentStatus.setFont( UIHelper.getHeadingFont() );
+		this.add(Box.createHorizontalStrut(50), BorderLayout.WEST);
+		this.add(this.currentStatus, BorderLayout.CENTER);
 
-		//this.playPauseBtn.setBackground(this.playbackPanel.getBackground());
-		//this.playPauseBtn.setPreferredSize(new Dimension(230, 76));
 		
-		this.playbackPanel.add(Box.createHorizontalStrut(400));
 		this.playbackPanel.add(this.skipBackwardBtn);
 		this.playbackPanel.add(this.rewindBtn);
 		this.playbackPanel.add(this.playPauseBtn);
 		this.playbackPanel.add(this.fastForwardBtn);
 		this.playbackPanel.add(this.skipForwardBtn);
-		this.playbackPanel.add(Box.createHorizontalStrut(50));
 		this.playbackPanel.add(this.stopBtn);
-		this.playbackPanel.add(Box.createHorizontalStrut(100));
 		this.playbackPanel.add(this.backBtn);
 		
 	}
@@ -191,24 +227,23 @@ public class PlaybackScreen extends JComponent implements ActionListener, KeyLis
 		// TODO Auto-generated method stub
 		String actionCommand = e.getActionCommand();
 		if(actionCommand.equals("Play/Pause")){
-			if(this.playPauseBtn.getText().equals("||")){
-				this.playPauseBtn.setText("|>");
+			if(this.playPauseBtn.getIcon().equals(pauseIcon)){
+				this.playPauseBtn.setIcon(playIcon);
 				currentStatus.setText("Paused");
 			}else{
-				this.playPauseBtn.setText("||");
+				this.playPauseBtn.setIcon(pauseIcon);
 				currentStatus.setText("Playing");
 			}
 		}else if(actionCommand.equals("Back")){
 			manager.back();
 		}else{
 			currentStatus.setText(e.getActionCommand());
-			this.playPauseBtn.setText("|>");
+			this.playPauseBtn.setIcon(playIcon);
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("It works!");
 		int keyCode = e.getKeyCode();
 		
 		if(keyCode == KeyEvent.VK_SPACE){
