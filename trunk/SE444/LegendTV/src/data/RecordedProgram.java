@@ -40,9 +40,10 @@ public class RecordedProgram extends Program{
 		expirationDate = newExpiration;
 	}
 	
-	public String toFullDescription(){
-		return getTitle() + '\n'+ '\n' + "Date Recorded: " + getRecordedDate() +'\n'+
-				"Set Expiration Date: " + getExpirationDate() + '\n'+'\n' + getDescription();
+	public String[] toFullDescription(){
+		String[] returnString = {"<h1><u>" + getTitle() + "</u></h1><br><br><h2>Date Recorded: " + getRecordedDate() + 
+				"<br>Set Expiration Date: " + getExpirationDate() + "</h2><br><br>" + getDescription()};
+		return returnString;
 	}
 	
 	public String toString(){
