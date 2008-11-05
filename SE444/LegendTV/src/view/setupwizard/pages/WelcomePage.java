@@ -1,11 +1,8 @@
 package view.setupwizard.pages;
 
-import java.awt.Dimension;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
 
 import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
@@ -102,6 +99,6 @@ public class WelcomePage extends WizardPage
 	@Override
 	public WizardPage getNextPage()
 	{
-		return new BlackLevelCalibrationPage(this.getWizard());
+		return new TunerDetectionPage(this.getWizard());
 	}
 }

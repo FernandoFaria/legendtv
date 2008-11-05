@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 import view.setupwizard.SetupWizard;
 import view.setupwizard.WizardPage;
