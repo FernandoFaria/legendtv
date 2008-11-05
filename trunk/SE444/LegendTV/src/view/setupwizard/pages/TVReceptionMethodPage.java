@@ -1,6 +1,5 @@
 package view.setupwizard.pages;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
