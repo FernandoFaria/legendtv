@@ -41,7 +41,7 @@ public class RecordedProgram extends Program{
 	}
 	
 	public String[] toFullDescription(){
-		String[] returnString = {"<h1><u>" + getTitle() + "</u></h1><br><br><h2>Date Recorded: " + getRecordedDate() + 
+		String[] returnString = {"<h1>" + getTitle() + "</h1><br><br><h2>Date Recorded: " + getRecordedDate() + 
 				"<br>Set Expiration Date: " + getExpirationDate() + "</h2><br><br>" + getDescription()};
 		return returnString;
 	}
