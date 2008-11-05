@@ -11,12 +11,12 @@ public class EditableFocusMappingDisabler extends FocusAdapter
 	@Override
 	public void focusGained(FocusEvent e)
 	{
-		UIHelper.removeArrowKeyFocusMappings();
+		//UIHelper.removeArrowKeyFocusMappings();
 	}
 
 	@Override
 	public void focusLost(FocusEvent e)
 	{
-		UIHelper.addArrowKeyFocusMappings();
+		//UIHelper.addArrowKeyFocusMappings();
 	}
 }

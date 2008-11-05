@@ -199,7 +199,7 @@ public class ZipCodePage extends WizardPage
 		});
 		
 		// Remove the mappings on the arrow keys when editing text
-		this.zipCodeField.addFocusListener(new EditableFocusMappingDisabler());
+		//this.zipCodeField.addFocusListener(new EditableFocusMappingDisabler());
 		
 		// Add verification of the zip code
 		this.zipCodeField.setInputVerifier(new InputVerifier()
