@@ -142,7 +142,7 @@ public class SetupWizard extends JPanel
 									this.prevBtn
 	                            })));
 		
-		UIHelper.addArrowKeyFocusMappings();
+		//UIHelper.addArrowKeyFocusMappings();
 	}
 
 	/**
